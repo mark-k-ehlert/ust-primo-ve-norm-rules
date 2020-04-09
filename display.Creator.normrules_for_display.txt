@@ -28,11 +28,11 @@ end
 
 rule "Primo VE Display - Creator 111"
    when
-      MARC."111" has any "a,b,c"
+      MARC."111" has any "a,e,q"
    then
       set TEMP"1" to MARC."111" sub without sort "a,c,d,e,g,n,q"
       remove substring using regex (TEMP"1","(/|:|;|=|,)+$")
-      set TEMP"2" to MARC."111" sub without sort "a,b,c,d,g,n"
+      set TEMP"2" to MARC."111" sub without sort "a,c,d,e,g,n,q"
       remove substring using regex (TEMP"2","(/|:|;|=|,)+$")
       add prefix (TEMP"2","$$Q")
       remove substring using regex (TEMP"2","^$$Q$")
