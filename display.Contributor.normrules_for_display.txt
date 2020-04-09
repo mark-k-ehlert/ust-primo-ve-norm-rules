@@ -4,7 +4,7 @@ rule "Primo VE Display - Contributor 700"
       MARC."700".ind"2" equals "0" AND NOT
       MARC."700".ind"2" equals "1" AND NOT
       MARC."700".ind"2" equals "2" AND NOT
-      MARC is "700"."t"
+      MARC."700"."t" match ".+"
    then
       set TEMP"1" to MARC."700" sub without sort "a,b,c,d,j,q,u"
       remove substring using regex (TEMP"1","(/|:|;|=|,)+$")
@@ -22,7 +22,7 @@ rule "Primo VE Display - Contributor 710"
       MARC."710".ind"2" equals "0" AND NOT
       MARC."710".ind"2" equals "1" AND NOT
       MARC."710".ind"2" equals "2" AND NOT
-      MARC is "710"."t"
+      MARC."710"."t" match ".+"
    then
       set TEMP"1" to MARC."710" sub without sort "a,b,c,d,g,n"
       remove substring using regex (TEMP"1","(/|:|;|=|,)+$")
@@ -40,7 +40,7 @@ rule "Primo VE Display - Contributor 711"
       MARC."711".ind"2" equals "0" AND NOT
       MARC."711".ind"2" equals "1" AND NOT
       MARC."711".ind"2" equals "2" AND NOT
-      MARC is "711"."t"
+      MARC."711"."t" match ".+"
    then
       set TEMP"1" to MARC."711" sub without sort "a,c,d,e,g,n,q"
       remove substring using regex (TEMP"1","(/|:|;|=|,)+$")
@@ -58,7 +58,7 @@ rule "Primo VE Display - Contributor 920 CLIC Local"
       MARC."920".ind"2" equals "0" AND NOT
       MARC."920".ind"2" equals "1" AND NOT
       MARC."920".ind"2" equals "2" AND NOT
-      MARC is "920"."t"
+      MARC."920"."t" match ".+"
    then
       set TEMP"1" to MARC."920" sub without sort "a,b,c,d,j,q,u"
       remove substring using regex (TEMP"1","(/|:|;|=|,)+$")
@@ -76,7 +76,7 @@ rule "Primo VE Display - Contributor 921 CLIC Local"
       MARC."921".ind"2" equals "0" AND NOT
       MARC."921".ind"2" equals "1" AND NOT
       MARC."921".ind"2" equals "2" AND NOT
-      MARC is "921"."t"
+      MARC."921"."t" match ".+"
    then
       set TEMP"1" to MARC."921" sub without sort "a,b,c,d,g,n"
       remove substring using regex (TEMP"1","(/|:|;|=|,)+$")
@@ -94,7 +94,7 @@ rule "Primo VE Display - Contributor 922 CLIC Local"
       MARC."922".ind"2" equals "0" AND NOT
       MARC."922".ind"2" equals "1" AND NOT
       MARC."922".ind"2" equals "2" AND NOT
-      MARC is "922"."t"
+      MARC."922"."t" match ".+"
    then
       set TEMP"1" to MARC."922" sub without sort "a,c,d,e,g,n,q"
       remove substring using regex (TEMP"1","(/|:|;|=|,)+$")
