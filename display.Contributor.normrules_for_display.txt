@@ -5,7 +5,6 @@ rule "Primo VE Display - Contributor 700 - Analytic"
       MARC."700".ind"2" equals "0" OR
       MARC."700".ind"2" equals "1" OR
       MARC."700".ind"2" equals "2"
-      
    then
       set TEMP"1" to MARC."700" sub without sort "a,b,c,d,j,q,u"
       remove substring using regex (TEMP"1","(/|:|;|=|,)+$")
@@ -24,7 +23,6 @@ rule "Primo VE Display - Contributor 700 - Name-only"
       MARC."700".ind"2" equals "0" AND NOT
       MARC."700".ind"2" equals "1" AND NOT
       MARC."700".ind"2" equals "2"
-      
    then
       set TEMP"1" to MARC."700" sub without sort "a,b,c,d,j,q,u"
       remove substring using regex (TEMP"1","(/|:|;|=|,)+$")
@@ -115,7 +113,6 @@ rule "Primo VE Display - Contributor 920 CLIC Local - Analytic"
       MARC."920".ind"2" equals "0" OR
       MARC."920".ind"2" equals "1" OR
       MARC."920".ind"2" equals "2"
-      
    then
       set TEMP"1" to MARC."920" sub without sort "a,b,c,d,j,q,u"
       remove substring using regex (TEMP"1","(/|:|;|=|,)+$")
@@ -134,7 +131,6 @@ rule "Primo VE Display - Contributor 920 CLIC Local - Name-only"
       MARC."920".ind"2" equals "0" AND NOT
       MARC."920".ind"2" equals "1" AND NOT
       MARC."920".ind"2" equals "2"
-      
    then
       set TEMP"1" to MARC."920" sub without sort "a,b,c,d,j,q,u"
       remove substring using regex (TEMP"1","(/|:|;|=|,)+$")
