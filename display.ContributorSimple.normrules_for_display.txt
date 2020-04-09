@@ -1,0 +1,83 @@
+rule "Primo VE Display - Contributor 700"
+   when
+      MARC."700" has any "a,b,c"
+   then
+      set TEMP"1" to MARC."700" sub without sort "a,b,c,d,j,q,u"
+      remove substring using regex (TEMP"1","(/|:|;|=|,)+$")
+      set TEMP"2" to MARC."700" sub without sort "a,b,c,d,j,q,u"
+      remove substring using regex (TEMP"2","(/|:|;|=|,)+$")
+      add prefix (TEMP"2","$$Q")
+      remove substring using regex (TEMP"2","^$$Q$")
+      concatenate with delimiter (TEMP"1",TEMP"2","")
+      create pnx."display"."contributor" with TEMP"1"
+end
+
+rule "Primo VE Display - Contributor 710"
+   when
+      MARC."710" has any "a,b"
+   then
+      set TEMP"1" to MARC."710" sub without sort "a,b,c,d,g,n"
+      remove substring using regex (TEMP"1","(/|:|;|=|,)+$")
+      set TEMP"2" to MARC."710" sub without sort "a,b,c,d,g,n"
+      remove substring using regex (TEMP"2","(/|:|;|=|,)+$")
+      add prefix (TEMP"2","$$Q")
+      remove substring using regex (TEMP"2","^$$Q$")
+      concatenate with delimiter (TEMP"1",TEMP"2","")
+      create pnx."display"."contributor" with TEMP"1"
+end
+
+rule "Primo VE Display - Contributor 711"
+   when
+      MARC."711" has any "a,e,q"
+   then
+      set TEMP"1" to MARC."711" sub without sort "a,c,d,e,g,n,q"
+      remove substring using regex (TEMP"1","(/|:|;|=|,)+$")
+      set TEMP"2" to MARC."711" sub without sort "a,c,d,e,g,n,q"
+      remove substring using regex (TEMP"2","(/|:|;|=|,)+$")
+      add prefix (TEMP"2","$$Q")
+      remove substring using regex (TEMP"2","^$$Q$")
+      concatenate with delimiter (TEMP"1",TEMP"2","")
+      create pnx."display"."contributor" with TEMP"1"
+end
+
+rule "Primo VE Display - Contributor 920 CLIC Local"
+   when
+      MARC."920" has any "a,b,c"
+   then
+      set TEMP"1" to MARC."920" sub without sort "a,b,c,d,j,q,u"
+      remove substring using regex (TEMP"1","(/|:|;|=|,)+$")
+      set TEMP"2" to MARC."920" sub without sort "a,b,c,d,j,q,u"
+      remove substring using regex (TEMP"2","(/|:|;|=|,)+$")
+      add prefix (TEMP"2","$$Q")
+      remove substring using regex (TEMP"2","^$$Q$")
+      concatenate with delimiter (TEMP"1",TEMP"2","")
+      create pnx."display"."contributor" with TEMP"1"
+end
+
+rule "Primo VE Display - Contributor 921 CLIC Local"
+   when
+      MARC."921" has any "a,b"
+   then
+      set TEMP"1" to MARC."921" sub without sort "a,b,c,d,g,n"
+      remove substring using regex (TEMP"1","(/|:|;|=|,)+$")
+      set TEMP"2" to MARC."921" sub without sort "a,b,c,d,g,n"
+      remove substring using regex (TEMP"2","(/|:|;|=|,)+$")
+      add prefix (TEMP"2","$$Q")
+      remove substring using regex (TEMP"2","^$$Q$")
+      concatenate with delimiter (TEMP"1",TEMP"2","")
+      create pnx."display"."contributor" with TEMP"1"
+end
+
+rule "Primo VE Display - Contributor 922 CLIC Local"
+   when
+      MARC."922" has any "a,e,q"
+   then
+      set TEMP"1" to MARC."922" sub without sort "a,c,d,e,g,n,q"
+      remove substring using regex (TEMP"1","(/|:|;|=|,)+$")
+      set TEMP"2" to MARC."922" sub without sort "a,c,d,e,g,n,q"
+      remove substring using regex (TEMP"2","(/|:|;|=|,)+$")
+      add prefix (TEMP"2","$$Q")
+      remove substring using regex (TEMP"2","^$$Q$")
+      concatenate with delimiter (TEMP"1",TEMP"2","")
+      create pnx."display"."contributor" with TEMP"1"
+end
