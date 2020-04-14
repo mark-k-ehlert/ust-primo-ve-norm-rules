@@ -1,6 +1,32 @@
-rule "Primo VE - Dissertation"
-	when
-		MARC is "502"
-	then
-		create pnx."display"."dissertation" with MARC "502" excluding num subfields without sort
+rule "Primo VE Display - Dissertation 502 a"
+   when
+      MARC is "502"."a"
+   then
+      create pnx."display"."dissertation" with MARC."502"."a"
+end
+
+rule "Primo VE Display - Dissertation 502 b,c,d,g,o"
+   when
+      MARC."502" has any "b,c,d,g,o"
+   then
+      # Subfield g ignored for now
+      set TEMP"1" to MARC."502" subfields "b"
+      set TEMP"2" to MARC."502" subfields "c"
+      set TEMP"3" to MARC."502" subfields "d"
+      set TEMP"4" to MARC."502" subfields "o"
+      remove leading and trailing spaces (TEMP"1")
+      add prefix (TEMP"1","(")
+      add suffix (TEMP"1",")")
+      remove leading and trailing spaces (TEMP"2")
+      add prefix (TEMP"2","--")
+      remove leading and trailing spaces (TEMP"3")
+      add prefix (TEMP"3",", ")
+      remove leading and trailing spaces (TEMP"4")
+      remove substring using regex (TEMP"4","\\.$")
+      add prefix (TEMP"4","(identifier: ")
+      add suffix (TEMP"4",").")
+      concatenate with delimiter (TEMP"1",TEMP"2","")
+      concatenate with delimiter (TEMP"1",TEMP"3","")
+      concatenate with delimiter (TEMP"1",TEMP"4"," ")
+      create pnx."display"."dissertation" with TEMP"1"
 end

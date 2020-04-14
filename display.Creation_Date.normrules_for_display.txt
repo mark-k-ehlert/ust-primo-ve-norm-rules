@@ -1,67 +1,90 @@
-rule "Primo VE - Date Of Publication 008"
-priority 30
-	when
-		MARC.control is "008"
-	then
-	    set TEMP"1" to MARC.control."008".Date1
-	    set TEMP"2" to MARC.control."008".Date2
-	    replace string by string (TEMP"1","[^0-9]","\\?")
-	    replace string by string (TEMP"1","9{4}","")
-	    replace string by string (TEMP"2","[^0-9]","\\?")
-	    replace string by string (TEMP"2","9{4}","")
-	    remove substring using regex (TEMP"1","^(0|\\?)+$")
-	    remove substring using regex (TEMP"2","^(0|\\?)+$")
-	    concatenate with delimiter (TEMP"1",TEMP"2"," - ")
-		set pnx."display"."creationdate" to TEMP"1"
+rule "Primo VE Display - Date of Publication 260 c"
+   priority 1
+   when
+      MARC is "260"."c"
+   then
+      set TEMP"1" to MARC."260"."c"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","(:|,|/|\\.)+$")
+      create pnx."display"."creationdate" with TEMP"1"
 end
 
-rule "Primo VE - Date Of Publication 260/3"
-priority 40
-	when
-		MARC is "260"."c" AND
-		MARC."260".ind"1"  equals "3"
-	then
-	    set TEMP"1" to MARC."260"."c"
-	    remove substring using regex (TEMP"1","\\[+")
-	    remove substring using regex (TEMP"1","(\\]|:|,|=|/|\\.)+$")
-	   	remove substring using regex (TEMP"1","(\\])+")
-		set pnx."display"."creationdate" to TEMP"1"
+rule "Primo VE Display - Date of Publication 264/_/0 c - Production Date"
+   priority 2
+   when
+      MARC is "264"."c" AND
+      MARC."264".ind"2" equals "0"
+   then
+      set TEMP"1" to MARC."264"."c"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","(:|,|/|\\.)+$")
+      create pnx."display"."creationdate" with TEMP"1"
 end
 
-rule "Primo VE - Date Of Publication 264/3/1"
-priority 50
-	when
-		MARC is "264"."c" AND
-		MARC."264".ind"1"  equals "3" AND
-		MARC."264".ind"2"  equals "1"
-	then
-	    set TEMP"1" to MARC."264"."c"
-	    remove substring using regex (TEMP"1","\\[+")
-	    remove substring using regex (TEMP"1","(\\]|:|,|=|/|\\.)+$")
-	   	remove substring using regex (TEMP"1","(\\])+")
-		set pnx."display"."creationdate" to TEMP"1"
+rule "Primo VE Display - Date of Publication 264/_/1 c - Publication Date"
+   priority 3
+   when
+      MARC is "264"."c" AND
+      MARC."264".ind"2" equals "1"
+   then
+      set TEMP"1" to MARC."264"."c"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","(:|,|/|\\.)+$")
+      create pnx."display"."creationdate" with TEMP"1"
 end
 
-rule "Primo VE - Date Of Publication 260"
-priority 10
-	when
-		MARC is "260"."c"
-	then
-	    set TEMP"1" to MARC."260"."c"
-	    remove substring using regex (TEMP"1","\\[+")
-	    remove substring using regex (TEMP"1","(\\]|:|,|=|/|\\.)+$")
-	   	remove substring using regex (TEMP"1","(\\])+")
-		set pnx."display"."creationdate" to TEMP"1"
+rule "Primo VE Display - Date Of Publication 008/07-14 - 008/06 Not i or k"
+   # 008/06 i or k = class of dates for archive and manuscript collection records
+   # Dates appear in title (245) statement rather than 260 or 264 fields
+   priority 4
+   when
+      MARC.control is "008" AND NOT
+      MARC is "260" AND NOT
+      MARC is "264"
+   then
+      set TEMP"1" to MARC.control."008".Date1
+      set TEMP"2" to MARC.control."008".Date2
+      replace string by string (TEMP"1","[^0-9]","\\?")
+      replace string by string (TEMP"1","9{4}","")
+      replace string by string (TEMP"2","[^0-9]","\\?")
+      replace string by string (TEMP"2","9{4}","")
+      remove substring using regex (TEMP"1","^(0|\\?)+$")
+      remove substring using regex (TEMP"2","^(0|\\?)+$")
+      concatenate with delimiter (TEMP"1",TEMP"2","-")
+      create pnx."display"."creationdate" with TEMP"1"
 end
 
-rule "Primo VE - Date Of Publication 264"
-priority 20
-	when
-		MARC is "264"."c"
-	then
-	    set TEMP"1" to MARC."264"."c"
-	    remove substring using regex (TEMP"1","\\[+")
-	    remove substring using regex (TEMP"1","(\\]|:|,|=|/|\\.)+$")
-	   	remove substring using regex (TEMP"1","(\\])+")
-		set pnx."display"."creationdate" to TEMP"1"
-end
+# rule "Primo VE Display - Date Of Publication 008/07-14 - 008/06 i or k"
+   # 008/06 i or k = class of dates for archive and manuscript collection records
+   # Dates appear in title (245) statement rather than 260 or 264 fields
+#   priority 7
+#   when
+#      MARC.control is "008" AND
+#      MARC.control."008"(6) match "i|k" AND NOT
+#      MARC is "264"
+#   then
+#      set TEMP"1" to MARC.control."008".Date1
+#      set TEMP"2" to MARC.control."008".Date2
+#      replace string by string (TEMP"1","[^0-9]","\\?")
+#      replace string by string (TEMP"1","9{4}","")
+#      replace string by string (TEMP"2","[^0-9]","\\?")
+#      replace string by string (TEMP"2","9{4}","")
+#      remove substring using regex (TEMP"1","^(0|\\?)+$")
+#      remove substring using regex (TEMP"2","^(0|\\?)+$")
+#      concatenate with delimiter (TEMP"1",TEMP"2","-")
+#      create pnx."display"."creationdate" with TEMP"1"
+# end
+
+# rule "Primo VE Display - Date of Publication 264/_/4 c - Copyright Date"
+#    priority 8
+#    when
+#       MARC is "264"."c" AND
+#       MARC."264".ind"2" equals "4"
+#    then
+#       set TEMP"1" to pnx."display"."creationdate"
+#       set TEMP"2" to MARC."264"."c"
+#       remove leading and trailing spaces (TEMP"2")
+#       remove substring using regex (TEMP"2","(:|,|/|\\.)+$")
+#       concatenate with delimiter (TEMP"1",TEMP"2",", ")
+#       set pnx."display"."creationdate" to TEMP"1"
+# end

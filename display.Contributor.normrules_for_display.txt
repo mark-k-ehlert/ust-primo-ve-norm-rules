@@ -1,11 +1,7 @@
-rule "Primo VE Display - Contributor 700 - Analytic"
-   priority 1
+rule "Primo VE Display - Contributor 700"
    when
-      MARC."700" has any "a,b,c" AND
-      MARC."700"."t" match ".+" AND
-      MARC."700".ind"2" equals "0" OR
-      MARC."700".ind"2" equals "1" OR
-      MARC."700".ind"2" equals "2"
+      MARC."700" has any "a,b,c,d,j,q,u" AND NOT
+      MARC."700"."t" match ".+"
    then
       set TEMP"1" to MARC."700" sub without sort "a,b,c,d,j,q,u"
       remove substring using regex (TEMP"1","(/|:|;|=|,)+$")
@@ -17,33 +13,10 @@ rule "Primo VE Display - Contributor 700 - Analytic"
       create pnx."display"."contributor" with TEMP"1"
 end
 
-rule "Primo VE Display - Contributor 700 - Name-only"
-   priority 2
+rule "Primo VE Display - Contributor 710"
    when
-      MARC."700" has any "a,b,c" AND NOT
-      MARC."700"."t" match ".+" AND NOT
-      MARC."700".ind"2" equals "0" AND NOT
-      MARC."700".ind"2" equals "1" AND NOT
-      MARC."700".ind"2" equals "2"
-   then
-      set TEMP"1" to MARC."700" sub without sort "a,b,c,d,j,q,u"
-      remove substring using regex (TEMP"1","(/|:|;|=|,)+$")
-      set TEMP"2" to MARC."700" sub without sort "a,b,c,d,j,q,u"
-      remove substring using regex (TEMP"2","(/|:|;|=|,)+$")
-      add prefix (TEMP"2","$$Q")
-      remove substring using regex (TEMP"2","^$$Q$")
-      concatenate with delimiter (TEMP"1",TEMP"2","")
-      create pnx."display"."contributor" with TEMP"1"
-end
-
-rule "Primo VE Display - Contributor 710 - Analytic"
-   priority 1
-   when
-      MARC."710" has any "a,b" AND
-      MARC."710"."t" match ".+" AND
-      MARC."710".ind"2" equals "0" OR
-      MARC."710".ind"2" equals "1" OR
-      MARC."710".ind"2" equals "2"
+      MARC."710" has any "a,b,c,d,g,n" AND NOT
+      MARC."710"."t" match ".+"
    then
       set TEMP"1" to MARC."710" sub without sort "a,b,c,d,g,n"
       remove substring using regex (TEMP"1","(/|:|;|=|,)+$")
@@ -55,33 +28,10 @@ rule "Primo VE Display - Contributor 710 - Analytic"
       create pnx."display"."contributor" with TEMP"1"
 end
 
-rule "Primo VE Display - Contributor 710 - Name-only"
-   priority 2
+rule "Primo VE Display - Contributor 711"
    when
-      MARC."710" has any "a,b" AND NOT
-      MARC."710"."t" match ".+" AND NOT
-      MARC."710".ind"2" equals "0" AND NOT
-      MARC."710".ind"2" equals "1" AND NOT
-      MARC."710".ind"2" equals "2"
-   then
-      set TEMP"1" to MARC."710" sub without sort "a,b,c,d,g,n"
-      remove substring using regex (TEMP"1","(/|:|;|=|,)+$")
-      set TEMP"2" to MARC."710" sub without sort "a,b,c,d,g,n"
-      remove substring using regex (TEMP"2","(/|:|;|=|,)+$")
-      add prefix (TEMP"2","$$Q")
-      remove substring using regex (TEMP"2","^$$Q$")
-      concatenate with delimiter (TEMP"1",TEMP"2","")
-      create pnx."display"."contributor" with TEMP"1"
-end
-
-rule "Primo VE Display - Contributor 711 - Analytic"
-   priority 1
-   when
-      MARC."711" has any "a,e,q" AND
-      MARC."711"."t" match ".+" AND
-      MARC."711".ind"2" equals "0" OR
-      MARC."711".ind"2" equals "1" OR
-      MARC."711".ind"2" equals "2"
+      MARC."711" has any "a,c,d,e,g,n,q" AND NOT
+      MARC."711"."t" match ".+"
    then
       set TEMP"1" to MARC."711" sub without sort "a,c,d,e,g,n,q"
       remove substring using regex (TEMP"1","(/|:|;|=|,)+$")
@@ -93,33 +43,10 @@ rule "Primo VE Display - Contributor 711 - Analytic"
       create pnx."display"."contributor" with TEMP"1"
 end
 
-rule "Primo VE Display - Contributor 711 - Name-only"
-   priority 2
+rule "Primo VE Display - Contributor 920"
    when
-      MARC."711" has any "a,e,q" AND NOT
-      MARC."711"."t" match ".+" AND NOT
-      MARC."711".ind"2" equals "0" AND NOT
-      MARC."711".ind"2" equals "1" AND NOT
-      MARC."711".ind"2" equals "2"
-   then
-      set TEMP"1" to MARC."711" sub without sort "a,c,d,e,g,n,q"
-      remove substring using regex (TEMP"1","(/|:|;|=|,)+$")
-      set TEMP"2" to MARC."711" sub without sort "a,c,d,e,g,n,q"
-      remove substring using regex (TEMP"2","(/|:|;|=|,)+$")
-      add prefix (TEMP"2","$$Q")
-      remove substring using regex (TEMP"2","^$$Q$")
-      concatenate with delimiter (TEMP"1",TEMP"2","")
-      create pnx."display"."contributor" with TEMP"1"
-end
-
-rule "Primo VE Display - Contributor 920 CLIC Local - Analytic"
-   priority 1
-   when
-      MARC."920" has any "a,b,c" AND
-      MARC."920"."t" match ".+" AND
-      MARC."920".ind"2" equals "0" OR
-      MARC."920".ind"2" equals "1" OR
-      MARC."920".ind"2" equals "2"
+      MARC."920" has any "a,b,c,d,j,q,u" AND NOT
+      MARC."920"."t" match ".+"
    then
       set TEMP"1" to MARC."920" sub without sort "a,b,c,d,j,q,u"
       remove substring using regex (TEMP"1","(/|:|;|=|,)+$")
@@ -131,33 +58,10 @@ rule "Primo VE Display - Contributor 920 CLIC Local - Analytic"
       create pnx."display"."contributor" with TEMP"1"
 end
 
-rule "Primo VE Display - Contributor 920 CLIC Local - Name-only"
-   priority 2
+rule "Primo VE Display - Contributor 921"
    when
-      MARC."920" has any "a,b,c" AND NOT
-      MARC."920"."t" match ".+" AND NOT
-      MARC."920".ind"2" equals "0" AND NOT
-      MARC."920".ind"2" equals "1" AND NOT
-      MARC."920".ind"2" equals "2"
-   then
-      set TEMP"1" to MARC."920" sub without sort "a,b,c,d,j,q,u"
-      remove substring using regex (TEMP"1","(/|:|;|=|,)+$")
-      set TEMP"2" to MARC."920" sub without sort "a,b,c,d,j,q,u"
-      remove substring using regex (TEMP"2","(/|:|;|=|,)+$")
-      add prefix (TEMP"2","$$Q")
-      remove substring using regex (TEMP"2","^$$Q$")
-      concatenate with delimiter (TEMP"1",TEMP"2","")
-      create pnx."display"."contributor" with TEMP"1"
-end
-
-rule "Primo VE Display - Contributor 921 CLIC Local - Analytic"
-   priority 1
-   when
-      MARC."921" has any "a,b" AND
-      MARC."921"."t" match ".+" AND
-      MARC."921".ind"2" equals "0" OR
-      MARC."921".ind"2" equals "1" OR
-      MARC."921".ind"2" equals "2"
+      MARC."921" has any "a,b,c,d,g,n" AND NOT
+      MARC."921"."t" match ".+"
    then
       set TEMP"1" to MARC."921" sub without sort "a,b,c,d,g,n"
       remove substring using regex (TEMP"1","(/|:|;|=|,)+$")
@@ -169,52 +73,10 @@ rule "Primo VE Display - Contributor 921 CLIC Local - Analytic"
       create pnx."display"."contributor" with TEMP"1"
 end
 
-rule "Primo VE Display - Contributor 921 CLIC Local - Name-only"
-   priority 2
+rule "Primo VE Display - Contributor 922"
    when
-      MARC."921" has any "a,b" AND NOT
-      MARC."921"."t" match ".+" AND NOT
-      MARC."921".ind"2" equals "0" AND NOT
-      MARC."921".ind"2" equals "1" AND NOT
-      MARC."921".ind"2" equals "2"
-   then
-      set TEMP"1" to MARC."921" sub without sort "a,b,c,d,g,n"
-      remove substring using regex (TEMP"1","(/|:|;|=|,)+$")
-      set TEMP"2" to MARC."921" sub without sort "a,b,c,d,g,n"
-      remove substring using regex (TEMP"2","(/|:|;|=|,)+$")
-      add prefix (TEMP"2","$$Q")
-      remove substring using regex (TEMP"2","^$$Q$")
-      concatenate with delimiter (TEMP"1",TEMP"2","")
-      create pnx."display"."contributor" with TEMP"1"
-end
-
-rule "Primo VE Display - Contributor 922 CLIC Local - Analytic"
-   priority 1
-   when
-      MARC."922" has any "a,e,q" AND
-      MARC."922"."t" match ".+" AND
-      MARC."922".ind"2" equals "0" OR
-      MARC."922".ind"2" equals "1" OR
-      MARC."922".ind"2" equals "2"
-   then
-      set TEMP"1" to MARC."922" sub without sort "a,c,d,e,g,n,q"
-      remove substring using regex (TEMP"1","(/|:|;|=|,)+$")
-      set TEMP"2" to MARC."922" sub without sort "a,c,d,e,g,n,q"
-      remove substring using regex (TEMP"2","(/|:|;|=|,)+$")
-      add prefix (TEMP"2","$$Q")
-      remove substring using regex (TEMP"2","^$$Q$")
-      concatenate with delimiter (TEMP"1",TEMP"2","")
-      create pnx."display"."contributor" with TEMP"1"
-end
-
-rule "Primo VE Display - Contributor 922 CLIC Local - Name-only"
-   priority 2
-   when
-      MARC."922" has any "a,e,q" AND NOT
-      MARC."922"."t" match ".+" AND NOT
-      MARC."922".ind"2" equals "0" AND NOT
-      MARC."922".ind"2" equals "1" AND NOT
-      MARC."922".ind"2" equals "2"
+      MARC."922" has any "a,c,d,e,g,n,q" AND NOT
+      MARC."922"."t" match ".+"
    then
       set TEMP"1" to MARC."922" sub without sort "a,c,d,e,g,n,q"
       remove substring using regex (TEMP"1","(/|:|;|=|,)+$")

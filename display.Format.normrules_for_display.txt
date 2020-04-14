@@ -1,89 +1,72 @@
-rule "Primo VE - Format 300"
-	when
-		MARC is "300"
-	then
-	    set TEMP"1" to MARC."300" excluding num subfields without sort
-	    add prefix (TEMP"1","300 ")
-		create pnx."display"."format" with TEMP"1"
+rule "Primo VE Display - Format 300"
+   priority 1
+   when
+      MARC."300" has any "a,b,c,e,f,g"
+   then
+      set TEMP"1" to MARC."300" sub without sort "a,b,c,e,f,g"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","(:|;|,)+$")
+      add prefix (TEMP"1","300 ")
+      create pnx."display"."format" with TEMP"1"
 end
 
-rule "Primo VE - Format 340"
-	when
-		MARC is "340"
-	then
-	    set TEMP"1" to MARC."340" excluding num subfields without sort
-	    add prefix (TEMP"1","340 ")
-		create pnx."display"."format" with TEMP"1"
+rule "Primo VE Display - Format 255"
+   priority 2
+   when
+      MARC is "255"
+   then
+      set TEMP"1" to MARC."255" excluding num subfields without sort
+      add prefix (TEMP"1","<b>Cartographic details</b>: ")
+      create pnx."display"."format" with TEMP"1"
 end
 
-rule "Primo VE - Format 254"
-	when
-		MARC is "254"
-	then
-	    set TEMP"1" to MARC."254" excluding num subfields without sort
-	    add prefix (TEMP"1","254 ")
-		create pnx."display"."format" with TEMP"1"
+rule "Primo VE Display - Format 351 c"
+   priority 3
+   when
+      MARC is "351"."c"
+   then
+      set TEMP"1" to MARC."351"."c"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","(:|;|,)+$")
+      add prefix (TEMP"1","<b>Level of description</b>: ")
+      create pnx."display"."format" with TEMP"1"
 end
 
-rule "Primo VE - Format 255"
-	when
-		MARC is "255"
-	then
-	    set TEMP"1" to MARC."255" excluding num subfields without sort
-	    add prefix (TEMP"1","255 ")
-		create pnx."display"."format" with TEMP"1"
+rule "Primo VE Display - Format 351 a"
+   priority 4
+   when
+      MARC is "351"."a"
+   then
+      set TEMP"1" to MARC."351"."a"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","(:|;|,)+$")
+      add prefix (TEMP"1","<b>Material organization</b>: ")
+      create pnx."display"."format" with TEMP"1"
 end
 
-rule "Primo VE - Format 256"
-	when
-		MARC is "256"
-	then
-	    set TEMP"1" to MARC."256" excluding num subfields without sort
-	    add prefix (TEMP"1","256 ")
-		create pnx."display"."format" with TEMP"1"
+rule "Primo VE Display - Format 351 b"
+   priority 5
+   when
+      MARC is "351"."b"
+   then
+      set TEMP"1" to MARC."351"."b"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","(:|;|,)+$")
+      add prefix (TEMP"1","<b>Material arrangement</b>: ")
+      create pnx."display"."format" with TEMP"1"
 end
 
-rule "Primo VE - Format 258"
-	when
-		MARC is "258"
-	then
-	    set TEMP"1" to MARC."258" excluding num subfields without sort
-	    add prefix (TEMP"1","258 ")
-		create pnx."display"."format" with TEMP"1"
-end
-
-rule "Primo VE - Format 346"
-	when
-		MARC is "346"
-	then
-	    set TEMP"1" to MARC."346" excluding num subfields without sort
-	    add prefix (TEMP"1","346 ")
-		create pnx."display"."format" with TEMP"1"
-end
-
-rule "Primo VE - Format 347"
-	when
-		MARC is "347"
-	then
-	    set TEMP"1" to MARC."347" excluding num subfields without sort
-	    add prefix (TEMP"1","347 ")
-		create pnx."display"."format" with TEMP"1"
-end
-
-rule "Primo VE - Format 351"
-	when
-		MARC is "351"
-	then
-	    set TEMP"1" to MARC."351" excluding num subfields without sort
-	    add prefix (TEMP"1","351 ")
-		create pnx."display"."format" with TEMP"1"
-end
-
-rule "Primo VE - Format 507"
-	when
-		MARC is "507"
-	then
-	    set TEMP"1" to MARC."507" excluding num subfields without sort
-	    add prefix (TEMP"1","507 ")
-		create pnx."display"."format" with TEMP"1"
+rule "Primo VE Display - Format 507"
+   priority 6
+   when
+      MARC."507" has any "a,b"
+   then
+      set TEMP"1" to MARC."507" subfields "a"
+      set TEMP"2" to MARC."507" subfields "b"
+      remove leading and trailing spaces (TEMP"1")
+      remove leading and trailing spaces (TEMP"2")
+      remove substring using regex (TEMP"1","(:|;|,)+$")
+      add prefix (TEMP"1","<b>Graphic material details</b>: ")
+      concatenate with delimiter (TEMP"1",TEMP"2","; ")
+      create pnx."display"."format" with TEMP"1"
 end
