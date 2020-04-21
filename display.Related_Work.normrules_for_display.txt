@@ -1,14 +1,135 @@
-rule "Primo VE - Related Work 700"
-	when
-		MARC."700" has any "t" AND NOT
-		MARC."700".ind"2"  equals "2"
-	then
-		set TEMP"1" to MARC."700" subfields "i"
-		set TEMP"2" to MARC."700"  excluding subfields without sorting "[0-9]|x|i|="
-		concatenate existing with delimiter (TEMP"1",TEMP"2"," ")
-		set TEMP"3" to MARC."700" excluding subfields without sorting "[0-9]|x|i|=|f"
-		add prefix (TEMP"3","$$Q")
-        remove substring using regex (TEMP"3","^$$Q$")
-        concatenate with delimiter (TEMP"1",TEMP"3","")
-        create pnx."display"."related_work" with TEMP"1"
+rule "Primo VE Display - Related Work 700"
+   when
+      MARC."700" has any "t" AND NOT
+      MARC."700".ind"2" equals "2"
+   then
+      set TEMP"1" to MARC."700" excluding subfields without sorting "[0-9]|e|i|x"
+      set TEMP"2" to MARC."700" excluding subfields without sorting "[0-9]|e|h|i|u|x"
+      add prefix (TEMP"2","$$Q")
+      remove substring using regex (TEMP"2","^$$Q$")
+      concatenate with delimiter (TEMP"1",TEMP"2","")
+      create pnx."display"."related_work" with TEMP"1"
+end
+
+rule "Primo VE Display - Related Work 710"
+   when
+      MARC."710" has any "t" AND NOT
+      MARC."710".ind"2" equals "2"
+   then
+      set TEMP"1" to MARC."710" excluding subfields without sorting "[0-9]|e|i|x"
+      set TEMP"2" to MARC."710" excluding subfields without sorting "[0-9]|e|h|i|u|x"
+      add prefix (TEMP"2","$$Q")
+      remove substring using regex (TEMP"2","^$$Q$")
+      concatenate with delimiter (TEMP"1",TEMP"2","")
+      create pnx."display"."related_work" with TEMP"1"
+end
+
+rule "Primo VE Display - Related Work 711"
+   when
+      MARC."711" has any "t" AND NOT
+      MARC."711".ind"2" equals "2"
+   then
+      set TEMP"1" to MARC."711" excluding subfields without sorting "[0-9]|i|j|x"
+      set TEMP"2" to MARC."711" excluding subfields without sorting "[0-9]|h|i|j|u|x"
+      add prefix (TEMP"2","$$Q")
+      remove substring using regex (TEMP"2","^$$Q$")
+      concatenate with delimiter (TEMP"1",TEMP"2","")
+      create pnx."display"."related_work" with TEMP"1"
+end
+
+rule "Primo VE Display - Related Work 730"
+   when
+      MARC is "730" AND NOT
+      MARC."730".ind"2" equals "2"
+   then
+      set TEMP"1" to MARC."730" excluding subfields without sorting "[0-9]|i|x"
+      set TEMP"2" to MARC."730" excluding subfields without sorting "[0-9]|h|i|x"
+      add prefix (TEMP"2","$$Q")
+      remove substring using regex (TEMP"2","^$$Q$")
+      concatenate with delimiter (TEMP"1",TEMP"2","")
+      create pnx."display"."related_work" with TEMP"1"
+end
+
+rule "Primo VE Display - Related Work 920"
+   when
+      MARC."920" has any "t" AND NOT
+      MARC."920".ind"2" equals "2" AND
+      (MARC."920"."5" match "MnSB" OR
+      MARC."920"."5" match "MnSCC" OR
+      MARC."920"."5" match "MnSH" OR
+      MARC."920"."5" match "MnRoN" OR
+      MARC."920"."5" match "MnSSC" OR
+      MARC."920"."5" match "MnSST" OR
+      MARC."920"."5" match "MnMpUSTL" OR
+      MARC."920"."5" match "MnSpCLIC")
+   then
+      set TEMP"1" to MARC."920" excluding subfields without sorting "[0-9]|e|i|x"
+      set TEMP"2" to MARC."920" excluding subfields without sorting "[0-9]|e|h|i|u|x"
+      add prefix (TEMP"2","$$Q")
+      remove substring using regex (TEMP"2","^$$Q$")
+      concatenate with delimiter (TEMP"1",TEMP"2","")
+      create pnx."display"."related_work" with TEMP"1"
+end
+
+rule "Primo VE Display - Related Work 921"
+   when
+      MARC."921" has any "t" AND NOT
+      MARC."921".ind"2" equals "2" AND
+      (MARC."921"."5" match "MnSB" OR
+      MARC."921"."5" match "MnSCC" OR
+      MARC."921"."5" match "MnSH" OR
+      MARC."921"."5" match "MnRoN" OR
+      MARC."921"."5" match "MnSSC" OR
+      MARC."921"."5" match "MnSST" OR
+      MARC."921"."5" match "MnMpUSTL" OR
+      MARC."921"."5" match "MnSpCLIC")
+   then
+      set TEMP"1" to MARC."921" excluding subfields without sorting "[0-9]|e|i|x"
+      set TEMP"2" to MARC."921" excluding subfields without sorting "[0-9]|e|h|i|u|x"
+      add prefix (TEMP"2","$$Q")
+      remove substring using regex (TEMP"2","^$$Q$")
+      concatenate with delimiter (TEMP"1",TEMP"2","")
+      create pnx."display"."related_work" with TEMP"1"
+end
+
+rule "Primo VE Display - Related Work 922"
+   when
+      MARC."922" has any "t" AND NOT
+      MARC."922".ind"2" equals "2" AND
+      (MARC."922"."5" match "MnSB" OR
+      MARC."922"."5" match "MnSCC" OR
+      MARC."922"."5" match "MnSH" OR
+      MARC."922"."5" match "MnRoN" OR
+      MARC."922"."5" match "MnSSC" OR
+      MARC."922"."5" match "MnSST" OR
+      MARC."922"."5" match "MnMpUSTL" OR
+      MARC."922"."5" match "MnSpCLIC")
+   then
+      set TEMP"1" to MARC."922" excluding subfields without sorting "[0-9]|i|j|x"
+      set TEMP"2" to MARC."922" excluding subfields without sorting "[0-9]|h|i|j|u|x"
+      add prefix (TEMP"2","$$Q")
+      remove substring using regex (TEMP"2","^$$Q$")
+      concatenate with delimiter (TEMP"1",TEMP"2","")
+      create pnx."display"."related_work" with TEMP"1"
+end
+
+rule "Primo VE Display - Related Work 923"
+   when
+      MARC is "923" AND NOT
+      MARC."923".ind"2" equals "2" AND
+      (MARC."923"."5" match "MnSB" OR
+      MARC."923"."5" match "MnSCC" OR
+      MARC."923"."5" match "MnSH" OR
+      MARC."923"."5" match "MnRoN" OR
+      MARC."923"."5" match "MnSSC" OR
+      MARC."923"."5" match "MnSST" OR
+      MARC."923"."5" match "MnMpUSTL" OR
+      MARC."923"."5" match "MnSpCLIC")
+   then
+      set TEMP"1" to MARC."923" excluding subfields without sorting "[0-9]|i|x"
+      set TEMP"2" to MARC."923" excluding subfields without sorting "[0-9]|h|i|x"
+      add prefix (TEMP"2","$$Q")
+      remove substring using regex (TEMP"2","^$$Q$")
+      concatenate with delimiter (TEMP"1",TEMP"2","")
+      create pnx."display"."related_work" with TEMP"1"
 end

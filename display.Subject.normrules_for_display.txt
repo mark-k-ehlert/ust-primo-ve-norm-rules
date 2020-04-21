@@ -1,377 +1,450 @@
-rule "Primo VE Display - Subject 600"
-	when
-		MARC."600" has any "a-u,w-z" AND NOT
-		MARC."600".ind"2"  equals "2"
-	then
-		set TEMP"1" to MARC."600" subfields "a-u,w" delimited by " " remove substring using regex "\\.+$"
-		set TEMP"2" to MARC."600" sub without sorting "x-z" delimited by " -- "
-        remove substring using regex (TEMP"2","\\.+$")
-		concatenate with delimiter (TEMP"1",TEMP"2"," -- ")
-		set TEMP"3" to multilingual by "600" "Subject" "display"
-		concatenate with delimiter (TEMP"1",TEMP"3","")
-        create pnx."display"."subject" with TEMP"1"
+rule "Primo VE Display - Subject 600/any/0,1"
+   when
+      MARC."600" has any "a-z" AND
+      (MARC."600".ind"2" equals "0" OR
+      MARC."600".ind"2" equals "1")
+   then
+      # Capture all subfields for string display
+      set TEMP"1" to MARC."600" sub without sorting "a-u,w" delimited by " "
+      set TEMP"2" to MARC."600" sub without sorting "v,x-z" delimited by " -- "
+      concatenate with delimiter (TEMP"1",TEMP"2"," -- ")
+      # Capture all subfields except $e and $u for string searching
+      set TEMP"3" to MARC."600" sub without sorting "a-d,f-t,w" delimited by " "
+      set TEMP"4" to MARC."600" sub without sorting "v,x-z" delimited by " -- "
+      concatenate with delimiter (TEMP"3",TEMP"4"," -- ")
+      add prefix (TEMP"3","$$Q")
+      remove substring using regex (TEMP"3","^$$Q$")
+      concatenate with delimiter (TEMP"1",TEMP"3","")
+      create pnx."display"."subject" with TEMP"1"
 end
 
-rule "Primo VE Display- Subject 610"
-	when
-		MARC."610" has any "a-u,w-z" AND NOT
-		MARC."610".ind"2"  equals "2"
-	then
-		set TEMP"1" to MARC."610" subfields "a-u,w" delimited by " " remove substring using regex "\\.+$"
-		set TEMP"2" to MARC."610" sub without sorting "x-z" delimited by " -- "
-        remove substring using regex (TEMP"2","\\.+$")
-		concatenate with delimiter (TEMP"1",TEMP"2"," -- ")
-		set TEMP"3" to multilingual by "610" "Subject" "display"
-		concatenate with delimiter (TEMP"1",TEMP"3","")
-        create pnx."display"."subject" with TEMP"1"
+rule "Primo VE Display - Subject 610/any/0,1"
+   when
+      MARC."610" has any "a-z" AND
+      (MARC."610".ind"2" equals "0" OR
+      MARC."610".ind"2" equals "1")
+   then
+      # Capture all subfields for string display
+      set TEMP"1" to MARC."610" sub without sorting "a-u,w" delimited by " "
+      set TEMP"2" to MARC."610" sub without sorting "v,x-z" delimited by " -- "
+      concatenate with delimiter (TEMP"1",TEMP"2"," -- ")
+      # Capture all subfields except $e and $u for string searching
+      set TEMP"3" to MARC."610" sub without sorting "a-d,f-t,w" delimited by " "
+      set TEMP"4" to MARC."610" sub without sorting "v,x-z" delimited by " -- "
+      concatenate with delimiter (TEMP"3",TEMP"4"," -- ")
+      add prefix (TEMP"3","$$Q")
+      remove substring using regex (TEMP"3","^$$Q$")
+      concatenate with delimiter (TEMP"1",TEMP"3","")
+      create pnx."display"."subject" with TEMP"1"
 end
 
-rule "Primo VE Display- Subject 611"
-	when
-		MARC."611" has any "a-u,w-z" AND NOT
-		MARC."611".ind"2"  equals "2"
-	then
-		set TEMP"1" to MARC."611" subfields "a-u,w" delimited by " " remove substring using regex "\\.+$"
-		set TEMP"2" to MARC."611" sub without sorting "x-z" delimited by " -- "
-        remove substring using regex (TEMP"2","\\.+$")
-		concatenate with delimiter (TEMP"1",TEMP"2"," -- ")
-		set TEMP"3" to multilingual by "611" "Subject" "display"
-		concatenate with delimiter (TEMP"1",TEMP"3","")
-        create pnx."display"."subject" with TEMP"1"
+rule "Primo VE Display - Subject 611/any/0,1"
+   when
+      MARC."611" has any "a-z" AND
+      (MARC."611".ind"2" equals "0" OR
+      MARC."611".ind"2" equals "1")
+   then
+      # Capture all subfields for string display
+      set TEMP"1" to MARC."611" sub without sorting "a-u,w" delimited by " "
+      set TEMP"2" to MARC."611" sub without sorting "v,x-z" delimited by " -- "
+      concatenate with delimiter (TEMP"1",TEMP"2"," -- ")
+      # Capture all subfields except $j and $u for string searching
+      set TEMP"3" to MARC."611" sub without sorting "a-i,k-t,w" delimited by " "
+      set TEMP"4" to MARC."611" sub without sorting "v,x-z" delimited by " -- "
+      concatenate with delimiter (TEMP"3",TEMP"4"," -- ")
+      add prefix (TEMP"3","$$Q")
+      remove substring using regex (TEMP"3","^$$Q$")
+      concatenate with delimiter (TEMP"1",TEMP"3","")
+      create pnx."display"."subject" with TEMP"1"
 end
 
-rule "Primo VE Display- Subject 630"
-	when
-		MARC."630" has any "a-u,w-z" AND NOT
-		MARC."630".ind"2"  equals "2"
-	then
-		set TEMP"1" to MARC."630" subfields "a-u,w" delimited by " " remove substring using regex "\\.+$"
-		set TEMP"2" to MARC."630" sub without sorting "x-z" delimited by " -- "
-        remove substring using regex (TEMP"2","\\.+$")
-		concatenate with delimiter (TEMP"1",TEMP"2"," -- ")
-		kormarc remove nonfiling brackets MARC."630" sourcetag "630" from TEMP"1"
-		set TEMP"3" to multilingual by "630" "Subject" "display"
-		concatenate with delimiter (TEMP"1",TEMP"3","")
-        create pnx."display"."subject" with TEMP"1"
+rule "Primo VE Display - Subject 630/any/0,1"
+   when
+      MARC."630" has any "a-z" AND
+      (MARC."630".ind"2" equals "0" OR
+      MARC."630".ind"2" equals "1")
+   then
+      # Capture all subfields for string display
+      set TEMP"1" to MARC."630" sub without sorting "a-u,w" delimited by " "
+      set TEMP"2" to MARC."630" sub without sorting "v,x-z" delimited by " -- "
+      concatenate with delimiter (TEMP"1",TEMP"2"," -- ")
+      # Capture all subfields except $e for string searching
+      set TEMP"3" to MARC."630" sub without sorting "a-d,f-u,w" delimited by " "
+      set TEMP"4" to MARC."630" sub without sorting "v,x-z" delimited by " -- "
+      concatenate with delimiter (TEMP"3",TEMP"4"," -- ")
+      add prefix (TEMP"3","$$Q")
+      remove substring using regex (TEMP"3","^$$Q$")
+      concatenate with delimiter (TEMP"1",TEMP"3","")
+      create pnx."display"."subject" with TEMP"1"
 end
 
-rule "Primo VE Display- Subject 648"
-	when
-		MARC."648" has any "a-u,w-z" AND NOT
-		MARC."648".ind"2"  equals "2"
-	then
-		set TEMP"1" to MARC."648" subfields "a-u,w" delimited by " " remove substring using regex "\\.+$"
-		set TEMP"2" to MARC."648" sub without sorting "x-z" delimited by " -- "
-        remove substring using regex (TEMP"2","\\.+$")
-		concatenate with delimiter (TEMP"1",TEMP"2"," -- ")
-		set TEMP"3" to multilingual by "648" "Subject" "display"
-		concatenate with delimiter (TEMP"1",TEMP"3","")
-        create pnx."display"."subject" with TEMP"1"
+rule "Primo VE Display - Subject 650/any/0,1"
+   when
+      MARC."650" has any "a-z" AND
+      (MARC."650".ind"2" equals "0" OR
+      MARC."650".ind"2" equals "1")
+   then
+      # Capture all subfields for string display
+      set TEMP"1" to MARC."650" sub without sorting "a-u,w" delimited by " "
+      set TEMP"2" to MARC."650" sub without sorting "v,x-z" delimited by " -- "
+      concatenate with delimiter (TEMP"1",TEMP"2"," -- ")
+      # Capture all subfields except $e for string searching
+      set TEMP"3" to MARC."650" sub without sorting "a-d,f-u,w" delimited by " "
+      set TEMP"4" to MARC."650" sub without sorting "v,x-z" delimited by " -- "
+      concatenate with delimiter (TEMP"3",TEMP"4"," -- ")
+      add prefix (TEMP"3","$$Q")
+      remove substring using regex (TEMP"3","^$$Q$")
+      concatenate with delimiter (TEMP"1",TEMP"3","")
+      create pnx."display"."subject" with TEMP"1"
 end
 
-rule "Primo VE Display- Subject 650"
-	when
-		MARC."650" has any "a-u,w-z" AND NOT
-		MARC."650".ind"2"  equals "2"
-	then
-		set TEMP"1" to MARC."650" subfields "a-u,w" delimited by " " remove substring using regex "\\.+$"
-		set TEMP"2" to MARC."650" sub without sorting "x-z" delimited by " -- "
-        remove substring using regex (TEMP"2","\\.+$")
-        concatenate with delimiter (TEMP"1",TEMP"2"," -- ")
-        set TEMP"3" to multilingual by "650" "Subject" "display"
-		concatenate with delimiter (TEMP"1",TEMP"3","")
-        create pnx."display"."subject" with TEMP"1"
+rule "Primo VE Display - Subject 650/any/7 with Subfield 2"
+   when
+      MARC."650" has any "a-z" AND
+      MARC."650".ind"2" equals "7" AND
+      # Excludes term 'local'
+      (MARC."650"."2" match "(aat|AAT)" OR
+      MARC."650"."2" match "(bisacsh|BISACSH)" OR
+      MARC."650"."2" match "(ftamc|FTAMC)" OR
+      MARC."650"."2" match "(gmgpc|GMGPC)" OR
+      MARC."650"."2" match "(gsafd|GSAFD)" OR
+      MARC."650"."2" match "(lcac|LCAC)" OR
+      MARC."650"."2" match "(lcdgt|LCDGT)" OR
+      MARC."650"."2" match "(lcgft|LCGFT)" OR
+      MARC."650"."2" match "(lcmpt|LCMPT)" OR
+      MARC."650"."2" match "(lcsh|LCSH)" OR
+      MARC."650"."2" match "(lctgm|LCTGM)" OR
+      MARC."650"."2" match "(mesh|MESH)" OR
+      MARC."650"."2" match "(migfg|MIGFG)" OR
+      MARC."650"."2" match "(mim|MIM)" OR
+      MARC."650"."2" match "(naf|NAF)" OR
+      MARC."650"."2" match "(radfg|RADFG)" OR
+      MARC."650"."2" match "(rbbin|RBBIN)" OR
+      MARC."650"."2" match "(rbgenr|RBGENR)" OR
+      MARC."650"."2" match "(rbmscv|RBMSCV)" OR
+      MARC."650"."2" match "(rbpap|RBPAP)" OR
+      MARC."650"."2" match "(rbpri|RBPRI)" OR
+      MARC."650"."2" match "(rbprov|RBPROV)" OR
+      MARC."650"."2" match "(rbpub|RBPUB)" OR
+      MARC."650"."2" match "(rbtyp|RBTYP)")
+   then
+      # Capture all subfields for string display
+      set TEMP"1" to MARC."650" sub without sorting "a-u,w" delimited by " "
+      set TEMP"2" to MARC."650" sub without sorting "v,x-z" delimited by " -- "
+      concatenate with delimiter (TEMP"1",TEMP"2"," -- ")
+      # Capture all subfields except $e for string searching
+      set TEMP"3" to MARC."650" sub without sorting "a-d,f-u,w" delimited by " "
+      set TEMP"4" to MARC."650" sub without sorting "v,x-z" delimited by " -- "
+      concatenate with delimiter (TEMP"3",TEMP"4"," -- ")
+      add prefix (TEMP"3","$$Q")
+      remove substring using regex (TEMP"3","^$$Q$")
+      concatenate with delimiter (TEMP"1",TEMP"3","")
+      create pnx."display"."subject" with TEMP"1"
 end
 
-rule "Prima_Display - Subject 651"
-	when
-		MARC."651" has any "a-u,w-z" AND NOT
-		MARC."651".ind"2"  equals "2"
-	then
-		set TEMP"1" to MARC."651" subfields "a-u,w" delimited by " " remove substring using regex "\\.+$"
-		set TEMP"2" to MARC."651" sub without sorting "x-z" delimited by " -- "
-        remove substring using regex (TEMP"2","\\.+$")
-		concatenate with delimiter (TEMP"1",TEMP"2"," -- ")
-		set TEMP"3" to multilingual by "651" "Subject" "display"
-		concatenate with delimiter (TEMP"1",TEMP"3","")
-        create operational."prima_display"."subject" with TEMP"1"
+rule "Primo VE Display - Subject 651/any/0,1"
+   when
+      MARC."651" has any "a-z" AND
+      (MARC."651".ind"2" equals "0" OR
+      MARC."651".ind"2" equals "1")
+   then
+      # Capture all subfields for string display
+      set TEMP"1" to MARC."651" sub without sorting "a-u,w" delimited by " "
+      set TEMP"2" to MARC."651" sub without sorting "v,x-z" delimited by " -- "
+      concatenate with delimiter (TEMP"1",TEMP"2"," -- ")
+      # Capture all subfields except $e for string searching
+      set TEMP"3" to MARC."651" sub without sorting "a-d,f-u,w" delimited by " "
+      set TEMP"4" to MARC."651" sub without sorting "v,x-z" delimited by " -- "
+      concatenate with delimiter (TEMP"3",TEMP"4"," -- ")
+      add prefix (TEMP"3","$$Q")
+      remove substring using regex (TEMP"3","^$$Q$")
+      concatenate with delimiter (TEMP"1",TEMP"3","")
+      create pnx."display"."subject" with TEMP"1"
 end
 
-
-rule "Primo VE Display- Subject 653"
-	when
-		MARC."653" has any "a-u,w"
-	then
-		set TEMP"1" to MARC."653" subfields "a-u,w" delimited by " " remove substring using regex "\\.+$"
-		set TEMP"2" to multilingual by "653" "Subject" "display"
-		concatenate with delimiter (TEMP"1",TEMP"2","")
-        create pnx."display"."subject" with TEMP"1"
+rule "Primo VE Display - Subject 651/any/7 with Subfield 2"
+   when
+      MARC."651" has any "a-z" AND
+      MARC."651".ind"2" equals "7" AND
+      # Excludes term 'local'
+      (MARC."651"."2" match "(aat|AAT)" OR
+      MARC."651"."2" match "(bisacsh|BISACSH)" OR
+      MARC."651"."2" match "(ftamc|FTAMC)" OR
+      MARC."651"."2" match "(gmgpc|GMGPC)" OR
+      MARC."651"."2" match "(gsafd|GSAFD)" OR
+      MARC."651"."2" match "(lcac|LCAC)" OR
+      MARC."651"."2" match "(lcdgt|LCDGT)" OR
+      MARC."651"."2" match "(lcgft|LCGFT)" OR
+      MARC."651"."2" match "(lcmpt|LCMPT)" OR
+      MARC."651"."2" match "(lcsh|LCSH)" OR
+      MARC."651"."2" match "(lctgm|LCTGM)" OR
+      MARC."651"."2" match "(mesh|MESH)" OR
+      MARC."651"."2" match "(migfg|MIGFG)" OR
+      MARC."651"."2" match "(mim|MIM)" OR
+      MARC."651"."2" match "(naf|NAF)" OR
+      MARC."651"."2" match "(radfg|RADFG)" OR
+      MARC."651"."2" match "(rbbin|RBBIN)" OR
+      MARC."651"."2" match "(rbgenr|RBGENR)" OR
+      MARC."651"."2" match "(rbmscv|RBMSCV)" OR
+      MARC."651"."2" match "(rbpap|RBPAP)" OR
+      MARC."651"."2" match "(rbpri|RBPRI)" OR
+      MARC."651"."2" match "(rbprov|RBPROV)" OR
+      MARC."651"."2" match "(rbpub|RBPUB)" OR
+      MARC."651"."2" match "(rbtyp|RBTYP)")
+   then
+      # Capture all subfields for string display
+      set TEMP"1" to MARC."651" sub without sorting "a-u,w" delimited by " "
+      set TEMP"2" to MARC."651" sub without sorting "v,x-z" delimited by " -- "
+      concatenate with delimiter (TEMP"1",TEMP"2"," -- ")
+      # Capture all subfields except $e for string searching
+      set TEMP"3" to MARC."651" sub without sorting "a-d,f-u,w" delimited by " "
+      set TEMP"4" to MARC."651" sub without sorting "v,x-z" delimited by " -- "
+      concatenate with delimiter (TEMP"3",TEMP"4"," -- ")
+      add prefix (TEMP"3","$$Q")
+      remove substring using regex (TEMP"3","^$$Q$")
+      concatenate with delimiter (TEMP"1",TEMP"3","")
+      create pnx."display"."subject" with TEMP"1"
 end
 
-rule "Primo VE Display- Subject 654"
-	when
-		MARC."654" has any "a-u,w-z"
-	then
-		set TEMP"1" to MARC."654" subfields "a-u,w" delimited by " " remove substring using regex "\\.+$"
-		set TEMP"2" to MARC."654" sub without sorting "x-z" delimited by " -- "
-        remove substring using regex (TEMP"2","\\.+$")
-		concatenate with delimiter (TEMP"1",TEMP"2"," -- ")
-		set TEMP"3" to multilingual by "654" "Subject" "display"
-		concatenate with delimiter (TEMP"1",TEMP"3","")
-        create pnx."display"."subject" with TEMP"1"
+rule "Primo VE Display - Subject 690/any/0,1"
+   when
+      MARC."690" has any "a-z" AND
+      (MARC."690".ind"2" equals "0" OR
+      MARC."690".ind"2" equals "1") AND
+      (MARC."690"."5" match "MnSB" OR
+      MARC."690"."5" match "MnSCC" OR
+      MARC."690"."5" match "MnSH" OR
+      MARC."690"."5" match "MnRoN" OR
+      MARC."690"."5" match "MnSSC" OR
+      MARC."690"."5" match "MnSST" OR
+      MARC."690"."5" match "MnMpUSTL" OR
+      MARC."690"."5" match "MnSpCLIC")
+      
+   then
+      # Capture all subfields for string display
+      set TEMP"1" to MARC."690" sub without sorting "a-u,w" delimited by " "
+      set TEMP"2" to MARC."690" sub without sorting "v,x-z" delimited by " -- "
+      concatenate with delimiter (TEMP"1",TEMP"2"," -- ")
+      # Capture all subfields except $e for string searching
+      set TEMP"3" to MARC."690" sub without sorting "a-d,f-u,w" delimited by " "
+      set TEMP"4" to MARC."690" sub without sorting "v,x-z" delimited by " -- "
+      concatenate with delimiter (TEMP"3",TEMP"4"," -- ")
+      add prefix (TEMP"3","$$Q")
+      remove substring using regex (TEMP"3","^$$Q$")
+      concatenate with delimiter (TEMP"1",TEMP"3","")
+      create pnx."display"."subject" with TEMP"1"
 end
 
-rule "Primo VE Display- Subject 655"
-	when
-		MARC."655" has any "a-u,w-z" AND NOT
-		MARC."655".ind"2"  equals "2"
-	then
-		set TEMP"1" to MARC."655" subfields "a-u,w" delimited by " " remove substring using regex "\\.+$"
-		set TEMP"2" to MARC."655" sub without sorting "x-z" delimited by " -- "
-        remove substring using regex (TEMP"2","\\.+$")
-		concatenate with delimiter (TEMP"1",TEMP"2"," -- ")
-		set TEMP"3" to multilingual by "655" "Subject" "display"
-		concatenate with delimiter (TEMP"1",TEMP"3","")
-        create pnx."display"."subject" with TEMP"1"
+rule "Primo VE Display - Subject 690/any/7 with Subfield 2"
+   when
+      MARC."690" has any "a-z" AND
+      MARC."690".ind"2" equals "7" AND
+      # Includes term 'local'
+      (MARC."690"."2" match "(aat|AAT)" OR
+      MARC."690"."2" match "(bisacsh|BISACSH)" OR
+      MARC."690"."2" match "(ftamc|FTAMC)" OR
+      MARC."690"."2" match "(gmgpc|GMGPC)" OR
+      MARC."690"."2" match "(gsafd|GSAFD)" OR
+      MARC."690"."2" match "(lcac|LCAC)" OR
+      MARC."690"."2" match "(lcdgt|LCDGT)" OR
+      MARC."690"."2" match "(lcgft|LCGFT)" OR
+      MARC."690"."2" match "(lcmpt|LCMPT)" OR
+      MARC."690"."2" match "(lcsh|LCSH)" OR
+      MARC."690"."2" match "(lctgm|LCTGM)" OR
+      MARC."690"."2" match "(local|LOCAL)" OR
+      MARC."690"."2" match "(mesh|MESH)" OR
+      MARC."690"."2" match "(migfg|MIGFG)" OR
+      MARC."690"."2" match "(mim|MIM)" OR
+      MARC."690"."2" match "(naf|NAF)" OR
+      MARC."690"."2" match "(radfg|RADFG)" OR
+      MARC."690"."2" match "(rbbin|RBBIN)" OR
+      MARC."690"."2" match "(rbgenr|RBGENR)" OR
+      MARC."690"."2" match "(rbmscv|RBMSCV)" OR
+      MARC."690"."2" match "(rbpap|RBPAP)" OR
+      MARC."690"."2" match "(rbpri|RBPRI)" OR
+      MARC."690"."2" match "(rbprov|RBPROV)" OR
+      MARC."690"."2" match "(rbpub|RBPUB)" OR
+      MARC."690"."2" match "(rbtyp|RBTYP)") AND
+      (MARC."690"."5" match "MnSB" OR
+      MARC."690"."5" match "MnSCC" OR
+      MARC."690"."5" match "MnSH" OR
+      MARC."690"."5" match "MnRoN" OR
+      MARC."690"."5" match "MnSSC" OR
+      MARC."690"."5" match "MnSST" OR
+      MARC."690"."5" match "MnMpUSTL" OR
+      MARC."690"."5" match "MnSpCLIC")
+   then
+      # Capture all subfields for string display
+      set TEMP"1" to MARC."690" sub without sorting "a-u,w" delimited by " "
+      set TEMP"2" to MARC."690" sub without sorting "v,x-z" delimited by " -- "
+      concatenate with delimiter (TEMP"1",TEMP"2"," -- ")
+      # Capture all subfields except $e for string searching
+      set TEMP"3" to MARC."690" sub without sorting "a-d,f-u,w" delimited by " "
+      set TEMP"4" to MARC."690" sub without sorting "v,x-z" delimited by " -- "
+      concatenate with delimiter (TEMP"3",TEMP"4"," -- ")
+      add prefix (TEMP"3","$$Q")
+      remove substring using regex (TEMP"3","^$$Q$")
+      concatenate with delimiter (TEMP"1",TEMP"3","")
+      create pnx."display"."subject" with TEMP"1"
 end
 
-rule "Primo VE Display- Subject 656"
-	when
-		MARC."656" has any "a-u,w-z"
-	then
-		set TEMP"1" to MARC."656" subfields "a-u,w" delimited by " " remove substring using regex "\\.+$"
-		set TEMP"2" to MARC."656" sub without sorting "x-z" delimited by " -- "
-        remove substring using regex (TEMP"2","\\.+$")
-		concatenate with delimiter (TEMP"1",TEMP"2"," -- ")
-		set TEMP"3" to multilingual by "656" "Subject" "display"
-		concatenate with delimiter (TEMP"1",TEMP"3","")
-        create pnx."display"."subject" with TEMP"1"
+rule "Primo VE Display - Subject 691/any/0,1"
+   when
+      MARC."691" has any "a-z" AND
+      (MARC."691".ind"2" equals "0" OR
+      MARC."691".ind"2" equals "1") AND
+      (MARC."691"."5" match "MnSB" OR
+      MARC."691"."5" match "MnSCC" OR
+      MARC."691"."5" match "MnSH" OR
+      MARC."691"."5" match "MnRoN" OR
+      MARC."691"."5" match "MnSSC" OR
+      MARC."691"."5" match "MnSST" OR
+      MARC."691"."5" match "MnMpUSTL" OR
+      MARC."691"."5" match "MnSpCLIC")
+   then
+      # Capture all subfields for string display
+      set TEMP"1" to MARC."691" sub without sorting "a-u,w" delimited by " "
+      set TEMP"2" to MARC."691" sub without sorting "v,x-z" delimited by " -- "
+      concatenate with delimiter (TEMP"1",TEMP"2"," -- ")
+      # Capture all subfields except $e for string searching
+      set TEMP"3" to MARC."691" sub without sorting "a-d,f-u,w" delimited by " "
+      set TEMP"4" to MARC."691" sub without sorting "v,x-z" delimited by " -- "
+      concatenate with delimiter (TEMP"3",TEMP"4"," -- ")
+      add prefix (TEMP"3","$$Q")
+      remove substring using regex (TEMP"3","^$$Q$")
+      concatenate with delimiter (TEMP"1",TEMP"3","")
+      create pnx."display"."subject" with TEMP"1"
 end
 
-rule "Primo VE Display- Subject 657"
-	when
-		MARC."657" has any "a-u,w-z"
-	then
-		set TEMP"1" to MARC."657" subfields "a-u,w" delimited by " " remove substring using regex "\\.+$"
-		set TEMP"2" to MARC."657" sub without sorting "x-z" delimited by " -- "
-        remove substring using regex (TEMP"2","\\.+$")
-		concatenate with delimiter (TEMP"1",TEMP"2"," -- ")
-		set TEMP"3" to multilingual by "657" "Subject" "display"
-		concatenate with delimiter (TEMP"1",TEMP"3","")
-        create pnx."display"."subject" with TEMP"1"
+rule "Primo VE Display - Subject 691/any/7 with Subfield 2"
+   when
+      MARC."691" has any "a-z" AND
+      MARC."691".ind"2" equals "7" AND
+      # Includes term 'local'
+      (MARC."691"."2" match "(aat|AAT)" OR
+      MARC."691"."2" match "(bisacsh|BISACSH)" OR
+      MARC."691"."2" match "(ftamc|FTAMC)" OR
+      MARC."691"."2" match "(gmgpc|GMGPC)" OR
+      MARC."691"."2" match "(gsafd|GSAFD)" OR
+      MARC."691"."2" match "(lcac|LCAC)" OR
+      MARC."691"."2" match "(lcdgt|LCDGT)" OR
+      MARC."691"."2" match "(lcgft|LCGFT)" OR
+      MARC."691"."2" match "(lcmpt|LCMPT)" OR
+      MARC."691"."2" match "(lcsh|LCSH)" OR
+      MARC."691"."2" match "(lctgm|LCTGM)" OR
+      MARC."691"."2" match "(local|LOCAL)" OR
+      MARC."691"."2" match "(mesh|MESH)" OR
+      MARC."691"."2" match "(migfg|MIGFG)" OR
+      MARC."691"."2" match "(mim|MIM)" OR
+      MARC."691"."2" match "(naf|NAF)" OR
+      MARC."691"."2" match "(radfg|RADFG)" OR
+      MARC."691"."2" match "(rbbin|RBBIN)" OR
+      MARC."691"."2" match "(rbgenr|RBGENR)" OR
+      MARC."691"."2" match "(rbmscv|RBMSCV)" OR
+      MARC."691"."2" match "(rbpap|RBPAP)" OR
+      MARC."691"."2" match "(rbpri|RBPRI)" OR
+      MARC."691"."2" match "(rbprov|RBPROV)" OR
+      MARC."691"."2" match "(rbpub|RBPUB)" OR
+      MARC."691"."2" match "(rbtyp|RBTYP)") AND
+      (MARC."691"."5" match "MnSB" OR
+      MARC."691"."5" match "MnSCC" OR
+      MARC."691"."5" match "MnSH" OR
+      MARC."691"."5" match "MnRoN" OR
+      MARC."691"."5" match "MnSSC" OR
+      MARC."691"."5" match "MnSST" OR
+      MARC."691"."5" match "MnMpUSTL" OR
+      MARC."691"."5" match "MnSpCLIC")
+   then
+      # Capture all subfields for string display
+      set TEMP"1" to MARC."691" sub without sorting "a-u,w" delimited by " "
+      set TEMP"2" to MARC."691" sub without sorting "v,x-z" delimited by " -- "
+      concatenate with delimiter (TEMP"1",TEMP"2"," -- ")
+      # Capture all subfields except $e for string searching
+      set TEMP"3" to MARC."691" sub without sorting "a-d,f-u,w" delimited by " "
+      set TEMP"4" to MARC."691" sub without sorting "v,x-z" delimited by " -- "
+      concatenate with delimiter (TEMP"3",TEMP"4"," -- ")
+      add prefix (TEMP"3","$$Q")
+      remove substring using regex (TEMP"3","^$$Q$")
+      concatenate with delimiter (TEMP"1",TEMP"3","")
+      create pnx."display"."subject" with TEMP"1"
 end
 
-rule "Primo VE Display- Subject 658"
-	when
-		MARC."658" has any "a-u,w"
-	then
-		set TEMP"1" to MARC."658" subfields "a-u,w" delimited by " " remove substring using regex "\\.+$"
-		set TEMP"2" to multilingual by "658" "Subject" "display"
-		concatenate with delimiter (TEMP"1",TEMP"2","")
-        create pnx."display"."subject" with TEMP"1"
+rule "Primo VE Display - Subject 696/any/0,1"
+   when
+      MARC."696" has any "a-z" AND
+      (MARC."696".ind"2" equals "0" OR
+      MARC."696".ind"2" equals "1")
+   then
+      # Capture all subfields for string display
+      set TEMP"1" to MARC."696" sub without sorting "a-u,w" delimited by " "
+      set TEMP"2" to MARC."696" sub without sorting "v,x-z" delimited by " -- "
+      concatenate with delimiter (TEMP"1",TEMP"2"," -- ")
+      # Capture all subfields except $e and $u for string searching
+      set TEMP"3" to MARC."696" sub without sorting "a-d,f-t,w" delimited by " "
+      set TEMP"4" to MARC."696" sub without sorting "v,x-z" delimited by " -- "
+      concatenate with delimiter (TEMP"3",TEMP"4"," -- ")
+      add prefix (TEMP"3","$$Q")
+      remove substring using regex (TEMP"3","^$$Q$")
+      concatenate with delimiter (TEMP"1",TEMP"3","")
+      create pnx."display"."subject" with TEMP"1"
 end
 
-rule "Primo VE Display- Subject 662"
-	when
-		MARC."662" has any "a-u,w"
-	then
-		set TEMP"1" to MARC."662" subfields "a-u,w" delimited by " " remove substring using regex "\\.+$"
-		set TEMP"2" to multilingual by "662" "Subject" "display"
-		concatenate with delimiter (TEMP"1",TEMP"2","")
-        create pnx."display"."subject" with TEMP"1"
+rule "Primo VE Display - Subject 697/any/0,1"
+   when
+      MARC."697" has any "a-z" AND
+      (MARC."697".ind"2" equals "0" OR
+      MARC."697".ind"2" equals "1")
+   then
+      # Capture all subfields for string display
+      set TEMP"1" to MARC."697" sub without sorting "a-u,w" delimited by " "
+      set TEMP"2" to MARC."697" sub without sorting "v,x-z" delimited by " -- "
+      concatenate with delimiter (TEMP"1",TEMP"2"," -- ")
+      # Capture all subfields except $e and $u for string searching
+      set TEMP"3" to MARC."697" sub without sorting "a-d,f-t,w" delimited by " "
+      set TEMP"4" to MARC."697" sub without sorting "v,x-z" delimited by " -- "
+      concatenate with delimiter (TEMP"3",TEMP"4"," -- ")
+      add prefix (TEMP"3","$$Q")
+      remove substring using regex (TEMP"3","^$$Q$")
+      concatenate with delimiter (TEMP"1",TEMP"3","")
+      create pnx."display"."subject" with TEMP"1"
 end
 
-rule "Primo VE Display- Subject 880-600"
-	when
-		MARC."880" has any "a-u,w-z" AND NOT
-		MARC."880".ind"2"  equals "2" AND
-		MARC."880"."6" match "600-.*"
-	then
-		set TEMP"1" to MARC."880" subfields "a-u,w" delimited by " " remove substring using regex "\\.+$"
-		set TEMP"2" to MARC."880" sub without sorting "x-z" delimited by " -- "
-        remove substring using regex (TEMP"2","\\.+$")
-		concatenate with delimiter (TEMP"1",TEMP"2"," -- ")
-		set TEMP"3" to multilingual by "880" "Subject" "display"
-		concatenate with delimiter (TEMP"1",TEMP"3","")
-        create pnx."display"."subject" with TEMP"1"
+rule "Primo VE Display - Subject 698/any/0,1"
+   when
+      MARC."698" has any "a-z" AND
+      (MARC."698".ind"2" equals "0" OR
+      MARC."698".ind"2" equals "1")
+   then
+      # Capture all subfields for string display
+      set TEMP"1" to MARC."698" sub without sorting "a-u,w" delimited by " "
+      set TEMP"2" to MARC."698" sub without sorting "v,x-z" delimited by " -- "
+      concatenate with delimiter (TEMP"1",TEMP"2"," -- ")
+      # Capture all subfields except $j and $u for string searching
+      set TEMP"3" to MARC."698" sub without sorting "a-i,k-t,w" delimited by " "
+      set TEMP"4" to MARC."698" sub without sorting "v,x-z" delimited by " -- "
+      concatenate with delimiter (TEMP"3",TEMP"4"," -- ")
+      add prefix (TEMP"3","$$Q")
+      remove substring using regex (TEMP"3","^$$Q$")
+      concatenate with delimiter (TEMP"1",TEMP"3","")
+      create pnx."display"."subject" with TEMP"1"
 end
 
-rule "Primo VE Display- Subject 880-610"
-	when
-		MARC."880" has any "a-u,w-z" AND NOT
-		MARC."880".ind"2"  equals "2" AND
-		MARC."880"."6" match "610-.*"
-	then
-		set TEMP"1" to MARC."880" subfields "a-u,w" delimited by " " remove substring using regex "\\.+$"
-		set TEMP"2" to MARC."880" sub without sorting "x-z" delimited by " -- "
-        remove substring using regex (TEMP"2","\\.+$")
-		concatenate with delimiter (TEMP"1",TEMP"2"," -- ")
-		set TEMP"3" to multilingual by "880" "Subject" "display"
-		concatenate with delimiter (TEMP"1",TEMP"3","")
-        create pnx."display"."subject" with TEMP"1"
-end
-
-rule "Primo VE Display- Subject 880-611"
-	when
-		MARC."880" has any "a-u,w-z" AND NOT
-		MARC."880".ind"2"  equals "2" AND
-		MARC."880"."6" match "611-.*"
-	then
-		set TEMP"1" to MARC."880" subfields "a-u,w" delimited by " " remove substring using regex "\\.+$"
-		set TEMP"2" to MARC."880" sub without sorting "x-z" delimited by " -- "
-        remove substring using regex (TEMP"2","\\.+$")
-		concatenate with delimiter (TEMP"1",TEMP"2"," -- ")
-		set TEMP"3" to multilingual by "880" "Subject" "display"
-		concatenate with delimiter (TEMP"1",TEMP"3","")
-        create pnx."display"."subject" with TEMP"1"
-end
-
-rule "Primo VE Display- Subject 880-630"
-	when
-		MARC."880" has any "a-u,w-z" AND NOT
-		MARC."880".ind"2"  equals "2" AND
-		MARC."880"."6" match "630-.*"
-	then
-		set TEMP"1" to MARC."880" subfields "a-u,w" delimited by " " remove substring using regex "\\.+$"
-		set TEMP"2" to MARC."880" sub without sorting "x-z" delimited by " -- "
-        remove substring using regex (TEMP"2","\\.+$")
-		concatenate with delimiter (TEMP"1",TEMP"2"," -- ")
-		set TEMP"3" to multilingual by "880" "Subject" "display"
-		concatenate with delimiter (TEMP"1",TEMP"3","")
-        create pnx."display"."subject" with TEMP"1"
-end
-
-rule "Primo VE Display- Subject 880-648"
-	when
-		MARC."880" has any "a-u,w-z" AND NOT
-		MARC."880".ind"2"  equals "2" AND
-		MARC."880"."6" match "648-.*"
-	then
-		set TEMP"1" to MARC."880" subfields "a-u,w" delimited by " " remove substring using regex "\\.+$"
-		set TEMP"2" to MARC."880" sub without sorting "x-z" delimited by " -- "
-        remove substring using regex (TEMP"2","\\.+$")
-		concatenate with delimiter (TEMP"1",TEMP"2"," -- ")
-		set TEMP"3" to multilingual by "880" "Subject" "display"
-		concatenate with delimiter (TEMP"1",TEMP"3","")
-        create pnx."display"."subject" with TEMP"1"
-end
-
-rule "Primo VE Display- Subject 880-650"
-	when
-		MARC."880" has any "a-u,w-z" AND NOT
-		MARC."880".ind"2"  equals "2" AND
-		MARC."880"."6" match "650-.*"
-	then
-		set TEMP"1" to MARC."880" subfields "a-u,w" delimited by " " remove substring using regex "\\.+$"
-		set TEMP"2" to MARC."880" sub without sorting "x-z" delimited by " -- "
-        remove substring using regex (TEMP"2","\\.+$")
-		concatenate with delimiter (TEMP"1",TEMP"2"," -- ")
-		set TEMP"3" to multilingual by "880" "Subject" "display"
-		concatenate with delimiter (TEMP"1",TEMP"3","")
-        create pnx."display"."subject" with TEMP"1"
-end
-
-rule "Primo VE Display- Subject 880-651"
-	when
-		MARC."880" has any "a-u,w-z" AND NOT
-		MARC."880".ind"2"  equals "2" AND
-		MARC."880"."6" match "651-.*"
-	then
-		set TEMP"1" to MARC."880" subfields "a-u,w" delimited by " " remove substring using regex "\\.+$"
-		set TEMP"2" to MARC."880" sub without sorting "x-z" delimited by " -- "
-        remove substring using regex (TEMP"2","\\.+$")
-		concatenate with delimiter (TEMP"1",TEMP"2"," -- ")
-		set TEMP"3" to multilingual by "880" "Subject" "display"
-		concatenate with delimiter (TEMP"1",TEMP"3","")
-        create pnx."display"."subject" with TEMP"1"
-end
-
-rule "Primo VE Display- Subject 880-653"
-	when
-		MARC."880" has any "a-u,w" AND
-		MARC."880"."6" match "653-.*"
-	then
-		set TEMP"1" to MARC."880" subfields "a-u,w" delimited by " " remove substring using regex "\\.+$"
-		set TEMP"2" to multilingual by "880" "Subject" "display"
-		concatenate with delimiter (TEMP"1",TEMP"2","")
-        create pnx."display"."subject" with TEMP"1"
-end
-
-rule "Primo VE Display- Subject 880-654"
-	when
-		MARC."880" has any "a-u,w-z" AND
-		MARC."880"."6" match "654-.*"
-	then
-		set TEMP"1" to MARC."880" subfields "a-u,w" delimited by " " remove substring using regex "\\.+$"
-		set TEMP"2" to MARC."880" sub without sorting "x-z" delimited by " -- "
-        remove substring using regex (TEMP"2","\\.+$")
-		concatenate with delimiter (TEMP"1",TEMP"2"," -- ")
-		set TEMP"3" to multilingual by "880" "Subject" "display"
-		concatenate with delimiter (TEMP"1",TEMP"3","")
-        create pnx."display"."subject" with TEMP"1"
-end
-
-rule "Primo VE Display- Subject 880-655"
-	when
-		MARC."880" has any "a-u,w-z" AND NOT
-		MARC."880".ind"2"  equals "2" AND
-		MARC."880"."6" match "655-.*"
-	then
-		set TEMP"1" to MARC."880" subfields "a-u,w" delimited by " " remove substring using regex "\\.+$"
-		set TEMP"2" to MARC."880" sub without sorting "x-z" delimited by " -- "
-        remove substring using regex (TEMP"2","\\.+$")
-		concatenate with delimiter (TEMP"1",TEMP"2"," -- ")
-		set TEMP"3" to multilingual by "880" "Subject" "display"
-		concatenate with delimiter (TEMP"1",TEMP"3","")
-        create pnx."display"."subject" with TEMP"1"
-end
-
-rule "Primo VE Display- Subject 880-656"
-	when
-		MARC."880" has any "a-u,w-z" AND
-		MARC."880"."6" match "656-.*"
-	then
-		set TEMP"1" to MARC."880" subfields "a-u,w" delimited by " " remove substring using regex "\\.+$"
-		set TEMP"2" to MARC."880" sub without sorting "x-z" delimited by " -- "
-        remove substring using regex (TEMP"2","\\.+$")
-		concatenate with delimiter (TEMP"1",TEMP"2"," -- ")
-		set TEMP"3" to multilingual by "880" "Subject" "display"
-		concatenate with delimiter (TEMP"1",TEMP"3","")
-        create pnx."display"."subject" with TEMP"1"
-end
-
-rule "Primo VE Display- Subject 880-657"
-	when
-		MARC."880" has any "a-u,w-z" AND
-		MARC."880"."6" match "657-.*"
-	then
-		set TEMP"1" to MARC."880" subfields "a-u,w" delimited by " " remove substring using regex "\\.+$"
-		set TEMP"2" to MARC."880" sub without sorting "x-z" delimited by " -- "
-        remove substring using regex (TEMP"2","\\.+$")
-		concatenate with delimiter (TEMP"1",TEMP"2"," -- ")
-		set TEMP"3" to multilingual by "880" "Subject" "display"
-		concatenate with delimiter (TEMP"1",TEMP"3","")
-        create pnx."display"."subject" with TEMP"1"
-end
-
-rule "Primo VE Display- Subject 880-658"
-	when
-		MARC."880" has any "a-u,w" AND
-		MARC."880"."6" match "658-.*"
-	then
-		set TEMP"1" to MARC."880" subfields "a-u,w" delimited by " " remove substring using regex "\\.+$"
-        set TEMP"2" to multilingual by "880" "Subject" "display"
-		concatenate with delimiter (TEMP"1",TEMP"2","")
-        create pnx."display"."subject" with TEMP"1"
-end
-
-rule "Primo VE Display- Subject 880-662"
-	when
-		MARC."880" has any "a-u,w" AND
-		MARC."880"."6" match "662-.*"
-	then
-		set TEMP"1" to MARC."880" subfields "a-u,w" delimited by " " remove substring using regex "\\.+$"
-        set TEMP"2" to multilingual by "880" "Subject" "display"
-		concatenate with delimiter (TEMP"1",TEMP"2","")
-        create pnx."display"."subject" with TEMP"1"
+rule "Primo VE Display - Subject 699/any/0,1"
+   when
+      MARC."699" has any "a-z" AND
+      (MARC."699".ind"2" equals "0" OR
+      MARC."699".ind"2" equals "1")
+   then
+      # Capture all subfields for string display
+      set TEMP"1" to MARC."699" sub without sorting "a-u,w" delimited by " "
+      set TEMP"2" to MARC."699" sub without sorting "v,x-z" delimited by " -- "
+      concatenate with delimiter (TEMP"1",TEMP"2"," -- ")
+      # Capture all subfields except $e for string searching
+      set TEMP"3" to MARC."699" sub without sorting "a-d,f-u,w" delimited by " "
+      set TEMP"4" to MARC."699" sub without sorting "v,x-z" delimited by " -- "
+      concatenate with delimiter (TEMP"3",TEMP"4"," -- ")
+      add prefix (TEMP"3","$$Q")
+      remove substring using regex (TEMP"3","^$$Q$")
+      concatenate with delimiter (TEMP"1",TEMP"3","")
+      create pnx."display"."subject" with TEMP"1"
 end
