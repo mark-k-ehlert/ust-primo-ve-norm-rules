@@ -5,7 +5,7 @@ rule "Primo VE Display - Contributor 700"
    then
       set TEMP"1" to MARC."700" sub without sort "a,b,c,d,j,q,u"
       remove substring using regex (TEMP"1","(/|:|;|=|,)+$")
-      set TEMP"2" to MARC."700" sub without sort "a,b,c,d,j,q,u"
+      set TEMP"2" to MARC."700" sub without sort "a,b,c,d,j,q"
       remove substring using regex (TEMP"2","(/|:|;|=|,)+$")
       add prefix (TEMP"2","$$Q")
       remove substring using regex (TEMP"2","^$$Q$")
@@ -15,10 +15,10 @@ end
 
 rule "Primo VE Display - Contributor 710"
    when
-      MARC."710" has any "a,b,c,d,g,n" AND NOT
+      MARC."710" has any "a,b,c,d,g,n,u" AND NOT
       MARC."710"."t" match ".+"
    then
-      set TEMP"1" to MARC."710" sub without sort "a,b,c,d,g,n"
+      set TEMP"1" to MARC."710" sub without sort "a,b,c,d,g,n,u"
       remove substring using regex (TEMP"1","(/|:|;|=|,)+$")
       set TEMP"2" to MARC."710" sub without sort "a,b,c,d,g,n"
       remove substring using regex (TEMP"2","(/|:|;|=|,)+$")
@@ -30,10 +30,10 @@ end
 
 rule "Primo VE Display - Contributor 711"
    when
-      MARC."711" has any "a,c,d,e,g,n,q" AND NOT
+      MARC."711" has any "a,c,d,e,g,n,q,u" AND NOT
       MARC."711"."t" match ".+"
    then
-      set TEMP"1" to MARC."711" sub without sort "a,c,d,e,g,n,q"
+      set TEMP"1" to MARC."711" sub without sort "a,c,d,e,g,n,q,u"
       remove substring using regex (TEMP"1","(/|:|;|=|,)+$")
       set TEMP"2" to MARC."711" sub without sort "a,c,d,e,g,n,q"
       remove substring using regex (TEMP"2","(/|:|;|=|,)+$")
@@ -58,7 +58,7 @@ rule "Primo VE Display - Contributor 920"
    then
       set TEMP"1" to MARC."920" sub without sort "a,b,c,d,j,q,u"
       remove substring using regex (TEMP"1","(/|:|;|=|,)+$")
-      set TEMP"2" to MARC."920" sub without sort "a,b,c,d,j,q,u"
+      set TEMP"2" to MARC."920" sub without sort "a,b,c,d,j,q"
       remove substring using regex (TEMP"2","(/|:|;|=|,)+$")
       add prefix (TEMP"2","$$Q")
       remove substring using regex (TEMP"2","^$$Q$")
@@ -68,7 +68,7 @@ end
 
 rule "Primo VE Display - Contributor 921"
    when
-      MARC."921" has any "a,b,c,d,g,n" AND NOT
+      MARC."921" has any "a,b,c,d,g,n,u" AND NOT
       MARC."921"."t" match ".+" AND
       (MARC."921"."5" match "MnSB" OR
       MARC."921"."5" match "MnSCC" OR
@@ -79,7 +79,7 @@ rule "Primo VE Display - Contributor 921"
       MARC."921"."5" match "MnMpUSTL" OR
       MARC."921"."5" match "MnSpCLIC")
    then
-      set TEMP"1" to MARC."921" sub without sort "a,b,c,d,g,n"
+      set TEMP"1" to MARC."921" sub without sort "a,b,c,d,g,n,u"
       remove substring using regex (TEMP"1","(/|:|;|=|,)+$")
       set TEMP"2" to MARC."921" sub without sort "a,b,c,d,g,n"
       remove substring using regex (TEMP"2","(/|:|;|=|,)+$")
@@ -102,7 +102,7 @@ rule "Primo VE Display - Contributor 922"
       MARC."922"."5" match "MnMpUSTL" OR
       MARC."922"."5" match "MnSpCLIC")
    then
-      set TEMP"1" to MARC."922" sub without sort "a,c,d,e,g,n,q"
+      set TEMP"1" to MARC."922" sub without sort "a,c,d,e,g,n,q,u"
       remove substring using regex (TEMP"1","(/|:|;|=|,)+$")
       set TEMP"2" to MARC."922" sub without sort "a,c,d,e,g,n,q"
       remove substring using regex (TEMP"2","(/|:|;|=|,)+$")

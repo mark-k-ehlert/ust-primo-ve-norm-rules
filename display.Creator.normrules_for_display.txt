@@ -4,7 +4,7 @@ rule "Primo VE Display - Creator 100"
    then
       set TEMP"1" to MARC."100" sub without sort "a,b,c,d,j,q,u"
       remove substring using regex (TEMP"1","(/|:|;|=|,)+$")
-      set TEMP"2" to MARC."100" sub without sort "a,b,c,d,j,q,u"
+      set TEMP"2" to MARC."100" sub without sort "a,b,c,d,j,q"
       remove substring using regex (TEMP"2","(/|:|;|=|,)+$")
       add prefix (TEMP"2","$$Q")
       remove substring using regex (TEMP"2","^$$Q$")
@@ -14,9 +14,9 @@ end
 
 rule "Primo VE Display - Creator 110"
    when
-      MARC."110" has any "a,b,c,d,g,n"
+      MARC."110" has any "a,b,c,d,g,n,u"
    then
-      set TEMP"1" to MARC."110" sub without sort "a,b,c,d,g,n"
+      set TEMP"1" to MARC."110" sub without sort "a,b,c,d,g,n,u"
       remove substring using regex (TEMP"1","(/|:|;|=|,)+$")
       set TEMP"2" to MARC."110" sub without sort "a,b,c,d,g,n"
       remove substring using regex (TEMP"2","(/|:|;|=|,)+$")
@@ -28,9 +28,9 @@ end
 
 rule "Primo VE Display - Creator 111"
    when
-      MARC."111" has any "a,c,d,e,g,n,q"
+      MARC."111" has any "a,c,d,e,g,n,q,u"
    then
-      set TEMP"1" to MARC."111" sub without sort "a,c,d,e,g,n,q"
+      set TEMP"1" to MARC."111" sub without sort "a,c,d,e,g,n,q,u"
       remove substring using regex (TEMP"1","(/|:|;|=|,)+$")
       set TEMP"2" to MARC."111" sub without sort "a,c,d,e,g,n,q"
       remove substring using regex (TEMP"2","(/|:|;|=|,)+$")
