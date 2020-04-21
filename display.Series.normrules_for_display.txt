@@ -1,4 +1,4 @@
-rule "Primo VE - Series 400"
+rule "Primo VE Display - Series 400"
    when
       MARC."400" has any "a"
    then
@@ -11,7 +11,7 @@ rule "Primo VE - Series 400"
       create pnx."display"."series" with TEMP"1"
 end
 
-rule "Primo VE - Series 410"
+rule "Primo VE Display - Series 410"
    when
       MARC."410" has any "a"
    then
@@ -24,7 +24,7 @@ rule "Primo VE - Series 410"
       create pnx."display"."series" with TEMP"1"
 end
 
-rule "Primo VE - Series 411"
+rule "Primo VE Display - Series 411"
    when
       MARC."411" has any "a"
    then
@@ -37,7 +37,7 @@ rule "Primo VE - Series 411"
       create pnx."display"."series" with TEMP"1"
 end
 
-rule "Primo VE - Series 440"
+rule "Primo VE Display - Series 440"
    when
       MARC."440" has any "a"
    then
@@ -51,7 +51,7 @@ rule "Primo VE - Series 440"
       create pnx."display"."series" with TEMP"1"
 end
 
-rule "Primo VE - Series 800"
+rule "Primo VE Display - Series 800"
    when
       MARC."800" has any "t"
    then
@@ -68,7 +68,7 @@ rule "Primo VE - Series 800"
       create pnx."display"."series" with TEMP"1"
 end
 
-rule "Primo VE - Series 810"
+rule "Primo VE Display - Series 810"
    when
       MARC."810" has any "t"
    then
@@ -85,7 +85,7 @@ rule "Primo VE - Series 810"
       create pnx."display"."series" with TEMP"1"
 end
 
-rule "Primo VE - Series 811"
+rule "Primo VE Display - Series 811"
    when
       MARC."811" has any "t"
    then
@@ -102,7 +102,7 @@ rule "Primo VE - Series 811"
       create pnx."display"."series" with TEMP"1"
 end
 
-rule "Primo VE - Series 830"
+rule "Primo VE Display - Series 830"
    when
       MARC."830" has any "a,t"
    then
@@ -120,7 +120,7 @@ rule "Primo VE - Series 830"
       create pnx."display"."series" with TEMP"1"
 end
 
-rule "Primo VE - Series 840"
+rule "Primo VE Display - Series 840"
    when
       MARC."840" has any "a"
    then
