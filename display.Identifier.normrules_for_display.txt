@@ -32,11 +32,12 @@ rule "Primo VE Display - Identifier 024 - ISMN"
       create pnx."display"."identifier" with TEMP"1"
 end
 
-rule "Primo VE Display - Identifier 028/0/1 - Issue Number"
+rule "Primo VE Display - Identifier 028/0/1,2 - Issue Number"
    when
       MARC."028" has any "a,b" AND
       MARC."028".ind"1" equals "0" AND
-      MARC."028".ind"2" equals "1"
+      (MARC."028".ind"2" equals "1" OR
+      MARC."028".ind"2" equals "2")
    then
       set TEMP"1" to MARC."028" subfields "b"
       set TEMP"2" to MARC."028" subfields "a"
@@ -47,26 +48,12 @@ rule "Primo VE Display - Identifier 028/0/1 - Issue Number"
       create pnx."display"."identifier" with TEMP"1"
 end
 
-rule "Primo VE Display - Identifier 028/0/2 - Issue Number"
-   when
-      MARC."028" has any "a,b" AND
-      MARC."028".ind"1" equals "0" AND
-      MARC."028".ind"2" equals "2"
-   then
-      set TEMP"1" to MARC."028" subfields "b"
-      set TEMP"2" to MARC."028" subfields "a"
-      remove leading and trailing spaces (TEMP"1")
-      remove leading and trailing spaces (TEMP"2")
-      add prefix (TEMP"1","$$CISSUENUM$$V")
-      concatenate with delimiter (TEMP"1",TEMP"2"," ")
-      create pnx."display"."identifier" with TEMP"1"
-end
-
-rule "Primo VE Display - Identifier 028/1/1 - Matrix Number"
+rule "Primo VE Display - Identifier 028/1/1,2 - Matrix Number"
    when
       MARC."028" has any "a,b" AND
       MARC."028".ind"1" equals "1" AND
-      MARC."028".ind"2" equals "1"
+      (MARC."028".ind"2" equals "1" OR
+      MARC."028".ind"2" equals "2")
    then
       set TEMP"1" to MARC."028" subfields "b"
       set TEMP"2" to MARC."028" subfields "a"
@@ -77,26 +64,12 @@ rule "Primo VE Display - Identifier 028/1/1 - Matrix Number"
       create pnx."display"."identifier" with TEMP"1"
 end
 
-rule "Primo VE Display - Identifier 028/1/2 - Matrix Number"
-   when
-      MARC."028" has any "a,b" AND
-      MARC."028".ind"1" equals "1" AND
-      MARC."028".ind"2" equals "2"
-   then
-      set TEMP"1" to MARC."028" subfields "b"
-      set TEMP"2" to MARC."028" subfields "a"
-      remove leading and trailing spaces (TEMP"1")
-      remove leading and trailing spaces (TEMP"2")
-      add prefix (TEMP"1","$$CMATRIXNUM$$V")
-      concatenate with delimiter (TEMP"1",TEMP"2"," ")
-      create pnx."display"."identifier" with TEMP"1"
-end
-
-rule "Primo VE Display - Identifier 028/2/1 - Plate Number"
+rule "Primo VE Display - Identifier 028/2/1,2 - Plate Number"
    when
       MARC."028" has any "a,b" AND
       MARC."028".ind"1" equals "2" AND
-      MARC."028".ind"2" equals "1"
+      (MARC."028".ind"2" equals "1" OR
+      MARC."028".ind"2" equals "2")
    then
       set TEMP"1" to MARC."028" subfields "b"
       set TEMP"2" to MARC."028" subfields "a"
@@ -107,26 +80,14 @@ rule "Primo VE Display - Identifier 028/2/1 - Plate Number"
       create pnx."display"."identifier" with TEMP"1"
 end
 
-rule "Primo VE Display - Identifier 028/2/2 - Plate Number"
+rule "Primo VE Display - Identifier 028/3,4,5/1,2 - Publisher Number"
    when
       MARC."028" has any "a,b" AND
-      MARC."028".ind"1" equals "2" AND
-      MARC."028".ind"2" equals "2"
-   then
-      set TEMP"1" to MARC."028" subfields "b"
-      set TEMP"2" to MARC."028" subfields "a"
-      remove leading and trailing spaces (TEMP"1")
-      remove leading and trailing spaces (TEMP"2")
-      add prefix (TEMP"1","$$CPLATENUM$$V")
-      concatenate with delimiter (TEMP"1",TEMP"2"," ")
-      create pnx."display"."identifier" with TEMP"1"
-end
-
-rule "Primo VE Display - Identifier 028/3/1 - Publisher Number"
-   when
-      MARC."028" has any "a,b" AND
-      MARC."028".ind"1" equals "3" AND
-      MARC."028".ind"2" equals "1"
+      (MARC."028".ind"1" equals "3" OR
+      MARC."028".ind"1" equals "4" OR
+      MARC."028".ind"1" equals "5") AND
+      (MARC."028".ind"2" equals "1" OR
+      MARC."028".ind"2" equals "2")
    then
       set TEMP"1" to MARC."028" subfields "b"
       set TEMP"2" to MARC."028" subfields "a"
@@ -137,101 +98,12 @@ rule "Primo VE Display - Identifier 028/3/1 - Publisher Number"
       create pnx."display"."identifier" with TEMP"1"
 end
 
-rule "Primo VE Display - Identifier 028/3/2 - Publisher Number"
-   when
-      MARC."028" has any "a,b" AND
-      MARC."028".ind"1" equals "3" AND
-      MARC."028".ind"2" equals "2"
-   then
-      set TEMP"1" to MARC."028" subfields "b"
-      set TEMP"2" to MARC."028" subfields "a"
-      remove leading and trailing spaces (TEMP"1")
-      remove leading and trailing spaces (TEMP"2")
-      add prefix (TEMP"1","$$CPUBLNUM$$V")
-      concatenate with delimiter (TEMP"1",TEMP"2"," ")
-      create pnx."display"."identifier" with TEMP"1"
-end
-
-rule "Primo VE Display - Identifier 028/4/1 - Publisher Number"
-   when
-      MARC."028" has any "a,b" AND
-      MARC."028".ind"1" equals "4" AND
-      MARC."028".ind"2" equals "1"
-   then
-      set TEMP"1" to MARC."028" subfields "b"
-      set TEMP"2" to MARC."028" subfields "a"
-      remove leading and trailing spaces (TEMP"1")
-      remove leading and trailing spaces (TEMP"2")
-      add prefix (TEMP"1","$$CPUBLNUM$$V")
-      concatenate with delimiter (TEMP"1",TEMP"2"," ")
-      create pnx."display"."identifier" with TEMP"1"
-end
-
-rule "Primo VE Display - Identifier 028/4/2 - Publisher Number"
-   when
-      MARC."028" has any "a,b" AND
-      MARC."028".ind"1" equals "4" AND
-      MARC."028".ind"2" equals "2"
-   then
-      set TEMP"1" to MARC."028" subfields "b"
-      set TEMP"2" to MARC."028" subfields "a"
-      remove leading and trailing spaces (TEMP"1")
-      remove leading and trailing spaces (TEMP"2")
-      add prefix (TEMP"1","$$CPUBLNUM$$V")
-      concatenate with delimiter (TEMP"1",TEMP"2"," ")
-      create pnx."display"."identifier" with TEMP"1"
-end
-
-rule "Primo VE Display - Identifier 028/5/1 - Publisher Number"
-   when
-      MARC."028" has any "a,b" AND
-      MARC."028".ind"1" equals "5" AND
-      MARC."028".ind"2" equals "1"
-   then
-      set TEMP"1" to MARC."028" subfields "b"
-      set TEMP"2" to MARC."028" subfields "a"
-      remove leading and trailing spaces (TEMP"1")
-      remove leading and trailing spaces (TEMP"2")
-      add prefix (TEMP"1","$$CPUBLNUM$$V")
-      concatenate with delimiter (TEMP"1",TEMP"2"," ")
-      create pnx."display"."identifier" with TEMP"1"
-end
-
-rule "Primo VE Display - Identifier 028/5/2 - Publisher Number"
-   when
-      MARC."028" has any "a,b" AND
-      MARC."028".ind"1" equals "5" AND
-      MARC."028".ind"2" equals "2"
-   then
-      set TEMP"1" to MARC."028" subfields "b"
-      set TEMP"2" to MARC."028" subfields "a"
-      remove leading and trailing spaces (TEMP"1")
-      remove leading and trailing spaces (TEMP"2")
-      add prefix (TEMP"1","$$CPUBLNUM$$V")
-      concatenate with delimiter (TEMP"1",TEMP"2"," ")
-      create pnx."display"."identifier" with TEMP"1"
-end
-
-rule "Primo VE Display - Identifier 028/6/1 - Distributor Number"
+rule "Primo VE Display - Identifier 028/6/1,2 - Distributor Number"
    when
       MARC."028" has any "a,b" AND
       MARC."028".ind"1" equals "6" AND
-      MARC."028".ind"2" equals "1"
-   then
-      set TEMP"1" to MARC."028" subfields "b"
-      set TEMP"2" to MARC."028" subfields "a"
-      remove leading and trailing spaces (TEMP"1")
-      remove leading and trailing spaces (TEMP"2")
-      add prefix (TEMP"1","$$CDISTNUM$$V")
-      concatenate with delimiter (TEMP"1",TEMP"2"," ")
-      create pnx."display"."identifier" with TEMP"1"
-end
-
-rule "Primo VE Display - Identifier 028/6/2 - Distributor Number"
-   when
-      MARC."028" has any "a,b" AND
-      MARC."028".ind"1" equals "6" AND
-      MARC."028".ind"2" equals "2"
+      (MARC."028".ind"2" equals "1" OR
+      MARC."028".ind"2" equals "2")
    then
       set TEMP"1" to MARC."028" subfields "b"
       set TEMP"2" to MARC."028" subfields "a"
