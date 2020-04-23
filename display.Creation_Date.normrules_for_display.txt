@@ -33,14 +33,12 @@ rule "Primo VE Display - Date of Publication 264/_/1 c - Publication Date"
       create pnx."display"."creationdate" with TEMP"1"
 end
 
-rule "Primo VE Display - Date Of Publication 008/07-14 - 008/06 Not i or k"
-   # 008/06 i or k = class of dates for archive and manuscript collection records
-   # Dates appear in title (245) statement rather than 260 or 264 fields
+rule "Primo VE Display - Date Of Publication 008/07-14 - No 260 or 264 Fields"
    priority 4
    when
       MARC.control is "008" AND NOT
-      MARC is "260" AND NOT
-      MARC is "264"
+      (MARC is "260" OR
+      MARC is "264")
    then
       set TEMP"1" to MARC.control."008".Date1
       set TEMP"2" to MARC.control."008".Date2
@@ -54,14 +52,39 @@ rule "Primo VE Display - Date Of Publication 008/07-14 - 008/06 Not i or k"
       create pnx."display"."creationdate" with TEMP"1"
 end
 
-# rule "Primo VE Display - Date Of Publication 008/07-14 - 008/06 i or k"
+# rule "Primo VE Display - Date Of Publication 008/07-14 - 008/06 Not i or k"
+   # For records lacking 260 and 264 $c's for dates that do not have codes i or k in 008/06
    # 008/06 i or k = class of dates for archive and manuscript collection records
    # Dates appear in title (245) statement rather than 260 or 264 fields
-#   priority 7
+#   priority 4
+#   when
+#      MARC.control is "008" AND NOT
+#      MARC.control."008"(6-6) match "i|k" AND NOT
+#      (MARC is "260" OR
+#      MARC is "264")
+#   then
+#      set TEMP"1" to MARC.control."008".Date1
+#      set TEMP"2" to MARC.control."008".Date2
+#      replace string by string (TEMP"1","[^0-9]","\\?")
+#      replace string by string (TEMP"1","9{4}","")
+#      replace string by string (TEMP"2","[^0-9]","\\?")
+#      replace string by string (TEMP"2","9{4}","")
+#      remove substring using regex (TEMP"1","^(0|\\?)+$")
+#      remove substring using regex (TEMP"2","^(0|\\?)+$")
+#      concatenate with delimiter (TEMP"1",TEMP"2","-")
+#      create pnx."display"."creationdate" with TEMP"1"
+# end
+
+# rule "Primo VE Display - Date Of Publication 008/07-14 - 008/06 i or k"
+   # For records lacking 260 and 264 $c's for dates that have codes i or k in 008/06
+   # 008/06 i or k = class of dates for archive and manuscript collection records
+   # Dates appear in title (245) statement rather than 260 or 264 fields
+#   priority 5
 #   when
 #      MARC.control is "008" AND
-#      MARC.control."008"(6) match "i|k" AND NOT
-#      MARC is "264"
+#      MARC.control."008"(6-6) match "i|k" AND NOT
+#      (MARC is "260" OR
+#      MARC is "264")
 #   then
 #      set TEMP"1" to MARC.control."008".Date1
 #      set TEMP"2" to MARC.control."008".Date2
