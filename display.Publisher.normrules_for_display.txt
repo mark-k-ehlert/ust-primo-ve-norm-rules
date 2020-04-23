@@ -74,3 +74,10 @@ rule "Primo VE Display - Publisher 264/_/3 - Manufacturer"
       concatenate with delimiter (TEMP"1",TEMP"2",", ")
       create pnx."display"."publisher" with TEMP"1"
 end
+
+rule "Primo VE Display - Publisher 362 - Suppress Field"
+   when
+      MARC."362" has any "a,z"
+   then
+      set pnx."display"."publisher_notes" to "<span style=display:none;></span>"
+end
