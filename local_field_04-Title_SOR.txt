@@ -1,0 +1,16 @@
+rule "Primo VE - Lds04"
+   # 245 Title and Statement of Responsibility
+   # For brief and/or full record views
+   when
+      MARC."245" has any "a-s"
+   then
+      # Excludes subfield h GMDs
+      set TEMP"1" to MARC."245" sub without sort "a,b,f,g,k,n,p,s"
+      set TEMP"2" to MARC."245" subfields "c"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","(;|/|,)$")
+      remove leading and trailing spaces (TEMP"2")
+      remove substring using regex (TEMP"1","^( |/)+")
+      concatenate with delimiter (TEMP"1",TEMP"2"," / ")
+      create pnx."display"."lds04" with TEMP"1"
+end
