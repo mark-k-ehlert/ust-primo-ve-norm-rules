@@ -1,53 +1,373 @@
-rule "Primo VE Display - Series 400"
+rule "Primo VE Display - Series 400/any/_,0"
    when
-      MARC."400" has any "a"
+      MARC."400" has any "a-g,k-l,n,p,t-v,x" AND
+      (MARC."400".ind"2" equals " " OR
+      MARC."400".ind"2" equals "0")
    then
-      set TEMP"1" to MARC "400" excluding num subfields without sort
-      set TEMP"2" to MARC."400" sub without sort "a"
-      remove substring using regex (TEMP"2","(/|:|;|=|,)+$")
+      # Capture subfields for string display
+      set TEMP"1" to MARC."400" excluding subfields without sorting "[0-9]|e|g|u|x"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |;|,)+$")
+      # Capture subfields for string searching
+      set TEMP"2" to MARC."400" excluding subfields without sorting "[0-9]|e|g|u|v|x"
+      remove leading and trailing spaces (TEMP"2")
+      remove substring using regex (TEMP"2","( |;|,)+$")
       add prefix (TEMP"2","$$Q")
       remove substring using regex (TEMP"2","^$$Q$")
       concatenate with delimiter (TEMP"1",TEMP"2","")
       create pnx."display"."series" with TEMP"1"
 end
 
-rule "Primo VE Display - Series 410"
+rule "Primo VE Display - Series 100 + 400/any/1"
    when
-      MARC."410" has any "a"
+      MARC is "100" AND
+      MARC is "400" AND
+      MARC."400".ind"2" equals "1"
    then
-      set TEMP"1" to MARC "410" excluding num subfields without sort
-      set TEMP"2" to MARC."410" sub without sort "a"
-      remove substring using regex (TEMP"2","(/|:|;|=|,)+$")
+      # Capture subfields for string display
+      set TEMP"1" to MARC."100" excluding subfields without sorting "[0-9]|e|g|u"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |;|,|\\.)+$")
+      set TEMP"2" to MARC."400" sub without sort "f,k,l,n,p,t,v"
+      remove leading and trailing spaces (TEMP"2")
+      remove substring using regex (TEMP"2","( |;|,)+$")
+      concatenate with delimiter (TEMP"1",TEMP"2",". ")
+      # Capture subfields for string searching
+      set TEMP"3" to MARC."100" excluding subfields without sorting "[0-9]|e|g|u"
+      remove leading and trailing spaces (TEMP"3")
+      remove substring using regex (TEMP"3","( |;|,|\\.)+$")
+      set TEMP"4" to MARC."400" sub without sort "f,k,l,n,p,t"
+      remove leading and trailing spaces (TEMP"4")
+      remove substring using regex (TEMP"4","( |;|,)+$")
+      concatenate with delimiter (TEMP"3",TEMP"4",". ")
+      add prefix (TEMP"3","$$Q")
+      remove substring using regex (TEMP"3","^$$Q$")
+      concatenate with delimiter (TEMP"1",TEMP"3","")
+      create pnx."display"."series" with TEMP"1"
+end
+
+rule "Primo VE Display - Series 410/any/_,0"
+   when
+      MARC is "410" AND
+      (MARC."410".ind"2" equals " " OR
+      MARC."410".ind"2" equals "0")
+   then
+      set TEMP"1" to MARC."410" excluding subfields without sorting "[0-9]|e|u|x"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |;|,)+$")
+      # Capture subfields for string searching
+      set TEMP"2" to MARC."410" excluding subfields without sorting "[0-9]|e|u|v|x"
+      remove leading and trailing spaces (TEMP"2")
+      remove substring using regex (TEMP"2","( |;|,)+$")
       add prefix (TEMP"2","$$Q")
       remove substring using regex (TEMP"2","^$$Q$")
       concatenate with delimiter (TEMP"1",TEMP"2","")
       create pnx."display"."series" with TEMP"1"
 end
 
-rule "Primo VE Display - Series 411"
+rule "Primo VE Display - Series 110 + 410/any/1"
    when
-      MARC."411" has any "a"
+      MARC is "110" AND
+      MARC is "410" AND
+      MARC."410".ind"2" equals "1"
    then
-      set TEMP"1" to MARC "411" excluding num subfields without sort
-      set TEMP"2" to MARC."411" sub without sort "a"
-      remove substring using regex (TEMP"2","(/|:|;|=|,)+$")
+      # Capture subfields for string display
+      set TEMP"1" to MARC."110" excluding subfields without sorting "[0-9]|e|u"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |;|,|\\.)+$")
+      set TEMP"2" to MARC."410" sub without sort "f,k,l,n,p,t,v"
+      remove leading and trailing spaces (TEMP"2")
+      remove substring using regex (TEMP"2","( |;|,)+$")
+      concatenate with delimiter (TEMP"1",TEMP"2",". ")
+      # Capture subfields for string searching
+      set TEMP"3" to MARC."110" excluding subfields without sorting "[0-9]|e|u"
+      remove leading and trailing spaces (TEMP"3")
+      remove substring using regex (TEMP"3","( |;|,|\\.)+$")
+      set TEMP"4" to MARC."410" sub without sort "f,k,l,n,p,t"
+      remove leading and trailing spaces (TEMP"4")
+      remove substring using regex (TEMP"4","( |;|,)+$")
+      concatenate with delimiter (TEMP"3",TEMP"4",". ")
+      add prefix (TEMP"3","$$Q")
+      remove substring using regex (TEMP"3","^$$Q$")
+      concatenate with delimiter (TEMP"1",TEMP"3","")
+      create pnx."display"."series" with TEMP"1"
+end
+
+rule "Primo VE Display - Series 411/any/_,0"
+   when
+      MARC is "411" AND
+      (MARC."411".ind"2" equals " " OR
+      MARC."411".ind"2" equals "0")
+   then
+      # Capture subfields for string display
+      set TEMP"1" to MARC."411" excluding subfields without sorting "[0-9]|g|u|x"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |;|,)+$")
+      # Capture subfields for string searching
+      set TEMP"2" to MARC."411" excluding subfields without sorting "[0-9]|g|u|v|x"
+      remove leading and trailing spaces (TEMP"2")
+      remove substring using regex (TEMP"2","( |;|,)+$")
       add prefix (TEMP"2","$$Q")
       remove substring using regex (TEMP"2","^$$Q$")
       concatenate with delimiter (TEMP"1",TEMP"2","")
       create pnx."display"."series" with TEMP"1"
 end
 
-rule "Primo VE Display - Series 440"
+rule "Primo VE Display - Series 111 + 411/any/1"
    when
-      MARC."440" has any "a"
+      MARC is "111" AND
+      MARC is "411" AND
+      MARC."411".ind"2" equals "1"
    then
-      set TEMP"1" to MARC "440" excluding num subfields without sort
-      set TEMP"2" to MARC."440" sub without sort "a"
-      remove substring using regex (TEMP"2","(/|:|;|=|,)+$")
-      add prefix (TEMP"2","$$Q")
-      remove substring using regex (TEMP"2","^$$Q$")
-      concatenate with delimiter (TEMP"1",TEMP"2","")
-      kormarc remove nonfiling brackets MARC."440" sourcetag "440" from TEMP"1"
+      # Capture subfields for string display
+      set TEMP"1" to MARC."111" excluding subfields without sorting "[0-9]|g|j|u"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |;|,|\\.)+$")
+      set TEMP"2" to MARC."411" sub without sort "f,k,l,n,p,t,v"
+      remove leading and trailing spaces (TEMP"2")
+      remove substring using regex (TEMP"2","( |;|,)+$")
+      concatenate with delimiter (TEMP"1",TEMP"2",". ")
+      # Capture subfields for string searching
+      set TEMP"3" to MARC."111" excluding subfields without sorting "[0-9]|g|j|u"
+      remove leading and trailing spaces (TEMP"3")
+      remove substring using regex (TEMP"3","( |;|,|\\.)+$")
+      set TEMP"4" to MARC."411" sub without sort "f,k,l,n,p,t"
+      remove leading and trailing spaces (TEMP"4")
+      remove substring using regex (TEMP"4","( |;|,)+$")
+      concatenate with delimiter (TEMP"3",TEMP"4",". ")
+      add prefix (TEMP"3","$$Q")
+      remove substring using regex (TEMP"3","^$$Q$")
+      concatenate with delimiter (TEMP"1",TEMP"3","")
+      create pnx."display"."series" with TEMP"1"
+end
+
+rule "Primo VE Display - Series 440/any/_,0"
+   when
+      MARC is "440" AND
+      (MARC."440".ind"2" equals " " OR
+      MARC."440".ind"2" equals "0")
+   then
+      # Capture subfields for string display
+      set TEMP"1" to MARC "440" excluding subfields without sorting "[0-9]|v|x|w"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |;|,)+$")
+      set TEMP"2" to MARC."440" subfields "v"
+      remove leading and trailing spaces (TEMP"2")
+      concatenate with delimiter (TEMP"1",TEMP"2"," ; ")
+      # Capture subfields for string searching
+      set TEMP"3" to MARC "440" excluding subfields without sorting "[0-9]|v|x|w"
+      remove leading and trailing spaces (TEMP"3")
+      remove substring using regex (TEMP"3","( |;|,)+$")
+      add prefix (TEMP"3","$$Q")
+      remove substring using regex (TEMP"3","^$$Q$")
+      concatenate with delimiter (TEMP"1",TEMP"3","")
+      create pnx."display"."series" with TEMP"1"
+end
+
+rule "Primo VE Display - Series 440/any/1"
+   when
+      MARC is "440" AND
+      MARC."440".ind"2" equals "1"
+   then
+      # Capture subfields for string display
+      set TEMP"1" to MARC "440" excluding subfields without sorting "[0-9]|v|x|w"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |;|,)+$")
+      set TEMP"2" to MARC."440" subfields "v"
+      remove leading and trailing spaces (TEMP"2")
+      concatenate with delimiter (TEMP"1",TEMP"2"," ; ")
+      # Capture subfields for string searching
+      set TEMP"3" to MARC."440" excluding subfields without sorting "[0-9]|v|x|w"
+      remove leading and trailing spaces (TEMP"3")
+      remove substring using regex (TEMP"3","^.{1}")
+      remove substring using regex (TEMP"3","( |;|,)+$")
+      add prefix (TEMP"3","$$Q")
+      remove substring using regex (TEMP"3","^$$Q$")
+      concatenate with delimiter (TEMP"1",TEMP"3","")
+      create pnx."display"."series" with TEMP"1"
+end
+
+rule "Primo VE Display - Series 440/any/2"
+   when
+      MARC is "440" AND
+      MARC."440".ind"2" equals "2"
+   then
+      # Capture subfields for string display
+      set TEMP"1" to MARC "440" excluding subfields without sorting "[0-9]|v|x|w"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |;|,)+$")
+      set TEMP"2" to MARC."440" subfields "v"
+      remove leading and trailing spaces (TEMP"2")
+      concatenate with delimiter (TEMP"1",TEMP"2"," ; ")
+      # Capture subfields for string searching
+      set TEMP"3" to MARC."440" excluding subfields without sorting "[0-9]|v|x|w"
+      remove leading and trailing spaces (TEMP"3")
+      remove substring using regex (TEMP"3","^.{2}")
+      remove substring using regex (TEMP"3","( |;|,)+$")
+      add prefix (TEMP"3","$$Q")
+      remove substring using regex (TEMP"3","^$$Q$")
+      concatenate with delimiter (TEMP"1",TEMP"3","")
+      create pnx."display"."series" with TEMP"1"
+end
+
+rule "Primo VE Display - Series 440/any/3"
+   when
+      MARC is "440" AND
+      MARC."440".ind"2" equals "3"
+   then
+      # Capture subfields for string display
+      set TEMP"1" to MARC "440" excluding subfields without sorting "[0-9]|v|x|w"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |;|,)+$")
+      set TEMP"2" to MARC."440" subfields "v"
+      remove leading and trailing spaces (TEMP"2")
+      concatenate with delimiter (TEMP"1",TEMP"2"," ; ")
+      # Capture subfields for string searching
+      set TEMP"3" to MARC."440" excluding subfields without sorting "[0-9]|v|x|w"
+      remove leading and trailing spaces (TEMP"3")
+      remove substring using regex (TEMP"3","^.{3}")
+      remove substring using regex (TEMP"3","( |;|,)+$")
+      add prefix (TEMP"3","$$Q")
+      remove substring using regex (TEMP"3","^$$Q$")
+      concatenate with delimiter (TEMP"1",TEMP"3","")
+      create pnx."display"."series" with TEMP"1"
+end
+
+rule "Primo VE Display - Series 440/any/4"
+   when
+      MARC is "440" AND
+      MARC."440".ind"2" equals "4"
+   then
+      # Capture subfields for string display
+      set TEMP"1" to MARC "440" excluding subfields without sorting "[0-9]|v|x|w"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |;|,)+$")
+      set TEMP"2" to MARC."440" subfields "v"
+      remove leading and trailing spaces (TEMP"2")
+      concatenate with delimiter (TEMP"1",TEMP"2"," ; ")
+      # Capture subfields for string searching
+      set TEMP"3" to MARC."440" excluding subfields without sorting "[0-9]|v|x|w"
+      remove leading and trailing spaces (TEMP"3")
+      remove substring using regex (TEMP"3","^.{4}")
+      remove substring using regex (TEMP"3","( |;|,)+$")
+      add prefix (TEMP"3","$$Q")
+      remove substring using regex (TEMP"3","^$$Q$")
+      concatenate with delimiter (TEMP"1",TEMP"3","")
+      create pnx."display"."series" with TEMP"1"
+end
+
+rule "Primo VE Display - Series 440/any/5"
+   when
+      MARC is "440" AND
+      MARC."440".ind"2" equals "5"
+   then
+      # Capture subfields for string display
+      set TEMP"1" to MARC "440" excluding subfields without sorting "[0-9]|v|x|w"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |;|,)+$")
+      set TEMP"2" to MARC."440" subfields "v"
+      remove leading and trailing spaces (TEMP"2")
+      concatenate with delimiter (TEMP"1",TEMP"2"," ; ")
+      # Capture subfields for string searching
+      set TEMP"3" to MARC."440" excluding subfields without sorting "[0-9]|v|x|w"
+      remove leading and trailing spaces (TEMP"3")
+      remove substring using regex (TEMP"3","^.{5}")
+      remove substring using regex (TEMP"3","( |;|,)+$")
+      add prefix (TEMP"3","$$Q")
+      remove substring using regex (TEMP"3","^$$Q$")
+      concatenate with delimiter (TEMP"1",TEMP"3","")
+      create pnx."display"."series" with TEMP"1"
+end
+
+rule "Primo VE Display - Series 440/any/6"
+   when
+      MARC is "440" AND
+      MARC."440".ind"2" equals "6"
+   then
+      # Capture subfields for string display
+      set TEMP"1" to MARC "440" excluding subfields without sorting "[0-9]|v|x|w"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |;|,)+$")
+      set TEMP"2" to MARC."440" subfields "v"
+      remove leading and trailing spaces (TEMP"2")
+      concatenate with delimiter (TEMP"1",TEMP"2"," ; ")
+      # Capture subfields for string searching
+      set TEMP"3" to MARC."440" excluding subfields without sorting "[0-9]|v|x|w"
+      remove leading and trailing spaces (TEMP"3")
+      remove substring using regex (TEMP"3","^.{6}")
+      remove substring using regex (TEMP"3","( |;|,)+$")
+      add prefix (TEMP"3","$$Q")
+      remove substring using regex (TEMP"3","^$$Q$")
+      concatenate with delimiter (TEMP"1",TEMP"3","")
+      create pnx."display"."series" with TEMP"1"
+end
+
+rule "Primo VE Display - Series 440/any/7"
+   when
+      MARC is "440" AND
+      MARC."440".ind"2" equals "7"
+   then
+      # Capture subfields for string display
+      set TEMP"1" to MARC "440" excluding subfields without sorting "[0-9]|v|x|w"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |;|,)+$")
+      set TEMP"2" to MARC."440" subfields "v"
+      remove leading and trailing spaces (TEMP"2")
+      concatenate with delimiter (TEMP"1",TEMP"2"," ; ")
+      # Capture subfields for string searching
+      set TEMP"3" to MARC."440" excluding subfields without sorting "[0-9]|v|x|w"
+      remove leading and trailing spaces (TEMP"3")
+      remove substring using regex (TEMP"3","^.{7}")
+      remove substring using regex (TEMP"3","( |;|,)+$")
+      add prefix (TEMP"3","$$Q")
+      remove substring using regex (TEMP"3","^$$Q$")
+      concatenate with delimiter (TEMP"1",TEMP"3","")
+      create pnx."display"."series" with TEMP"1"
+end
+
+rule "Primo VE Display - Series 440/any/8"
+   when
+      MARC is "440" AND
+      MARC."440".ind"2" equals "8"
+   then
+      # Capture subfields for string display
+      set TEMP"1" to MARC "440" excluding subfields without sorting "[0-9]|v|x|w"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |;|,)+$")
+      set TEMP"2" to MARC."440" subfields "v"
+      remove leading and trailing spaces (TEMP"2")
+      concatenate with delimiter (TEMP"1",TEMP"2"," ; ")
+      # Capture subfields for string searching
+      set TEMP"3" to MARC."440" excluding subfields without sorting "[0-9]|v|x|w"
+      remove leading and trailing spaces (TEMP"3")
+      remove substring using regex (TEMP"3","^.{8}")
+      remove substring using regex (TEMP"3","( |;|,)+$")
+      add prefix (TEMP"3","$$Q")
+      remove substring using regex (TEMP"3","^$$Q$")
+      concatenate with delimiter (TEMP"1",TEMP"3","")
+      create pnx."display"."series" with TEMP"1"
+end
+
+rule "Primo VE Display - Series 440/any/9"
+   when
+      MARC is "440" AND
+      MARC."440".ind"2" equals "9"
+   then
+      # Capture subfields for string display
+      set TEMP"1" to MARC "440" excluding subfields without sorting "[0-9]|v|x|w"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |;|,)+$")
+      set TEMP"2" to MARC."440" subfields "v"
+      remove leading and trailing spaces (TEMP"2")
+      concatenate with delimiter (TEMP"1",TEMP"2"," ; ")
+      # Capture subfields for string searching
+      set TEMP"3" to MARC."440" excluding subfields without sorting "[0-9]|v|x|w"
+      remove leading and trailing spaces (TEMP"3")
+      remove substring using regex (TEMP"3","^.{9}")
+      remove substring using regex (TEMP"3","( |;|,)+$")
+      add prefix (TEMP"3","$$Q")
+      remove substring using regex (TEMP"3","^$$Q$")
+      concatenate with delimiter (TEMP"1",TEMP"3","")
       create pnx."display"."series" with TEMP"1"
 end
 
@@ -55,16 +375,24 @@ rule "Primo VE Display - Series 800"
    when
       MARC."800" has any "t"
    then
-      set TEMP"1" to MARC "800" excluding num subfields without sort
-      set TEMP"2" to MARC."800" sub without sort "t"
-      remove substring using regex (TEMP"2","(/|:|;|=|,)+$")
-      add prefix (TEMP"2","$$Q")
-      remove substring using regex (TEMP"2","^$$Q$")
-      set TEMP"3" to MARC."800" prima_w_relation "w"
-      set TEMP"4" to MARC."800" prima_x_relation "x"
-      concatenate with delimiter (TEMP"1",TEMP"2","")
+      # Capture subfields for string display
+      set TEMP"1" to MARC "800" excluding subfields without sorting "[0-9]|e|g|h|j|u|v|w|x"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |;|,)+$")
+      set TEMP"2" to MARC."800" subfields "v"
+      remove leading and trailing spaces (TEMP"2")
+      concatenate with delimiter (TEMP"1",TEMP"2"," ; ")
+      # Capture subfields for string searching
+      set TEMP"3" to MARC "800" excluding subfields without sorting "[0-9]|e|g|h|j|u|v|w|x"
+      remove leading and trailing spaces (TEMP"3")
+      remove substring using regex (TEMP"3","( |;|,)+$")
+      add prefix (TEMP"3","$$Q")
+      remove substring using regex (TEMP"3","^$$Q$")
+      set TEMP"4" to MARC."800" prima_w_relation "w"
+      set TEMP"5" to MARC."800" prima_x_relation "x"
       concatenate with delimiter (TEMP"1",TEMP"3","")
       concatenate with delimiter (TEMP"1",TEMP"4","")
+      concatenate with delimiter (TEMP"1",TEMP"5","")
       create pnx."display"."series" with TEMP"1"
 end
 
@@ -72,16 +400,24 @@ rule "Primo VE Display - Series 810"
    when
       MARC."810" has any "t"
    then
-      set TEMP"1" to MARC "810" excluding num subfields without sort
-      set TEMP"2" to MARC."810" sub without sort "t"
-      remove substring using regex (TEMP"2","(/|:|;|=|,)+$")
-      add prefix (TEMP"2","$$Q")
-      remove substring using regex (TEMP"2","^$$Q$")
-      set TEMP"3" to MARC."810" prima_w_relation "w"
-      set TEMP"4" to MARC."810" prima_x_relation "x"
-      concatenate with delimiter (TEMP"1",TEMP"2","")
+      # Capture subfields for string display
+      set TEMP"1" to MARC "810" excluding subfields without sorting "[0-9]|e|g|h|u|v|w|x"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |;|,)+$")
+      set TEMP"2" to MARC."810" subfields "v"
+      remove leading and trailing spaces (TEMP"2")
+      concatenate with delimiter (TEMP"1",TEMP"2"," ; ")
+      # Capture subfields for string searching
+      set TEMP"3" to MARC "810" excluding subfields without sorting "[0-9]|e|g|h|u|v|w|x"
+      remove leading and trailing spaces (TEMP"3")
+      remove substring using regex (TEMP"3","( |;|,)+$")
+      add prefix (TEMP"3","$$Q")
+      remove substring using regex (TEMP"3","^$$Q$")
+      set TEMP"4" to MARC."810" prima_w_relation "w"
+      set TEMP"5" to MARC."810" prima_x_relation "x"
       concatenate with delimiter (TEMP"1",TEMP"3","")
       concatenate with delimiter (TEMP"1",TEMP"4","")
+      concatenate with delimiter (TEMP"1",TEMP"5","")
       create pnx."display"."series" with TEMP"1"
 end
 
@@ -89,46 +425,48 @@ rule "Primo VE Display - Series 811"
    when
       MARC."811" has any "t"
    then
-      set TEMP"1" to MARC "811" excluding num subfields without sort
-      set TEMP"2" to MARC."811" sub without sort "t"
-      remove substring using regex (TEMP"2","(/|:|;|=|,)+$")
-      add prefix (TEMP"2","$$Q")
-      remove substring using regex (TEMP"2","^$$Q$")
-      set TEMP"3" to MARC."811" prima_w_relation "w"
-      set TEMP"4" to MARC."811" prima_x_relation "x"
-      concatenate with delimiter (TEMP"1",TEMP"2","")
+      # Capture subfields for string display
+      set TEMP"1" to MARC "811" excluding subfields without sorting "[0-9]|g|h|j|u|v|w|x"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |;|,)+$")
+      set TEMP"2" to MARC."811" subfields "v"
+      remove leading and trailing spaces (TEMP"2")
+      concatenate with delimiter (TEMP"1",TEMP"2"," ; ")
+      # Capture subfields for string searching
+      set TEMP"3" to MARC "811" excluding subfields without sorting "[0-9]|g|h|j|u|v|w|x"
+      remove leading and trailing spaces (TEMP"3")
+      remove substring using regex (TEMP"3","( |;|,)+$")
+      add prefix (TEMP"3","$$Q")
+      remove substring using regex (TEMP"3","^$$Q$")
+      set TEMP"4" to MARC."811" prima_w_relation "w"
+      set TEMP"5" to MARC."811" prima_x_relation "x"
       concatenate with delimiter (TEMP"1",TEMP"3","")
       concatenate with delimiter (TEMP"1",TEMP"4","")
+      concatenate with delimiter (TEMP"1",TEMP"5","")
       create pnx."display"."series" with TEMP"1"
 end
 
 rule "Primo VE Display - Series 830"
    when
-      MARC."830" has any "a,t"
+      MARC is "830"
    then
-      set TEMP"1" to MARC "830" excluding num subfields without sort
-      set TEMP"2" to MARC."830" sub without sort "a,t"
-      remove substring using regex (TEMP"2","(/|:|;|=|,)+$")
-      add prefix (TEMP"2","$$Q")
-      remove substring using regex (TEMP"2","^$$Q$")
-      set TEMP"3" to MARC."830" prima_w_relation "w"
-      set TEMP"4" to MARC."830" prima_x_relation "x"
-      concatenate with delimiter (TEMP"1",TEMP"2","")
+      # Capture subfields for string display
+      set TEMP"1" to MARC "830" excluding subfields without sorting "[0-9]|g|h|t|v|w|x"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |;|,)+$")
+      set TEMP"2" to MARC."830" subfields "v"
+      remove leading and trailing spaces (TEMP"2")
+      concatenate with delimiter (TEMP"1",TEMP"2"," ; ")
+      # Capture subfields for string searching
+      set TEMP"3" to MARC "830" excluding subfields without sorting "[0-9]|g|h|t|v|w|x"
+      remove leading and trailing spaces (TEMP"3")
+      remove substring using regex (TEMP"3","( |;|,)+$")
+      add prefix (TEMP"3","$$Q")
+      remove substring using regex (TEMP"3","^$$Q$")
+      set TEMP"4" to MARC."830" prima_w_relation "w"
+      set TEMP"5" to MARC."830" prima_x_relation "x"
       concatenate with delimiter (TEMP"1",TEMP"3","")
       concatenate with delimiter (TEMP"1",TEMP"4","")
-      kormarc remove nonfiling brackets MARC."830" sourcetag "830" from TEMP"1"
-      create pnx."display"."series" with TEMP"1"
-end
-
-rule "Primo VE Display - Series 840"
-   when
-      MARC."840" has any "a"
-   then
-      set TEMP"1" to MARC "840" excluding num subfields without sort
-      set TEMP"2" to MARC."840" sub without sort "a"
-      remove substring using regex (TEMP"2","(/|:|;|=|,)+$")
-      add prefix (TEMP"2","$$Q")
-      remove substring using regex (TEMP"2","^$$Q$")
-      concatenate with delimiter (TEMP"1",TEMP"2","")
+      concatenate with delimiter (TEMP"1",TEMP"5","")
       create pnx."display"."series" with TEMP"1"
 end
