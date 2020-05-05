@@ -1,0 +1,97 @@
+rule "Primo VE - Lds12"
+   # Series 928
+   when
+      MARC is "928" AND
+      (MARC."928"."5" match "MnSB" OR
+      MARC."928"."5" match "MnSCC" OR
+      MARC."928"."5" match "MnSH" OR
+      MARC."928"."5" match "MnRoN" OR
+      MARC."928"."5" match "MnSSC" OR
+      MARC."928"."5" match "MnSST" OR
+      MARC."928"."5" match "MnMpUSTL" OR
+      MARC."928"."5" match "MnSpCLIC")
+   then
+      set TEMP"1" to MARC "928" excluding subfields without sorting "[0-9]|g|h|t|v|w|x"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |;|,)+$")
+      set TEMP"2" to MARC."928" subfields "v"
+      remove leading and trailing spaces (TEMP"2")
+      concatenate with delimiter (TEMP"1",TEMP"2"," ; ")
+      set TEMP"3" to MARC "928" excluding subfields without sorting "[0-9]|g|h|t|v|w|x"
+      remove leading and trailing spaces (TEMP"3")
+      remove substring using regex (TEMP"3","( |;|,)+$")
+      add prefix (TEMP"3","$$Q")
+      remove substring using regex (TEMP"3","^$$Q$")
+      set TEMP"4" to MARC."928" prima_w_relation "w"
+      set TEMP"5" to MARC."928" prima_x_relation "x"
+      concatenate with delimiter (TEMP"1",TEMP"3","")
+      concatenate with delimiter (TEMP"1",TEMP"4","")
+      concatenate with delimiter (TEMP"1",TEMP"5","")
+      create pnx."display"."lds12" with TEMP"1"
+end
+
+
+### Rules above for display ###
+### Rules below for search ###
+
+
+rule "Primo VE Marc - Lsr12"
+   # Series 928 with $v"
+   priority 3
+   when
+      MARC is "928" AND
+      (MARC."928"."5" match "MnSB" OR
+      MARC."928"."5" match "MnSCC" OR
+      MARC."928"."5" match "MnSH" OR
+      MARC."928"."5" match "MnRoN" OR
+      MARC."928"."5" match "MnSSC" OR
+      MARC."928"."5" match "MnSST" OR
+      MARC."928"."5" match "MnMpUSTL" OR
+      MARC."928"."5" match "MnSpCLIC")
+   then
+      set TEMP"1" to MARC "928" excluding subfields without sorting "[0-9]|g|h|t|w|x"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |;|,)+$")
+      create pnx."search"."lsr12" with TEMP"1"
+end
+
+rule "Primo VE Marc - Lsr12_1"
+   # Series 928 without $v
+   priority 2
+   when
+      MARC is "928" AND
+      (MARC."928"."5" match "MnSB" OR
+      MARC."928"."5" match "MnSCC" OR
+      MARC."928"."5" match "MnSH" OR
+      MARC."928"."5" match "MnRoN" OR
+      MARC."928"."5" match "MnSSC" OR
+      MARC."928"."5" match "MnSST" OR
+      MARC."928"."5" match "MnMpUSTL" OR
+      MARC."928"."5" match "MnSpCLIC")
+   then
+      set TEMP"1" to MARC "928" excluding subfields without sorting "[0-9]|g|h|t|v|w|x"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |;|,)+$")
+      create pnx."search"."lsr12" with TEMP"1"
+end
+
+rule "Primo VE Marc - Lsr12_2"
+   # Series 928 $x only
+   priority 1
+   when
+      MARC is "928"."x" AND
+      (MARC."928"."5" match "MnSB" OR
+      MARC."928"."5" match "MnSCC" OR
+      MARC."928"."5" match "MnSH" OR
+      MARC."928"."5" match "MnRoN" OR
+      MARC."928"."5" match "MnSSC" OR
+      MARC."928"."5" match "MnSST" OR
+      MARC."928"."5" match "MnMpUSTL" OR
+      MARC."928"."5" match "MnSpCLIC")
+   then
+      set TEMP"1" to MARC."928" subfields "x"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","^( |;|,)+")
+      remove substring using regex (TEMP"1","( |;|,)+$")
+      create pnx."search"."lsr12" with TEMP"1"
+end
