@@ -1,0 +1,168 @@
+rule "Primo VE - Lds10"
+   # Includes 920
+   when
+      MARC."920" has any "t" AND
+      MARC."920".ind"2" equals "2" AND
+      (MARC."920"."5" match "MnSB" OR
+      MARC."920"."5" match "MnSCC" OR
+      MARC."920"."5" match "MnSH" OR
+      MARC."920"."5" match "MnRoN" OR
+      MARC."920"."5" match "MnSSC" OR
+      MARC."920"."5" match "MnSST" OR
+      MARC."920"."5" match "MnMpUSTL" OR
+      MARC."920"."5" match "MnSpCLIC")
+   then
+      set TEMP"1" to MARC."920" excluding subfields without sorting "[0-9]|e|i|x"
+      set TEMP"2" to MARC."920" excluding subfields without sorting "[0-9]|e|h|i|u|x"
+      add prefix (TEMP"2","$$Q")
+      remove substring using regex (TEMP"2","^$$Q$")
+      concatenate with delimiter (TEMP"1",TEMP"2","")
+      create pnx."display"."lds10" with TEMP"1"
+end
+
+rule "Primo VE - Lds10_1"
+   # Includes 921
+   when
+      MARC."921" has any "t" AND
+      MARC."921".ind"2" equals "2" AND
+      (MARC."921"."5" match "MnSB" OR
+      MARC."921"."5" match "MnSCC" OR
+      MARC."921"."5" match "MnSH" OR
+      MARC."921"."5" match "MnRoN" OR
+      MARC."921"."5" match "MnSSC" OR
+      MARC."921"."5" match "MnSST" OR
+      MARC."921"."5" match "MnMpUSTL" OR
+      MARC."921"."5" match "MnSpCLIC")
+   then
+      set TEMP"1" to MARC."921" excluding subfields without sorting "[0-9]|e|i|x"
+      set TEMP"2" to MARC."921" excluding subfields without sorting "[0-9]|e|h|i|u|x"
+      add prefix (TEMP"2","$$Q")
+      remove substring using regex (TEMP"2","^$$Q$")
+      concatenate with delimiter (TEMP"1",TEMP"2","")
+      create pnx."display"."lds10" with TEMP"1"
+end
+
+rule "Primo VE - Lds10_2"
+   # Includes 922
+   when
+      MARC."922" has any "t" AND
+      MARC."922".ind"2" equals "2" AND
+      (MARC."922"."5" match "MnSB" OR
+      MARC."922"."5" match "MnSCC" OR
+      MARC."922"."5" match "MnSH" OR
+      MARC."922"."5" match "MnRoN" OR
+      MARC."922"."5" match "MnSSC" OR
+      MARC."922"."5" match "MnSST" OR
+      MARC."922"."5" match "MnMpUSTL" OR
+      MARC."922"."5" match "MnSpCLIC")
+   then
+      set TEMP"1" to MARC."922" excluding subfields without sorting "[0-9]|i|j|x"
+      set TEMP"2" to MARC."922" excluding subfields without sorting "[0-9]|h|i|j|u|x"
+      add prefix (TEMP"2","$$Q")
+      remove substring using regex (TEMP"2","^$$Q$")
+      concatenate with delimiter (TEMP"1",TEMP"2","")
+      create pnx."display"."lds10" with TEMP"1"
+end
+
+rule "Primo VE - Lds10_3"
+   # Includes 923
+   when
+      MARC is "923" AND
+      MARC."923".ind"2" equals "2" AND
+      (MARC."923"."5" match "MnSB" OR
+      MARC."923"."5" match "MnSCC" OR
+      MARC."923"."5" match "MnSH" OR
+      MARC."923"."5" match "MnRoN" OR
+      MARC."923"."5" match "MnSSC" OR
+      MARC."923"."5" match "MnSST" OR
+      MARC."923"."5" match "MnMpUSTL" OR
+      MARC."923"."5" match "MnSpCLIC")
+   then
+      set TEMP"1" to MARC."923" excluding subfields without sorting "[0-9]|i|x"
+      set TEMP"2" to MARC."923" excluding subfields without sorting "[0-9]|h|i|x"
+      add prefix (TEMP"2","$$Q")
+      remove substring using regex (TEMP"2","^$$Q$")
+      concatenate with delimiter (TEMP"1",TEMP"2","")
+      create pnx."display"."lds10" with TEMP"1"
+end
+
+
+### Rules above for display ###
+### Rules below for search ###
+
+
+rule "Primo VE Marc - Lsr10"
+   # Includes 920
+   when
+      MARC."920" has any "t" AND
+      MARC."920".ind"2" equals "2" AND
+      (MARC."920"."5" match "MnSB" OR
+      MARC."920"."5" match "MnSCC" OR
+      MARC."920"."5" match "MnSH" OR
+      MARC."920"."5" match "MnRoN" OR
+      MARC."920"."5" match "MnSSC" OR
+      MARC."920"."5" match "MnSST" OR
+      MARC."920"."5" match "MnMpUSTL" OR
+      MARC."920"."5" match "MnSpCLIC")
+   then
+      set TEMP"1" to MARC."920" excluding subfields without sorting "[0-9]|e|i|x"
+      remove leading and trailing spaces (TEMP"1")
+      create pnx."search"."lsr10" with TEMP"1"
+end
+
+rule "Primo VE Marc - Lsr10_1"
+   # Includes 921
+   when
+      MARC."921" has any "t" AND
+      MARC."921".ind"2" equals "2" AND
+      (MARC."921"."5" match "MnSB" OR
+      MARC."921"."5" match "MnSCC" OR
+      MARC."921"."5" match "MnSH" OR
+      MARC."921"."5" match "MnRoN" OR
+      MARC."921"."5" match "MnSSC" OR
+      MARC."921"."5" match "MnSST" OR
+      MARC."921"."5" match "MnMpUSTL" OR
+      MARC."921"."5" match "MnSpCLIC")
+   then
+      set TEMP"1" to MARC."921" excluding subfields without sorting "[0-9]|e|i|x"
+      remove leading and trailing spaces (TEMP"1")
+      create pnx."search"."lsr10" with TEMP"1"
+end
+
+rule "Primo VE Marc - Lsr10_2"
+   # Includes 922
+   when
+      MARC."922" has any "t" AND
+      MARC."922".ind"2" equals "2" AND
+      (MARC."922"."5" match "MnSB" OR
+      MARC."922"."5" match "MnSCC" OR
+      MARC."922"."5" match "MnSH" OR
+      MARC."922"."5" match "MnRoN" OR
+      MARC."922"."5" match "MnSSC" OR
+      MARC."922"."5" match "MnSST" OR
+      MARC."922"."5" match "MnMpUSTL" OR
+      MARC."922"."5" match "MnSpCLIC")
+   then
+      set TEMP"1" to MARC."922" excluding subfields without sorting "[0-9]|i|j|x"
+      remove leading and trailing spaces (TEMP"1")
+      create pnx."search"."lsr10" with TEMP"1"
+end
+
+rule "Primo VE Marc - Lsr10_3"
+   # Includes 923
+   when
+      MARC is "923" AND
+      MARC."923".ind"2" equals "2" AND
+      (MARC."923"."5" match "MnSB" OR
+      MARC."923"."5" match "MnSCC" OR
+      MARC."923"."5" match "MnSH" OR
+      MARC."923"."5" match "MnRoN" OR
+      MARC."923"."5" match "MnSSC" OR
+      MARC."923"."5" match "MnSST" OR
+      MARC."923"."5" match "MnMpUSTL" OR
+      MARC."923"."5" match "MnSpCLIC")
+   then
+      set TEMP"1" to MARC."923" excluding subfields without sorting "[0-9]|i|x"
+      remove leading and trailing spaces (TEMP"1")
+      create pnx."search"."lsr10" with TEMP"1"
+end
