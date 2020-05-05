@@ -1,5 +1,108 @@
-rule "Primo VE Display - Description 520/0/_ - Subject"
+rule "Primo VE Display - Description 521/0/_ - Reading Grade Level"
    priority 1
+   when
+      MARC."521" has any "a,b" AND
+      MARC."521".ind"1" equals "0"
+   then
+      set TEMP"1" to MARC."521" subfields "a"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","-{1,5}$")
+      add prefix (TEMP"1","<b>Reading level (grade)</b>: ")
+      set TEMP"2" to MARC."521" subfields "b"
+      remove leading and trailing spaces (TEMP"2")
+      add prefix (TEMP"2","--")
+      concatenate with delimiter (TEMP"1",TEMP"2","")
+      create pnx."display"."description" with TEMP"1"
+end
+
+rule "Primo VE Display - Description 521/1/_ - Interest Age Level"
+   priority 2
+   when
+      MARC."521" has any "a,b" AND
+      MARC."521".ind"1" equals "1"
+   then
+      set TEMP"1" to MARC."521" subfields "a"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","-{1,5}$")
+      add prefix (TEMP"1","<b>Interest level (age)</b>: ")
+      set TEMP"2" to MARC."521" subfields "b"
+      remove leading and trailing spaces (TEMP"2")
+      add prefix (TEMP"2","--")
+      concatenate with delimiter (TEMP"1",TEMP"2","")
+      create pnx."display"."description" with TEMP"1"
+end
+
+rule "Primo VE Display - Description 521/2/_ - Interest Grade Level"
+   priority 3
+   when
+      MARC."521" has any "a,b" AND
+      MARC."521".ind"1" equals "2"
+   then
+      set TEMP"1" to MARC."521" subfields "a"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","-{1,5}$")
+      add prefix (TEMP"1","<b>Interest level (grade)</b>: ")
+      set TEMP"2" to MARC."521" subfields "b"
+      remove leading and trailing spaces (TEMP"2")
+      add prefix (TEMP"2","--")
+      concatenate with delimiter (TEMP"1",TEMP"2","")
+      create pnx."display"."description" with TEMP"1"
+end
+
+rule "Primo VE Display - Description 521/3/_ - Special Audience Characteristics"
+   priority 4
+   when
+      MARC."521" has any "a,b" AND
+      MARC."521".ind"1" equals "3"
+   then
+      set TEMP"1" to MARC."521" subfields "a"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","-{1,5}$")
+      add prefix (TEMP"1","<b>Special audience characteristics</b>: ")
+      set TEMP"2" to MARC."521" subfields "b"
+      remove leading and trailing spaces (TEMP"2")
+      add prefix (TEMP"2","--")
+      concatenate with delimiter (TEMP"1",TEMP"2","")
+      create pnx."display"."description" with TEMP"1"
+end
+
+rule "Primo VE Display - Description 521/4/_ - Motivation/Interest Level"
+   priority 5
+   when
+      MARC."521" has any "a,b" AND
+      MARC."521".ind"1" equals "4"
+   then
+      set TEMP"1" to MARC."521" subfields "a"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","-{1,5}$")
+      add prefix (TEMP"1","<b>Motivation/interest level</b>: ")
+      set TEMP"2" to MARC."521" subfields "b"
+      remove leading and trailing spaces (TEMP"2")
+      add prefix (TEMP"2","--")
+      concatenate with delimiter (TEMP"1",TEMP"2","")
+      create pnx."display"."description" with TEMP"1"
+end
+
+rule "Primo VE Display - Description 521/_/_ - Audience"
+   priority 6
+   when
+      MARC."521" has any "a,b" AND
+      (MARC."521".ind"1" equals " " OR
+      MARC."521".ind"1" equals "8")
+   then
+      set TEMP"1" to MARC."521" subfields "a"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","-{1,5}$")
+      add prefix (TEMP"1","<b>Audience note</b>: ")
+      set TEMP"2" to MARC."521" subfields "b"
+      remove leading and trailing spaces (TEMP"2")
+      add prefix (TEMP"2","--")
+      concatenate with delimiter (TEMP"1",TEMP"2","")
+      create pnx."display"."description" with TEMP"1"
+end
+
+rule "Primo VE Display - Description 520/0/_ - Subject"
+   priority 7
    when
       MARC."520" has any "a,b,c" AND
       MARC."520".ind"1" equals "0"
@@ -21,7 +124,7 @@ rule "Primo VE Display - Description 520/0/_ - Subject"
 end
 
 rule "Primo VE Display - Description 520/1/_ - Review"
-   priority 3
+   priority 8
    when
       MARC."520" has any "a,b,c" AND
       MARC."520".ind"1" equals "1"
@@ -43,7 +146,7 @@ rule "Primo VE Display - Description 520/1/_ - Review"
 end
 
 rule "Primo VE Display - Description 520/2/_ - Scope and Content"
-   priority 5
+   priority 9
    when
       MARC."520" has any "a,b,c" AND
       MARC."520".ind"1" equals "2"
@@ -65,7 +168,7 @@ rule "Primo VE Display - Description 520/2/_ - Scope and Content"
 end
 
 rule "Primo VE Display - Description 520/3/_ - Abstract"
-   priority 7
+   priority 10
    when
       MARC."520" has any "a,b,c" AND
       MARC."520".ind"1" equals "3"
@@ -87,7 +190,7 @@ rule "Primo VE Display - Description 520/3/_ - Abstract"
 end
 
 rule "Primo VE Display - Description 520/4/_ - Content advice"
-   priority 9
+   priority 12
    when
       MARC."520" has any "a,b,c" AND
       MARC."520".ind"1" equals "4"
@@ -108,32 +211,12 @@ rule "Primo VE Display - Description 520/4/_ - Content advice"
       create pnx."display"."description" with TEMP"1"
 end
 
-rule "Primo VE Display - Description 520/8/_ - None"
-   priority 11
-   when
-      MARC."520" has any "a,b,c" AND
-      MARC."520".ind"1" equals "8"
-   then
-      set TEMP"1" to MARC."520" subfields "a"
-      remove leading and trailing spaces (TEMP"1")
-      remove substring using regex (TEMP"1","-{1,5}$")
-      set TEMP"2" to MARC."520" subfields "b"
-      remove leading and trailing spaces (TEMP"2")
-      remove substring using regex (TEMP"2","-{1,5}$")
-      add prefix (TEMP"2","<br /><b>Details</b>: ")
-      set TEMP"3" to MARC."520" subfields "c"
-      remove leading and trailing spaces (TEMP"3")
-      add prefix (TEMP"3","--")
-      concatenate with delimiter (TEMP"1",TEMP"2","")
-      concatenate with delimiter (TEMP"1",TEMP"3","")
-      create pnx."display"."description" with TEMP"1"
-end
-
-rule "Primo VE Display - Description 520/_/_ - Summary"
+rule "Primo VE Display - Description 520/_,8/_ - Summary"
    priority 13
    when
        MARC."520" has any "a,b,c" AND
-       MARC."520".ind"1" equals " "
+       (MARC."520".ind"1" equals " " OR
+       MARC."520".ind"1" equals "8")
    then
       set TEMP"1" to MARC."520" subfields "a"
       remove leading and trailing spaces (TEMP"1")
@@ -152,7 +235,7 @@ rule "Primo VE Display - Description 520/_/_ - Summary"
 end
 
 # rule "Primo VE Display - Description 520/_/_ 3 - Summary"
-#   priority 14
+#   priority 99
 #   when
 #      MARC is "520"."3" AND NOT
 #      MARC."520".ind"1" equals "0,1,2,3,4,8"
