@@ -6,11 +6,13 @@ rule "Primo VE - Lds03"
       create pnx."display"."lds03" with MARC "930"."a"
 end
 
-# Rules above for display
-# Rules below for search
+
+### Rules above for display ###
+### Rules below for search ###
+
 
 rule "Primo VE Marc - Lsr03"
-   # Adds "is (exact)" search capabilities to 930 field
+   # Adds search capabilities to 930 field
    when
       MARC is "930"."a" AND
       MARC."930"."5" match "MnSpCLIC"
