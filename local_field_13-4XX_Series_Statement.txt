@@ -1,0 +1,71 @@
+rule "Primo VE - Lds13"
+   # Series 400
+   # For full record views
+   when
+      MARC is "400"
+   then
+      set TEMP"1" to MARC."400" excluding subfields without sorting "[0-9]|e|g|u"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |;|,)+$")
+      create pnx."display"."lds13" with TEMP"1"
+end
+
+rule "Primo VE - Lds13_1"
+   # Series 410
+   # For full record views
+   when
+      MARC is "410"
+   then
+      set TEMP"1" to MARC."410" excluding subfields without sorting "[0-9]|e|u"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |;|,)+$")
+      create pnx."display"."lds13" with TEMP"1"
+end
+
+rule "Primo VE - Lds13_2"
+   # Series 411
+   # For full record views
+   when
+      MARC is "411"
+   then
+      set TEMP"1" to MARC."411" excluding subfields without sorting "[0-9]|g|u"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |;|,)+$")
+      create pnx."display"."lds13" with TEMP"1"
+end
+
+rule "Primo VE - Lds13_3"
+   # Series 440
+   # For full record views
+   # Special styling rules for $v and $x because $a is
+   #   not repeatable
+   when
+      MARC."440" has any "a,n,p,v,x"
+   then
+      set TEMP"1" to MARC."440" sub without sort "a,n,p"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |;|,)+$")
+      set TEMP"2" to MARC."440" subfields "x"
+      remove leading and trailing spaces (TEMP"2")
+      remove substring using regex (TEMP"2","^( |;|,)+")
+      remove substring using regex (TEMP"2","( |;|,)+$")
+      concatenate with delimiter (TEMP"1",TEMP"2",", ")
+      set TEMP"3" to MARC."440" subfields "v"
+      remove leading and trailing spaces (TEMP"3")
+      concatenate with delimiter (TEMP"1",TEMP"3"," ; ")
+      create pnx."display"."lds13" with TEMP"1"
+end
+
+rule "Primo VE - Lds13_4"
+   # Series 490
+   # For full record views
+   # No special styling rules for $v and $x because $a is
+   #   repeatable
+   when
+      MARC."490" has any "a,v,x"
+   then
+      set TEMP"1" to MARC."490" sub without sort "a,v,x"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |;|,)+$")
+      create pnx."display"."lds13" with TEMP"1"
+end
