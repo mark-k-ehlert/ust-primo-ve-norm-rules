@@ -1,0 +1,102 @@
+rule "Primo VE - Lds06"
+   # Main Creator + Work 100 no 240
+   # For brief record displays
+   priority 1
+   when
+      MARC."100" has any "a,b,c,d,j,q,u" AND NOT
+      MARC."240" has any "a"
+   then
+      set TEMP"1" to MARC."100" sub without sort "a,b,c,d,j,q,u"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","(/|:|;|=|,)+$")
+      create pnx."display"."lds06" with TEMP"1"
+end
+
+rule "Primo VE - Lds06_1"
+   # Main Creator + Work 110 no 240
+   # For brief record displays
+   priority 2
+   when
+      MARC."110" has any "a,b,c,d,g,n,u" AND NOT
+      MARC."240" has any "a"
+   then
+      set TEMP"1" to MARC."110" sub without sort "a,b,c,d,g,n,u"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","(/|:|;|=|,)+$")
+      create pnx."display"."lds06" with TEMP"1"
+end
+
+rule "Primo VE - Lds06_2"
+   # Main Creator + Work 111 no 240
+   # For brief record displays
+   priority 3
+   when
+      MARC."111" has any "a,c,d,e,g,n,q,u" AND NOT
+      MARC."240" has any "a"
+   then
+      set TEMP"1" to MARC."111" sub without sort "a,c,d,e,g,n,q,u"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","(/|:|;|=|,)+$")
+      create pnx."display"."lds06" with TEMP"1"
+end
+
+rule "Primo VE - Lds06_3"
+   # Main Creator + Work 100/240
+   # For brief record displays
+   priority 4
+   when
+      MARC is "100" AND
+      MARC is "240"
+   then
+      set TEMP"1" to MARC."100" excluding subfields without sorting "[0-9]|e"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","(\\.|,)$")
+      set TEMP"2" to MARC."240" excluding numeric subfields
+      concatenate with delimiter (TEMP"1",TEMP"2",". ")
+      create pnx."display"."lds06" with TEMP"1"
+end
+
+rule "Primo VE - Lds06_4"
+   # Main Creator + Work 110/240
+   # For brief record displays
+   priority 5
+   when
+      MARC is "110" AND
+      MARC is "240"
+   then
+      set TEMP"1" to MARC."110" excluding subfields without sorting "[0-9]|e"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","(\\.|,)$")
+      set TEMP"2" to MARC."240" excluding numeric subfields
+      concatenate with delimiter (TEMP"1",TEMP"2",". ")
+      create pnx."display"."lds06" with TEMP"1"
+end
+
+rule "Primo VE - Lds06_5"
+   # Main Creator + Work 111/240
+   # For brief record displays
+   priority 6
+   when
+      MARC is "111" AND
+      MARC is "240"
+   then
+      set TEMP"1" to MARC."111" excluding subfields without sorting "[0-9]|j"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","(\\.|,)$")
+      set TEMP"2" to MARC."240" excluding numeric subfields
+      concatenate with delimiter (TEMP"1",TEMP"2",". ")
+      create pnx."display"."lds06" with TEMP"1"
+end
+
+rule "Primo VE - Lds06_6"
+   # Main Work 130
+   # For brief record displays
+   priority 7
+   when
+      MARC is "130"
+   then
+      set TEMP"1" to MARC."130" excluding numeric subfields
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","(:|;|,)+$")
+      create pnx."display"."lds06" with TEMP"1"
+end
