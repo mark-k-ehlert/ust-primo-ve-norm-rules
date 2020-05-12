@@ -1,0 +1,104 @@
+rule "Primo VE - Lds30"
+   # Cumulative Index/Finding Aids Note
+   # 555 field with 1st ind "0"
+   priority 1
+   when
+      MARC."555" has any "a,b,c,d,u" AND
+      MARC."555".ind"1" equals "0"
+   then
+      set TEMP"1" to MARC."555" subfields "a"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |;|,)+$")
+      add prefix (TEMP"1","<b>Finding aids</b>: ")
+      set TEMP"2" to MARC."555" subfields "b"
+      remove leading and trailing spaces (TEMP"2")
+      remove substring using regex (TEMP"2","( |;|,)+$")
+      add prefix (TEMP"2","<b>- Available from</b>: ")
+      set TEMP"3" to MARC."555" subfields "c"
+      remove leading and trailing spaces (TEMP"3")
+      remove substring using regex (TEMP"3","( |;|,)+$")
+      add prefix (TEMP"3","<b>- Degree of control</b>: ")
+      set TEMP"4" to MARC."555" subfields "d"
+      remove leading and trailing spaces (TEMP"4")
+      remove substring using regex (TEMP"4","( |;|,)+$")
+      add prefix (TEMP"4","<b>- Bibliographical reference</b>: ")
+      set TEMP"5" to MARC."555" subfields "u"
+      remove leading and trailing spaces (TEMP"5")
+      add prefix (TEMP"5","<b>- <a target=\"_blank\" href=\"")
+      add suffix (TEMP"5","\">Link to finding aid</a>")
+      concatenate with delimiter (TEMP"1",TEMP"2","<br />")
+      concatenate with delimiter (TEMP"1",TEMP"3","<br />")
+      concatenate with delimiter (TEMP"1",TEMP"4","<br />")
+      concatenate with delimiter (TEMP"1",TEMP"5","<br />")
+      create pnx."display"."lds30" with TEMP"1"
+end
+
+rule "Primo VE - Lds30_1"
+   # Cumulative Index/Finding Aids Note
+   # 555 field with 1st ind blank
+   priority 2
+   when
+      MARC."555" has any "a,b,c,d,u" AND
+      MARC."555".ind"1" equals " "
+   then
+      set TEMP"1" to MARC."555" subfields "a"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |;|,)+$")
+      add prefix (TEMP"1","<b>Indexes</b>: ")
+      set TEMP"2" to MARC."555" subfields "b"
+      remove leading and trailing spaces (TEMP"2")
+      remove substring using regex (TEMP"2","( |;|,)+$")
+      add prefix (TEMP"2","<b>- Available from</b>: ")
+      set TEMP"3" to MARC."555" subfields "c"
+      remove leading and trailing spaces (TEMP"3")
+      remove substring using regex (TEMP"3","( |;|,)+$")
+      add prefix (TEMP"3","<b>- Degree of control</b>: ")
+      set TEMP"4" to MARC."555" subfields "d"
+      remove leading and trailing spaces (TEMP"4")
+      remove substring using regex (TEMP"4","( |;|,)+$")
+      add prefix (TEMP"4","<b>- Bibliographical reference</b>: ")
+      set TEMP"5" to MARC."555" subfields "u"
+      remove leading and trailing spaces (TEMP"5")
+      add prefix (TEMP"5","<b>- <a target=\"_blank\" href=\"")
+      add suffix (TEMP"5","\">Link to index</a>")
+      concatenate with delimiter (TEMP"1",TEMP"2","<br />")
+      concatenate with delimiter (TEMP"1",TEMP"3","<br />")
+      concatenate with delimiter (TEMP"1",TEMP"4","<br />")
+      concatenate with delimiter (TEMP"1",TEMP"5","<br />")
+      create pnx."display"."lds30" with TEMP"1"
+end
+
+rule "Primo VE - Lds30_2"
+   # Cumulative Index/Finding Aids Note
+   # 555 field with 1st ind "8"
+   priority 3
+   when
+      MARC."555" has any "a,b,c,d,u" AND
+      MARC."555".ind"1" equals "8"
+   then
+      set TEMP"1" to MARC."555" subfields "a"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |;|,)+$")
+      add prefix (TEMP"1","<b>General note</b>: ")
+      set TEMP"2" to MARC."555" subfields "b"
+      remove leading and trailing spaces (TEMP"2")
+      remove substring using regex (TEMP"2","( |;|,)+$")
+      add prefix (TEMP"2","<b>- Available from</b>: ")
+      set TEMP"3" to MARC."555" subfields "c"
+      remove leading and trailing spaces (TEMP"3")
+      remove substring using regex (TEMP"3","( |;|,)+$")
+      add prefix (TEMP"3","<b>- Degree of control</b>: ")
+      set TEMP"4" to MARC."555" subfields "d"
+      remove leading and trailing spaces (TEMP"4")
+      remove substring using regex (TEMP"4","( |;|,)+$")
+      add prefix (TEMP"4","<b>- Bibliographical reference</b>: ")
+      set TEMP"5" to MARC."555" subfields "u"
+      remove leading and trailing spaces (TEMP"5")
+      add prefix (TEMP"5","<b>- <a target=\"_blank\" href=\"")
+      add suffix (TEMP"5","\">Link to index/finding aid</a>")
+      concatenate with delimiter (TEMP"1",TEMP"2","<br />")
+      concatenate with delimiter (TEMP"1",TEMP"3","<br />")
+      concatenate with delimiter (TEMP"1",TEMP"4","<br />")
+      concatenate with delimiter (TEMP"1",TEMP"5","<br />")
+      create pnx."display"."lds30" with TEMP"1"
+end
