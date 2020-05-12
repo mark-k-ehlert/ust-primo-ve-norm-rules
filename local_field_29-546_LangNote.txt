@@ -1,0 +1,47 @@
+rule "Primo VE - Lds29"
+   # Language Note
+   # 546 field with $a and no $b
+   when
+      MARC is "546"."a" AND NOT
+      MARC."546"."b" match ".+"
+   then
+      set TEMP"1" to MARC."546" subfields "a"
+      remove leading and trailing spaces (TEMP"1")
+      add prefix (TEMP"1","<b>Language note</b>: ")
+      create pnx."display"."lds29" with TEMP"1"
+end
+
+rule "Primo VE - Lds29_1"
+   # Language Note
+   # 546 field with $a + $b
+   when
+      MARC."546" has any "a,b" AND
+      MARC."546"."a" match ".+" AND
+      MARC."546"."b" match ".+"
+   then
+      set TEMP"1" to MARC."546" subfields "a"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |;|,)+$")
+      add prefix (TEMP"1","<b>Language note</b>: ")
+      set TEMP"2" to MARC."546" subfields "b"
+      remove leading and trailing spaces (TEMP"2")
+      remove substring using regex (TEMP"2","^( |;)+")
+      remove substring using regex (TEMP"2","( |;|,)+$")
+      add prefix (TEMP"2","(")
+      add suffix (TEMP"2",")")
+      concatenate with delimiter (TEMP"1",TEMP"2"," ")
+      create pnx."display"."lds29" with TEMP"1"
+end
+
+rule "Primo VE - Lds29_2"
+   # Language Note - Notation/script
+   # 546 field with $b and no $a
+   when
+      MARC is "546"."b" AND NOT
+      MARC."546"."a" match ".+"
+   then
+      set TEMP"1" to MARC."546" subfields "b"
+      remove leading and trailing spaces (TEMP"1")
+      add prefix (TEMP"1","<b>Notation/script</b>: ")
+      create pnx."display"."lds29" with TEMP"1"
+end
