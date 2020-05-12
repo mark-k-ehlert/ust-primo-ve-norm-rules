@@ -1,0 +1,40 @@
+rule "Primo VE - Lds17"
+   # Participant or Performer Note
+   # 511 field with 1st ind "0" or blank
+   priority 1
+   when
+      MARC."511" has any "a" AND
+      (MARC."511".ind"1" equals "0" OR
+      MARC."511".ind"1" equals " ")
+   then
+      set TEMP"1" to MARC."511" subfields "a"
+      remove leading and trailing spaces (TEMP"1")
+      create pnx."display"."lds17" with TEMP"1"
+end
+
+rule "Primo VE - Lds17_1"
+   # Participant or Performer Note
+   # 511 field with 1st ind "1"
+   priority 2
+   when
+      MARC."511" has any "a" AND
+      MARC."511".ind"1" equals "1"
+   then
+      set TEMP"1" to MARC."511" subfields "a"
+      remove leading and trailing spaces (TEMP"1")
+      add prefix (TEMP"1","<b>Cast</b>: ")
+      create pnx."display"."lds17" with TEMP"1"
+end
+
+rule "Primo VE - Lds17_2"
+   # Creation/Production Credits Note
+   # 508 field
+   priority 3
+   when
+      MARC is "508"."a"
+   then
+      set TEMP"1" to MARC."508" subfields "a"
+      remove leading and trailing spaces (TEMP"1")
+      add prefix (TEMP"1","<b>Credits</b>: ")
+      create pnx."display"."lds17" with TEMP"1"
+end
