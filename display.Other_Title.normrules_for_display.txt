@@ -1,77 +1,289 @@
-rule "Primo VE - addtitle 246"
-	when
-		MARC."246" has any "i,a,b,f,g,n,p"
-	then
-		create pnx."display"."addtitle" with MARC."246" sub without sort "i,a,b,f,g,n,p"
+rule "Primo VE Display - Other Title 246/0,1/_,3 - Other Title"
+   priority 9
+   when
+      MARC."246" has any "a,b,f,g,i,n,p" AND
+      (MARC."246".ind"1" equals "0" OR
+      MARC."246".ind"1" equals "1") AND
+      (MARC."246".ind"2" equals " " OR
+      MARC."246".ind"2" equals "3")
+   then
+      create pnx."display"."addtitle" with MARC."246" sub without sort "a,b,f,g,i,n,p"
 end
 
-rule "Primo VE - addtitle 247"
-	when
-		MARC."247" has any "i,a,b,f,g,n,p"
-	then
-		create pnx."display"."addtitle" with MARC."247" sub without sort "i,a,b,f,g,n,p"
+rule "Primo VE Display - Other Title 246/0,1/0 - Portion of Title"
+   priority 8
+   when
+      MARC."246" has any "a,b,f,g,i,n,p" AND
+      (MARC."246".ind"1" equals "0" OR
+      MARC."246".ind"1" equals "1") AND
+      MARC."246".ind"2" equals "0"
+   then
+      set TEMP"1" to MARC."246" sub without sort "a,b,f,g,i,n,p"
+      remove leading and trailing spaces (TEMP"1")
+      add prefix (TEMP"1","<b>Portion of title</b>: ")
+      create pnx."display"."addtitle" with TEMP"1"
 end
 
-rule "Primo VE - addtitle 730"
-	when
-		MARC is "730"
-	then
-		set TEMP"1" to MARC."730" excluding num subfields without sort
-		kormarc remove nonfiling brackets MARC."730" sourcetag "730" from TEMP"1"
-		create pnx."display"."addtitle" with TEMP"1"
+rule "Primo VE Display - Other Title 246/0,1/1 - Parallel Title"
+   priority 7
+   when
+      MARC."246" has any "a,b,f,g,i,n,p" AND
+      (MARC."246".ind"1" equals "0" OR
+      MARC."246".ind"1" equals "1") AND
+      MARC."246".ind"2" equals "1"
+   then
+      set TEMP"1" to MARC."246" sub without sort "a,b,f,g,i,n,p"
+      remove leading and trailing spaces (TEMP"1")
+      add prefix (TEMP"1","<b>Title in other language</b>: ")
+      create pnx."display"."addtitle" with TEMP"1"
 end
 
-rule "Primo VE - addtitle 740"
-	when
-		MARC is "740"
-	then
-		create pnx."display"."addtitle" with MARC."740" excluding num subfields without sort
+rule "Primo VE Display - Other Title 246/0,1/2 - Distinctive Title"
+   priority 6
+   when
+      MARC."246" has any "a,b,f,g,i,n,p" AND
+      (MARC."246".ind"1" equals "0" OR
+      MARC."246".ind"1" equals "1") AND
+      MARC."246".ind"2" equals "2"
+   then
+      set TEMP"1" to MARC."246" sub without sort "a,b,f,g,i,n,p"
+      remove leading and trailing spaces (TEMP"1")
+      add prefix (TEMP"1","<b>Distinctive title</b>: ")
+      create pnx."display"."addtitle" with TEMP"1"
 end
 
-rule "Primo VE - addtitle 840"
-	when
-		MARC is "840"
-	then
-		create pnx."display"."addtitle" with MARC."840" excluding num subfields without sort
+rule "Primo VE Display - Other Title 246/0,1/4 - Cover Title"
+   priority 5
+   when
+      MARC."246" has any "a,b,f,g,i,n,p" AND
+      (MARC."246".ind"1" equals "0" OR
+      MARC."246".ind"1" equals "1") AND
+      MARC."246".ind"2" equals "4"
+   then
+      set TEMP"1" to MARC."246" sub without sort "a,b,f,g,i,n,p"
+      remove leading and trailing spaces (TEMP"1")
+      add prefix (TEMP"1","<b>Cover title</b>: ")
+      create pnx."display"."addtitle" with TEMP"1"
 end
 
-rule "Primo VE - addtitle 880-246"
-	when
-		MARC."880" has any "i,a,b,f,g,n,p" AND
-		MARC."880"."6" match "246-.*"
-
-	then
-		create pnx."display"."addtitle" with MARC."880" sub without sort "i,a,b,f,g,n,p"
+rule "Primo VE Display - Other Title 246/0,1/5 - Added Title Page Title"
+   priority 4
+   when
+      MARC."246" has any "a,b,f,g,i,n,p" AND
+      (MARC."246".ind"1" equals "0" OR
+      MARC."246".ind"1" equals "1") AND
+      MARC."246".ind"2" equals "5"
+   then
+      set TEMP"1" to MARC."246" sub without sort "a,b,f,g,i,n,p"
+      remove leading and trailing spaces (TEMP"1")
+      add prefix (TEMP"1","<b>Added title page title</b>: ")
+      create pnx."display"."addtitle" with TEMP"1"
 end
 
-rule "Primo VE - addtitle 880-247"
-	when
-		MARC."880" has any "i,a,b,f,g,n,p" AND
-		MARC."880"."6" match "247-.*"
-	then
-		create pnx."display"."addtitle" with MARC."880" sub without sort "i,a,b,f,g,n,p"
+rule "Primo VE Display - Other Title 246/0,1/6 - Caption Title"
+   priority 3
+   when
+      MARC."246" has any "a,b,f,g,i,n,p" AND
+      (MARC."246".ind"1" equals "0" OR
+      MARC."246".ind"1" equals "1") AND
+      MARC."246".ind"2" equals "6"
+   then
+      set TEMP"1" to MARC."246" sub without sort "a,b,f,g,i,n,p"
+      remove leading and trailing spaces (TEMP"1")
+      add prefix (TEMP"1","<b>Caption title</b>: ")
+      create pnx."display"."addtitle" with TEMP"1"
 end
 
-rule "Primo VE - addtitle 880-730"
-	when
-		MARC is "880" AND
-		MARC."880"."6" match "730-.*"
-	then
-		create pnx."display"."addtitle" with MARC."880" excluding num subfields without sort
+rule "Primo VE Display - Other Title 246/0,1/7 - Running Title"
+   priority 2
+   when
+      MARC."246" has any "a,b,f,g,i,n,p" AND
+      (MARC."246".ind"1" equals "0" OR
+      MARC."246".ind"1" equals "1") AND
+      MARC."246".ind"2" equals "7"
+   then
+      set TEMP"1" to MARC."246" sub without sort "a,b,f,g,i,n,p"
+      remove leading and trailing spaces (TEMP"1")
+      add prefix (TEMP"1","<b>Running title</b>: ")
+      create pnx."display"."addtitle" with TEMP"1"
 end
 
-rule "Primo VE - addtitle 880-740"
-	when
-		MARC is "880" AND
-		MARC."880"."6" match "740-.*"
-	then
-		create pnx."display"."addtitle" with MARC."880" excluding num subfields without sort
+rule "Primo VE Display - Other Title 246/0,1/8 - Spine Title"
+   priority 1
+   when
+      MARC."246" has any "a,b,f,g,i,n,p" AND
+      (MARC."246".ind"1" equals "0" OR
+      MARC."246".ind"1" equals "1") AND
+      MARC."246".ind"2" equals "8"
+   then
+      set TEMP"1" to MARC."246" sub without sort "a,b,f,g,i,n,p"
+      remove leading and trailing spaces (TEMP"1")
+      add prefix (TEMP"1","<b>Spine title</b>: ")
+      create pnx."display"."addtitle" with TEMP"1"
 end
 
-rule "Primo VE - addtitle 880-840"
-	when
-		MARC is "880" AND
-		MARC."880"."6" match "840-.*"
-	then
-		create pnx."display"."addtitle" with MARC."880" excluding num subfields without sort
+rule "Primo VE Display - Other Title 927/0,1/_,3 - Other Title"
+   priority 9
+   when
+      MARC."927" has any "a,b,f,g,i,n,p" AND
+      (MARC."927".ind"1" equals "0" OR
+      MARC."927".ind"1" equals "1") AND
+      (MARC."927".ind"2" equals " " OR
+      MARC."927".ind"2" equals "3")
+   then
+      create pnx."display"."addtitle" with MARC."927" sub without sort "a,b,f,g,i,n,p"
+end
+
+rule "Primo VE Display - Other Title 927/0,1/0 - Portion of Title"
+   priority 8
+   when
+      MARC."927" has any "a,b,f,g,i,n,p" AND
+      (MARC."927".ind"1" equals "0" OR
+      MARC."927".ind"1" equals "1") AND
+      MARC."927".ind"2" equals "0"
+   then
+      set TEMP"1" to MARC."927" sub without sort "a,b,f,g,i,n,p"
+      remove leading and trailing spaces (TEMP"1")
+      add prefix (TEMP"1","<b>Portion of title</b>: ")
+      create pnx."display"."addtitle" with TEMP"1"
+end
+
+rule "Primo VE Display - Other Title 927/0,1/1 - Parallel Title"
+   priority 7
+   when
+      MARC."927" has any "a,b,f,g,i,n,p" AND
+      (MARC."927".ind"1" equals "0" OR
+      MARC."927".ind"1" equals "1") AND
+      MARC."927".ind"2" equals "1"
+   then
+      set TEMP"1" to MARC."927" sub without sort "a,b,f,g,i,n,p"
+      remove leading and trailing spaces (TEMP"1")
+      add prefix (TEMP"1","<b>Title in other language</b>: ")
+      create pnx."display"."addtitle" with TEMP"1"
+end
+
+rule "Primo VE Display - Other Title 927/0,1/2 - Distinctive Title"
+   priority 6
+   when
+      MARC."927" has any "a,b,f,g,i,n,p" AND
+      (MARC."927".ind"1" equals "0" OR
+      MARC."927".ind"1" equals "1") AND
+      MARC."927".ind"2" equals "2"
+   then
+      set TEMP"1" to MARC."927" sub without sort "a,b,f,g,i,n,p"
+      remove leading and trailing spaces (TEMP"1")
+      add prefix (TEMP"1","<b>Distinctive title</b>: ")
+      create pnx."display"."addtitle" with TEMP"1"
+end
+
+rule "Primo VE Display - Other Title 927/0,1/4 - Cover Title"
+   priority 5
+   when
+      MARC."927" has any "a,b,f,g,i,n,p" AND
+      (MARC."927".ind"1" equals "0" OR
+      MARC."927".ind"1" equals "1") AND
+      MARC."927".ind"2" equals "4"
+   then
+      set TEMP"1" to MARC."927" sub without sort "a,b,f,g,i,n,p"
+      remove leading and trailing spaces (TEMP"1")
+      add prefix (TEMP"1","<b>Cover title</b>: ")
+      create pnx."display"."addtitle" with TEMP"1"
+end
+
+rule "Primo VE Display - Other Title 927/0,1/5 - Added Title Page Title"
+   priority 4
+   when
+      MARC."927" has any "a,b,f,g,i,n,p" AND
+      (MARC."927".ind"1" equals "0" OR
+      MARC."927".ind"1" equals "1") AND
+      MARC."927".ind"2" equals "5"
+   then
+      set TEMP"1" to MARC."927" sub without sort "a,b,f,g,i,n,p"
+      remove leading and trailing spaces (TEMP"1")
+      add prefix (TEMP"1","<b>Added title page title</b>: ")
+      create pnx."display"."addtitle" with TEMP"1"
+end
+
+rule "Primo VE Display - Other Title 927/0,1/6 - Caption Title"
+   priority 3
+   when
+      MARC."927" has any "a,b,f,g,i,n,p" AND
+      (MARC."927".ind"1" equals "0" OR
+      MARC."927".ind"1" equals "1") AND
+      MARC."927".ind"2" equals "6"
+   then
+      set TEMP"1" to MARC."927" sub without sort "a,b,f,g,i,n,p"
+      remove leading and trailing spaces (TEMP"1")
+      add prefix (TEMP"1","<b>Caption title</b>: ")
+      create pnx."display"."addtitle" with TEMP"1"
+end
+
+rule "Primo VE Display - Other Title 927/0,1/7 - Running Title"
+   priority 2
+   when
+      MARC."927" has any "a,b,f,g,i,n,p" AND
+      (MARC."927".ind"1" equals "0" OR
+      MARC."927".ind"1" equals "1") AND
+      MARC."927".ind"2" equals "7"
+   then
+      set TEMP"1" to MARC."927" sub without sort "a,b,f,g,i,n,p"
+      remove leading and trailing spaces (TEMP"1")
+      add prefix (TEMP"1","<b>Running title</b>: ")
+      create pnx."display"."addtitle" with TEMP"1"
+end
+
+rule "Primo VE Display - Other Title 927/0,1/8 - Spine Title"
+   priority 1
+   when
+      MARC."927" has any "a,b,f,g,i,n,p" AND
+      (MARC."927".ind"1" equals "0" OR
+      MARC."927".ind"1" equals "1") AND
+      MARC."927".ind"2" equals "8"
+   then
+      set TEMP"1" to MARC."927" sub without sort "a,b,f,g,i,n,p"
+      remove leading and trailing spaces (TEMP"1")
+      add prefix (TEMP"1","<b>Spine title</b>: ")
+      create pnx."display"."addtitle" with TEMP"1"
+end
+
+rule "Primo VE Display - Other Title 740/any/-2 - Added Entry Uncontrolled Related Title"
+   priority 3
+   when
+      MARC."740" has any "a,n,p" AND NOT
+      MARC."740".ind"2" equals "2"
+   then
+      create pnx."display"."addtitle" with MARC."740" sub without sort "a,n,p"
+end
+
+rule "Primo VE Display - Other Title 924/any/-2 - Added Entry Uncontrolled Related Title"
+   priority 2
+   when
+      MARC."924" has any "a,n,p" AND NOT
+      MARC."924".ind"2" equals "2"
+   then
+      create pnx."display"."addtitle" with MARC."924" sub without sort "a,n,p"
+end
+
+rule "Primo VE Display - Other Title 247 - Former Title"
+   priority 1
+   when
+      MARC."247" has any "a,b,f,g,n,p,x" AND
+      MARC."247".ind"2" equals "0"
+   then
+      set TEMP"1" to MARC."247" sub without sort "a,b,n,p,x"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","(:|,| )+$")
+      add prefix (TEMP"1","<b>Former title</b>: ")
+      set TEMP"2" to MARC."247" subfields "f"
+      remove leading and trailing spaces (TEMP"2")
+      remove substring using regex (TEMP"2","(,| )+$")
+      set TEMP"3" to MARC."247" subfields "g"
+      remove leading and trailing spaces (TEMP"3")
+      remove substring using regex (TEMP"3","^\\(")
+      remove substring using regex (TEMP"3","(\\)|\\.| )+$")
+      add prefix (TEMP"3","(")
+      add suffix (TEMP"3",")")
+      concatenate with delimiter (TEMP"1",TEMP"2",", ")
+      concatenate with delimiter (TEMP"1",TEMP"3"," ")
+      create pnx."display"."addtitle" with TEMP"1"
 end
