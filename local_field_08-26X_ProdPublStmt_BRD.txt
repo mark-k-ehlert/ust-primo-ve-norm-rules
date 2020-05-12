@@ -1,0 +1,43 @@
+rule "Primo VE - Lds08"
+   # Publisher 260/_/any a,b,c,e,f,g
+   # For brief record views
+   priority 1
+   when
+      MARC."260" has any "a,b,c,e,f,g" AND
+      MARC."260".ind"1" equals " "
+   then
+      set TEMP"1" to MARC."260" sub without sort "a,b,c,e,f,g"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |:|;|,)+$")
+      create pnx."display"."lds08" with TEMP"1"
+end
+
+rule "Primo VE - Lds08_1"
+   # Publisher 264/_/0 - Producer a,b,c
+   # For brief record views
+   priority 2
+   when
+      MARC."264" has any "a,b,c" AND
+      MARC."264".ind"1" equals " " AND
+      MARC."264".ind"2" equals "0"
+   then
+      set TEMP"1" to MARC."264" sub without sort "a,b,c"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |:|;|,)+$")
+      create pnx."display"."lds08" with TEMP"1"
+end
+
+rule "Primo VE - Lds08_2"
+   # Publisher 264/_/1 - Publisher a,b,c
+   # For brief record views
+   priority 3
+   when
+      MARC."264" has any "a,b" AND
+      MARC."264".ind"1" equals " " AND
+      MARC."264".ind"2" equals "1"
+   then
+      set TEMP"1" to MARC."264" sub without sort "a,b,c"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |:|;|,)+$")
+      create pnx."display"."lds08" with TEMP"1"
+end
