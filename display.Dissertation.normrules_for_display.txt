@@ -5,11 +5,11 @@ rule "Primo VE Display - Dissertation 502 a"
       create pnx."display"."dissertation" with MARC."502"."a"
 end
 
-rule "Primo VE Display - Dissertation 502 b,c,d,g,o"
+rule "Primo VE Display - Dissertation 502 b,c,d,o"
    when
-      MARC."502" has any "b,c,d,g,o"
+      MARC."502" has any "b,c,d,o" AND NOT
+      MARC."502"."g" match ".*"
    then
-      # Subfield g ignored for now
       set TEMP"1" to MARC."502" subfields "b"
       set TEMP"2" to MARC."502" subfields "c"
       set TEMP"3" to MARC."502" subfields "d"
@@ -24,9 +24,36 @@ rule "Primo VE Display - Dissertation 502 b,c,d,g,o"
       remove leading and trailing spaces (TEMP"4")
       remove substring using regex (TEMP"4","\\.$")
       add prefix (TEMP"4","(identifier: ")
-      add suffix (TEMP"4",").")
+      add suffix (TEMP"4",")")
       concatenate with delimiter (TEMP"1",TEMP"2","")
       concatenate with delimiter (TEMP"1",TEMP"3","")
       concatenate with delimiter (TEMP"1",TEMP"4"," ")
+      create pnx."display"."dissertation" with TEMP"1"
+end
+
+rule "Primo VE Display - Dissertation 502 b,c,d,g,o"
+   when
+      MARC."502" has any "b,c,d,o" AND
+      MARC."502"."g" match ".*"
+   then
+      set TEMP"1" to MARC."502" subfields "g"
+      remove leading and trailing spaces (TEMP"1")
+      set TEMP"2" to MARC."502" subfields "b"
+      remove leading and trailing spaces (TEMP"2")
+      add prefix (TEMP"2","(")
+      add suffix (TEMP"2",")")
+      set TEMP"3" to MARC."502" subfields "c"
+      remove leading and trailing spaces (TEMP"3")
+      set TEMP"4" to MARC."502" subfields "d"
+      remove leading and trailing spaces (TEMP"4")
+      set TEMP"5" to MARC."502" subfields "o"
+      remove leading and trailing spaces (TEMP"5")
+      remove substring using regex (TEMP"5","\\.$")
+      add prefix (TEMP"5","(identifier: ")
+      add suffix (TEMP"5",")")
+      concatenate with delimiter (TEMP"1",TEMP"2"," ")
+      concatenate with delimiter (TEMP"1",TEMP"3","--")
+      concatenate with delimiter (TEMP"1",TEMP"4",", ")
+      concatenate with delimiter (TEMP"1",TEMP"5"," ")
       create pnx."display"."dissertation" with TEMP"1"
 end
