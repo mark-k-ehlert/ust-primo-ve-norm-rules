@@ -1,10 +1,19 @@
-rule "Primo VE - Title"
-	when
-		MARCRECORD
-	then
-	    set TEMP"1" to prima display title
-        remove string (TEMP"1","<<")
-        remove string (TEMP"1",">>")
-        remove substring using regex (TEMP"1","(,|/|:|;|=)+$")
-		create pnx."display"."title" with TEMP"1"
+rule "Primo VE Display - Title 245"
+   # Builds the Title element with 245 field parts, excluding $c
+   # Final punctuation removed; ISBD SoR slashes not added due to
+   #   potential slash dangling in title-only brief record displays
+   # Applies to monographs and continuing resources
+   when
+      # MARCRECORD
+      MARC."245" has any "a-s"
+   then
+      # Excludes $c SORs and $h GMDs
+      set TEMP"1" to MARC."245" sub without sort "a,b,f,g,k,n,p,s"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |,|/|:|;|=)+$")
+      # set TEMP"1" to prima display title
+      # remove string (TEMP"1","<<")
+      # remove string (TEMP"1",">>")
+      # remove substring using regex (TEMP"1","(,|/|:|;|=)+$")
+      create pnx."display"."title" with TEMP"1"
 end
