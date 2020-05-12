@@ -1,25 +1,42 @@
+rule "Primo VE Display - Issues Published 362 a,z"
+   priority 1
+   when
+      MARC."362" has any "a,z"
+   then
+      set TEMP"1" to MARC."362" subfields "a"
+      remove leading and trailing spaces (TEMP"1")
+      set TEMP"2" to MARC."362" subfields "z"
+      remove leading and trailing spaces (TEMP"2")
+      concatenate with delimiter (TEMP"1",TEMP"2","--")
+      create pnx."display"."frequency" with TEMP"1"
+end
+
 rule "Primo VE Display - Frequency 310 a,b"
+   priority 2
    when
       MARC."310" has any "a,b"
    then
       set TEMP"1" to MARC."310" subfields "a"
-      set TEMP"2" to MARC."310" subfields "b"
       remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |:|;|,)+$")
+      add prefix (TEMP"1","<b>Current frequency</b>: ")
+      set TEMP"2" to MARC."310" subfields "b"
       remove leading and trailing spaces (TEMP"2")
-      remove substring using regex (TEMP"1","(:|;|,)+$")
       concatenate with delimiter (TEMP"1",TEMP"2",", ")
       create pnx."display"."frequency" with TEMP"1"
 end
 
 rule "Primo VE Display - Frequency 321 a,b"
+   priority 3
    when
       MARC."321" has any "a,b"
    then
       set TEMP"1" to MARC."321" subfields "a"
-      set TEMP"2" to MARC."321" subfields "b"
       remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |:|;|,)+$")
+      add prefix (TEMP"1","<b>Former frequency</b>: ")
+      set TEMP"2" to MARC."321" subfields "b"
       remove leading and trailing spaces (TEMP"2")
-      remove substring using regex (TEMP"1","(:|;|,)+$")
       concatenate with delimiter (TEMP"1",TEMP"2",", ")
       create pnx."display"."frequency" with TEMP"1"
 end
