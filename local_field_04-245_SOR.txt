@@ -1,0 +1,18 @@
+rule "Primo VE - Lds04"
+   # 245 Statement of Responsibility
+   # For brief and/or full record views
+   # This local field developed for $c alone due
+   #   to substitution of the out-of-the-box Title
+   #   element for a local field with full title
+   #   strings (245s with $c statements of
+   #   responsibility) disrupts title displays in
+   #   PCI/CDI records
+   when
+      MARC is "245"."c"
+   then
+      set TEMP"1" to MARC."245" subfields "c"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","^( |/|;)+")
+      add prefix (TEMP"1","... ")
+      create pnx."display"."lds04" with TEMP"1"
+end
