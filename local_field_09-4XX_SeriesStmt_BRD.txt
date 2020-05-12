@@ -1,0 +1,81 @@
+rule "Primo VE - Lds09"
+   # Series 400
+   # For brief record views
+   # For the sake of brevity, excludes $x
+   when
+      MARC is "400"
+   then
+      set TEMP"1" to MARC."400" excluding subfields without sorting "[0-9]|e|g|u|x"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |;|,)+$")
+      add prefix (TEMP"1","(")
+      add suffix (TEMP"1",")")
+      create pnx."display"."lds09" with TEMP"1"
+end
+
+rule "Primo VE - Lds09_1"
+   # Series 410
+   # For brief record views
+   # For the sake of brevity, excludes $x
+   when
+      MARC is "410"
+   then
+      set TEMP"1" to MARC."410" excluding subfields without sorting "[0-9]|e|u|x"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |;|,)+$")
+      add prefix (TEMP"1","(")
+      add suffix (TEMP"1",")")
+      create pnx."display"."lds09" with TEMP"1"
+end
+
+rule "Primo VE - Lds09_2"
+   # Series 411
+   # For brief record views
+   # For the sake of brevity, excludes $x
+   when
+      MARC is "411"
+   then
+      set TEMP"1" to MARC."411" excluding subfields without sorting "[0-9]|g|u|x"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |;|,)+$")
+      add prefix (TEMP"1","(")
+      add suffix (TEMP"1",")")
+      create pnx."display"."lds09" with TEMP"1"
+end
+
+rule "Primo VE - Lds09_3"
+   # Series 440
+   # For brief record views
+   # For the sake of brevity, excludes $x
+   # Special styling rules for $v because $a is
+   #   not repeatable
+   when
+      MARC."440" has any "a,n,p,v"
+   then
+      set TEMP"1" to MARC."440" sub without sort "a,n,p"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |;|,)+$")
+      set TEMP"2" to MARC."440" subfields "v"
+      remove leading and trailing spaces (TEMP"2")
+      concatenate with delimiter (TEMP"1",TEMP"2"," ; ")
+      add prefix (TEMP"1","(")
+      add suffix (TEMP"1",")")
+      create pnx."display"."lds09" with TEMP"1"
+end
+
+rule "Primo VE - Lds09_4"
+   # Series 490
+   # For brief record views
+   # For the sake of brevity, excludes $x
+   # No special styling rules for $v because $a is
+   #   repeatable
+   when
+      MARC."490" has any "a,v"
+   then
+      set TEMP"1" to MARC."490" sub without sort "a,v"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |;|,)+$")
+      add prefix (TEMP"1","(")
+      add suffix (TEMP"1",")")
+      create pnx."display"."lds09" with TEMP"1"
+end
