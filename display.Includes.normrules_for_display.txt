@@ -50,7 +50,7 @@ rule "Primo VE Display - Includes 730"
       create pnx."display"."includes" with TEMP"1"
 end
 
-rule "Primo VE Display - Includes 100/240"
+rule "Primo VE Display - Includes 100 + 240"
    when
       MARC is "100" AND
       MARC is "240"
@@ -71,7 +71,7 @@ rule "Primo VE Display - Includes 100/240"
       create pnx."display"."includes" with TEMP"1"
 end
 
-rule "Primo VE Display - Includes 110/240"
+rule "Primo VE Display - Includes 110 + 240"
    when
       MARC is "110" AND
       MARC is "240"
@@ -92,7 +92,7 @@ rule "Primo VE Display - Includes 110/240"
       create pnx."display"."includes" with TEMP"1"
 end
 
-rule "Primo VE Display - Includes 111/240"
+rule "Primo VE Display - Includes 111 + 240"
    when
       MARC is "111" AND
       MARC is "240"
