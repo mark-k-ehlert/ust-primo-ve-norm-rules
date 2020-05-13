@@ -13,6 +13,5 @@ rule "Primo VE - Lds04"
       set TEMP"1" to MARC."245" subfields "c"
       remove leading and trailing spaces (TEMP"1")
       remove substring using regex (TEMP"1","^( |/|;)+")
-      add prefix (TEMP"1","... ")
       create pnx."display"."lds04" with TEMP"1"
 end
