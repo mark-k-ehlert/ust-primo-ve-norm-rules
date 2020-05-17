@@ -4,6 +4,8 @@ priority 10
       MARC is "130"
    then
       set TEMP"1" to MARC."130" excluding num subfields without sort
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |:|;|,)+$")
       set pnx."display"."unititle" to TEMP"1"
 end
 
@@ -13,5 +15,7 @@ priority 20
       MARC is "240"
    then
       set TEMP"1" to MARC."240" excluding num subfields without sort
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |:|;|,)+$")
       set pnx."display"."unititle" to TEMP"1"
 end
