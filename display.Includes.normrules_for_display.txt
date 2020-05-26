@@ -58,7 +58,7 @@ rule "Primo VE Display - Includes 100 + 240"
       set TEMP"1" to MARC."100" excluding subfields without sorting "[0-9]|e"
       remove leading and trailing spaces (TEMP"1")
       remove substring using regex (TEMP"1","(\\.|,)$")
-      set TEMP"2" to MARC."240" excluding numeric subfields
+      set TEMP"2" to MARC."240" excluding num subfields without sort
       concatenate with delimiter (TEMP"1",TEMP"2",". ")
       set TEMP"3" to MARC."100" excluding subfields without sorting "[0-9]|e|u"
       remove leading and trailing spaces (TEMP"3")
@@ -79,7 +79,7 @@ rule "Primo VE Display - Includes 110 + 240"
       set TEMP"1" to MARC."110" excluding subfields without sorting "[0-9]|e"
       remove leading and trailing spaces (TEMP"1")
       remove substring using regex (TEMP"1","(\\.|,)$")
-      set TEMP"2" to MARC."240" excluding numeric subfields
+      set TEMP"2" to MARC."240" excluding num subfields without sort
       concatenate with delimiter (TEMP"1",TEMP"2",". ")
       set TEMP"3" to MARC."110" excluding subfields without sorting "[0-9]|e|u"
       remove leading and trailing spaces (TEMP"3")
@@ -100,7 +100,7 @@ rule "Primo VE Display - Includes 111 + 240"
       set TEMP"1" to MARC."111" excluding subfields without sorting "[0-9]|j"
       remove leading and trailing spaces (TEMP"1")
       remove substring using regex (TEMP"1","(\\.|,)$")
-      set TEMP"2" to MARC."240" excluding numeric subfields
+      set TEMP"2" to MARC."240" excluding num subfields without sort
       concatenate with delimiter (TEMP"1",TEMP"2",". ")
       set TEMP"3" to MARC."111" excluding subfields without sorting "[0-9]|j|u"
       remove leading and trailing spaces (TEMP"3")
@@ -117,7 +117,7 @@ rule "Primo VE Display - Includes 130"
    when
       MARC is "130"
    then
-      set TEMP"1" to MARC."130" excluding numeric subfields
+      set TEMP"1" to MARC."130" excluding num subfields without sort
       set TEMP"2" to MARC."130" excluding subfields without sorting "[0-9]|h"
       add prefix (TEMP"2","$$Q")
       remove substring using regex (TEMP"2","^$$Q$")
