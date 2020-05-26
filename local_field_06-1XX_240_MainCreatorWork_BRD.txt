@@ -51,7 +51,7 @@
 #      set TEMP"1" to MARC."100" excluding subfields without sorting "[0-9]|e"
 #      remove leading and trailing spaces (TEMP"1")
 #      remove substring using regex (TEMP"1","(\\.|,)$")
-#      set TEMP"2" to MARC."240" excluding numeric subfields
+#      set TEMP"2" to MARC."240" excluding num subfields without sort
 #      concatenate with delimiter (TEMP"1",TEMP"2",". ")
 #      create pnx."display"."lds06" with TEMP"1"
 # end
@@ -67,7 +67,7 @@
 #      set TEMP"1" to MARC."110" excluding subfields without sorting "[0-9]|e"
 #      remove leading and trailing spaces (TEMP"1")
 #      remove substring using regex (TEMP"1","(\\.|,)$")
-#      set TEMP"2" to MARC."240" excluding numeric subfields
+#      set TEMP"2" to MARC."240" excluding num subfields without sort
 #      concatenate with delimiter (TEMP"1",TEMP"2",". ")
 #      create pnx."display"."lds06" with TEMP"1"
 # end
@@ -83,7 +83,7 @@
 #      set TEMP"1" to MARC."111" excluding subfields without sorting "[0-9]|j"
 #      remove leading and trailing spaces (TEMP"1")
 #      remove substring using regex (TEMP"1","(\\.|,)$")
-#      set TEMP"2" to MARC."240" excluding numeric subfields
+#      set TEMP"2" to MARC."240" excluding num subfields without sort
 #      concatenate with delimiter (TEMP"1",TEMP"2",". ")
 #      create pnx."display"."lds06" with TEMP"1"
 # end
@@ -96,7 +96,7 @@ rule "Primo VE - Lds06"
    when
       MARC is "130"
    then
-      set TEMP"1" to MARC."130" excluding numeric subfields
+      set TEMP"1" to MARC."130" excluding num subfields without sort
       remove leading and trailing spaces (TEMP"1")
       remove substring using regex (TEMP"1","( |:|;|,)+$")
       create pnx."display"."lds06" with TEMP"1"
