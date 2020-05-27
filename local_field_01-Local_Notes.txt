@@ -12,7 +12,7 @@ rule "Primo VE - Lds01"
       MARC."590"."5" match "MnMpUSTL" OR
       MARC."590"."5" match "MnSpCLIC")
    then
-      create pnx."display"."lds01" with MARC "590"."a"
+      create pnx."display"."lds01" with MARC."590"."a"
 end
 
 rule "Primo VE - Lds01_1"
@@ -24,5 +24,5 @@ rule "Primo VE - Lds01_1"
       (MARC."599"."5" match "MnSST" OR
       MARC."599"."5" match "MnMpUSTL")
    then
-      create pnx."display"."lds01" with MARC "599"."a"
+      create pnx."display"."lds01" with MARC."599"."a"
 end
