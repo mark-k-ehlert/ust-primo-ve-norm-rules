@@ -42,17 +42,17 @@ rule "Primo VE - Lds13_3"
    when
       MARC."440" has any "a,n,p,v,x"
    then
-      set TEMP"1" to MARC."440" sub without sort "a,n,p"
+      set TEMP"1" to MARC."440" sub without sort "a,n,p,v,x"
       remove leading and trailing spaces (TEMP"1")
       remove substring using regex (TEMP"1","( |;|,)+$")
-      set TEMP"2" to MARC."440" subfields "x"
-      remove leading and trailing spaces (TEMP"2")
-      remove substring using regex (TEMP"2","^( |;|,)+")
-      remove substring using regex (TEMP"2","( |;|,)+$")
-      concatenate with delimiter (TEMP"1",TEMP"2",", ")
-      set TEMP"3" to MARC."440" subfields "v"
-      remove leading and trailing spaces (TEMP"3")
-      concatenate with delimiter (TEMP"1",TEMP"3"," ; ")
+#      set TEMP"2" to MARC."440" subfields "x"
+#      remove leading and trailing spaces (TEMP"2")
+#      remove substring using regex (TEMP"2","^( |;|,)+")
+#      remove substring using regex (TEMP"2","( |;|,)+$")
+#      concatenate with delimiter (TEMP"1",TEMP"2",", ")
+#      set TEMP"3" to MARC."440" subfields "v"
+#      remove leading and trailing spaces (TEMP"3")
+#      concatenate with delimiter (TEMP"1",TEMP"3"," ; ")
       create pnx."display"."lds13" with TEMP"1"
 end
 
