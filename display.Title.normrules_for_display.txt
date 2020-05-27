@@ -5,7 +5,7 @@ rule "Primo VE Display - Title 245"
    # Applies to monographs and continuing resources
    when
       # MARCRECORD
-      MARC."245" has any "a-s"
+      MARC."245" has any "a,b,f,g,k,n,p,s"
    then
       # Excludes $c SORs and $h GMDs
       set TEMP"1" to MARC."245" sub without sort "a,b,f,g,k,n,p,s"
