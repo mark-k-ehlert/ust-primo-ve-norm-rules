@@ -25,7 +25,7 @@ rule "Primo VE - Lds30"
       set TEMP"5" to MARC."555" subfields "u"
       remove leading and trailing spaces (TEMP"5")
       add prefix (TEMP"5","<b>- <a target=\"_blank\" href=\"")
-      add suffix (TEMP"5","\">Link to finding aid</a>")
+      add suffix (TEMP"5","\">Link to finding aid</a></b>")
       concatenate with delimiter (TEMP"1",TEMP"2","<br />")
       concatenate with delimiter (TEMP"1",TEMP"3","<br />")
       concatenate with delimiter (TEMP"1",TEMP"4","<br />")
@@ -60,7 +60,7 @@ rule "Primo VE - Lds30_1"
       set TEMP"5" to MARC."555" subfields "u"
       remove leading and trailing spaces (TEMP"5")
       add prefix (TEMP"5","<b>- <a target=\"_blank\" href=\"")
-      add suffix (TEMP"5","\">Link to index</a>")
+      add suffix (TEMP"5","\">Link to index</a></b>")
       concatenate with delimiter (TEMP"1",TEMP"2","<br />")
       concatenate with delimiter (TEMP"1",TEMP"3","<br />")
       concatenate with delimiter (TEMP"1",TEMP"4","<br />")
@@ -95,7 +95,7 @@ rule "Primo VE - Lds30_2"
       set TEMP"5" to MARC."555" subfields "u"
       remove leading and trailing spaces (TEMP"5")
       add prefix (TEMP"5","<b>- <a target=\"_blank\" href=\"")
-      add suffix (TEMP"5","\">Link to index/finding aid</a>")
+      add suffix (TEMP"5","\">Link to index/finding aid</a></b>")
       concatenate with delimiter (TEMP"1",TEMP"2","<br />")
       concatenate with delimiter (TEMP"1",TEMP"3","<br />")
       concatenate with delimiter (TEMP"1",TEMP"4","<br />")
