@@ -4,7 +4,7 @@ rule "Primo VE Display - Ispartof 773"
    then
       set TEMP"1" to MARC "773" excluding subfields without sorting "g|i|p|q|u|w|x|y|z|[0-9]"
       remove leading and trailing spaces (TEMP"1")
-      set TEMP"2" to MARC."773"."t"
+      set TEMP"2" to MARC."773" subfields "t"
       remove leading and trailing spaces (TEMP"2")
       remove substring using regex (TEMP"2","( |/|:|;|=|,)+$")
       add prefix (TEMP"2","$$Q")
