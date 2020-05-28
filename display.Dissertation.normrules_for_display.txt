@@ -8,7 +8,7 @@ end
 rule "Primo VE Display - Dissertation 502 b,c,d,o"
    when
       MARC."502" has any "b,c,d,o" AND NOT
-      MARC."502"."g" match ".*"
+      MARC."502"."g" match ".+"
    then
       set TEMP"1" to MARC."502" subfields "b"
       set TEMP"2" to MARC."502" subfields "c"
@@ -34,7 +34,7 @@ end
 rule "Primo VE Display - Dissertation 502 b,c,d,g,o"
    when
       MARC."502" has any "b,c,d,o" AND
-      MARC."502"."g" match ".*"
+      MARC."502"."g" match ".+"
    then
       set TEMP"1" to MARC."502" subfields "g"
       remove leading and trailing spaces (TEMP"1")
