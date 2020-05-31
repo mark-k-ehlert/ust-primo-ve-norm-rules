@@ -1,9 +1,10 @@
 rule "Primo VE - Lds02"
-   # Subject 690/any/0,1
+   # Subject 690/any/0,1,4
    when
       MARC."690" has any "a-z" AND
       (MARC."690".ind"2" equals "0" OR
-      MARC."690".ind"2" equals "1") AND
+      MARC."690".ind"2" equals "1" OR
+      MARC."690".ind"2" equals "4") AND
       (MARC."690"."5" match "MnSB" OR
       MARC."690"."5" match "MnSCC" OR
       MARC."690"."5" match "MnSH" OR
@@ -82,11 +83,12 @@ rule "Primo VE - Lds02_1"
 end
 
 rule "Primo VE - Lds02_2"
-   # Subject 691/any/0,1
+   # Subject 691/any/0,1,4
    when
       MARC."691" has any "a-z" AND
       (MARC."691".ind"2" equals "0" OR
-      MARC."691".ind"2" equals "1") AND
+      MARC."691".ind"2" equals "1" OR
+      MARC."691".ind"2" equals "4") AND
       (MARC."691"."5" match "MnSB" OR
       MARC."691"."5" match "MnSCC" OR
       MARC."691"."5" match "MnSH" OR
@@ -165,11 +167,13 @@ rule "Primo VE - Lds02_3"
 end
 
 rule "Primo VE - Lds02_4"
-   # Subject 696/any/0,1
+   # Subject 696/any/0,1,4,7
    when
       MARC."696" has any "a-z" AND
       (MARC."696".ind"2" equals "0" OR
-      MARC."696".ind"2" equals "1") AND
+      MARC."696".ind"2" equals "1" OR
+      MARC."696".ind"2" equals "4" OR
+      MARC."696".ind"2" equals "7") AND
       (MARC."696"."5" match "MnSB" OR
       MARC."696"."5" match "MnSCC" OR
       MARC."696"."5" match "MnSH" OR
@@ -194,11 +198,13 @@ rule "Primo VE - Lds02_4"
 end
 
 rule "Primo VE - Lds02_5"
-   # Subject 697/any/0,1
+   # Subject 697/any/0,1,4,7
    when
       MARC."697" has any "a-z" AND
       (MARC."697".ind"2" equals "0" OR
-      MARC."697".ind"2" equals "1") AND
+      MARC."697".ind"2" equals "1" OR
+      MARC."697".ind"2" equals "4" OR
+      MARC."697".ind"2" equals "7") AND
       (MARC."697"."5" match "MnSB" OR
       MARC."697"."5" match "MnSCC" OR
       MARC."697"."5" match "MnSH" OR
@@ -223,11 +229,13 @@ rule "Primo VE - Lds02_5"
 end
 
 rule "Primo VE - Lds02_6"
-   # Subject 698/any/0,1
+   # Subject 698/any/0,1,4,7
    when
       MARC."698" has any "a-z" AND
       (MARC."698".ind"2" equals "0" OR
-      MARC."698".ind"2" equals "1") AND
+      MARC."698".ind"2" equals "1" OR
+      MARC."698".ind"2" equals "4" OR
+      MARC."698".ind"2" equals "7") AND
       (MARC."698"."5" match "MnSB" OR
       MARC."698"."5" match "MnSCC" OR
       MARC."698"."5" match "MnSH" OR
@@ -252,11 +260,13 @@ rule "Primo VE - Lds02_6"
 end
 
 rule "Primo VE - Lds02_7"
-   # Subject 699/any/0,1
+   # Subject 699/any/0,1,4,7
    when
       MARC."699" has any "a-z" AND
       (MARC."699".ind"2" equals "0" OR
-      MARC."699".ind"2" equals "1") AND
+      MARC."699".ind"2" equals "1" OR
+      MARC."699".ind"2" equals "4" OR
+      MARC."699".ind"2" equals "7") AND
       (MARC."699"."5" match "MnSB" OR
       MARC."699"."5" match "MnSCC" OR
       MARC."699"."5" match "MnSH" OR
@@ -286,11 +296,12 @@ end
 
 
 rule "Primo VE Marc - Lsr02"
-   # Subject 690/any/0,1
+   # Subject 690/any/0,1,4
    when
       MARC."690" has any "a-z" AND
       (MARC."690".ind"2" equals "0" OR
-      MARC."690".ind"2" equals "1") AND
+      MARC."690".ind"2" equals "1" OR
+      MARC."690".ind"2" equals "4") AND
       (MARC."690"."5" match "MnSB" OR
       MARC."690"."5" match "MnSCC" OR
       MARC."690"."5" match "MnSH" OR
@@ -357,11 +368,12 @@ rule "Primo VE Marc - Lsr02_1"
 end
 
 rule "Primo VE Marc - Lsr02_2"
-   # Subject 691/any/0,1
+   # Subject 691/any/0,1,4
    when
       MARC."691" has any "a-z" AND
       (MARC."691".ind"2" equals "0" OR
-      MARC."691".ind"2" equals "1") AND
+      MARC."691".ind"2" equals "1" OR
+      MARC."691".ind"2" equals "4") AND
       (MARC."691"."5" match "MnSB" OR
       MARC."691"."5" match "MnSCC" OR
       MARC."691"."5" match "MnSH" OR
@@ -428,11 +440,13 @@ rule "Primo VE Marc - Lsr02_3"
 end
 
 rule "Primo VE Marc - Lsr02_4"
-   # Subject 696/any/0,1
+   # Subject 696/any/0,1,4,7
    when
       MARC."696" has any "a-z" AND
       (MARC."696".ind"2" equals "0" OR
-      MARC."696".ind"2" equals "1") AND
+      MARC."696".ind"2" equals "1" OR
+      MARC."696".ind"2" equals "4" OR
+      MARC."696".ind"2" equals "7") AND
       (MARC."696"."5" match "MnSB" OR
       MARC."696"."5" match "MnSCC" OR
       MARC."696"."5" match "MnSH" OR
@@ -451,11 +465,13 @@ rule "Primo VE Marc - Lsr02_4"
 end
 
 rule "Primo VE Marc - Lsr02_5"
-   # Subject 697/any/0,1
+   # Subject 697/any/0,1,4,7
    when
       MARC."697" has any "a-z" AND
       (MARC."697".ind"2" equals "0" OR
-      MARC."697".ind"2" equals "1") AND
+      MARC."697".ind"2" equals "1" OR
+      MARC."697".ind"2" equals "4" OR
+      MARC."697".ind"2" equals "7") AND
       (MARC."697"."5" match "MnSB" OR
       MARC."697"."5" match "MnSCC" OR
       MARC."697"."5" match "MnSH" OR
@@ -474,11 +490,13 @@ rule "Primo VE Marc - Lsr02_5"
 end
 
 rule "Primo VE Marc - Lsr02_6"
-   # Subject 698/any/0,1
+   # Subject 698/any/0,1,4,7
    when
       MARC."698" has any "a-z" AND
       (MARC."698".ind"2" equals "0" OR
-      MARC."698".ind"2" equals "1") AND
+      MARC."698".ind"2" equals "1" OR
+      MARC."698".ind"2" equals "4" OR
+      MARC."698".ind"2" equals "7") AND
       (MARC."698"."5" match "MnSB" OR
       MARC."698"."5" match "MnSCC" OR
       MARC."698"."5" match "MnSH" OR
@@ -497,11 +515,13 @@ rule "Primo VE Marc - Lsr02_6"
 end
 
 rule "Primo VE Marc - Lsr02_7"
-   # Subject 699/any/0,1
+   # Subject 699/any/0,1,4,7
    when
       MARC."699" has any "a-z" AND
       (MARC."699".ind"2" equals "0" OR
-      MARC."699".ind"2" equals "1") AND
+      MARC."699".ind"2" equals "1" OR
+      MARC."699".ind"2" equals "4" OR
+      MARC."699".ind"2" equals "7") AND
       (MARC."699"."5" match "MnSB" OR
       MARC."699"."5" match "MnSCC" OR
       MARC."699"."5" match "MnSH" OR
