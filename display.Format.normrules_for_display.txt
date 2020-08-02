@@ -6,7 +6,6 @@ rule "Primo VE Display - Format 300"
       set TEMP"1" to MARC."300" sub without sort "a,b,c,e,f,g"
       remove leading and trailing spaces (TEMP"1")
       remove substring using regex (TEMP"1","(:|;|,)+$")
-      add prefix (TEMP"1","300 ")
       create pnx."display"."format" with TEMP"1"
 end
 
