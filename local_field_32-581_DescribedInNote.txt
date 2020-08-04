@@ -1,0 +1,17 @@
+rule "Primo VE - Lds32"
+   # Publications About Described Materials Note
+   # 581 field with various subfields
+   when
+      MARC."581" has any "a,z"
+   then
+      set TEMP"1" to MARC."581" subfields "a"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |;|,)+$")
+      set TEMP"2" to MARC."581" subfields "z"
+      remove leading and trailing spaces (TEMP"2")
+      remove substring using regex (TEMP"2","( |\\.)+$")
+      add prefix (TEMP"2","ISBN ")
+      add suffix (TEMP"2",".")
+      concatenate with delimiter (TEMP"1",TEMP"2"," ")
+      create pnx."display"."lds32" with TEMP"1"
+end
