@@ -1,0 +1,179 @@
+rule "Primo VE Marc - Lsr34"
+   # Series 400/any/_,0
+   when
+      MARC."400" has any "a-g,k-l,n,p,t-v,x" AND
+      (MARC."400".ind"2" equals " " OR
+      MARC."400".ind"2" equals "0")
+   then
+      set TEMP"1" to MARC."400" excluding subfields without sorting "[0-9]|e|g|u"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |;|,)+$")
+      create pnx."search"."lsr34" with TEMP"1"
+end
+
+rule "Primo VE Marc - Lsr34_1"
+   # Series 100 + 400/any/1
+   when
+      MARC is "100" AND
+      MARC is "400" AND
+      MARC."400".ind"2" equals "1"
+   then
+      set TEMP"1" to MARC."100" excluding subfields without sorting "[0-9]|e|g|u"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |;|,|\\.)+$")
+      set TEMP"2" to MARC."400" sub without sort "f,k,l,n,p,t"
+      remove leading and trailing spaces (TEMP"2")
+      remove substring using regex (TEMP"2","( |;|,)+$")
+      concatenate with delimiter (TEMP"1",TEMP"2",". ")
+      create pnx."search"."lsr34" with TEMP"1"
+end
+
+rule "Primo VE Marc - Lsr34_2"
+   # Series 410/any/_,0
+   when
+      MARC is "410" AND
+      (MARC."410".ind"2" equals " " OR
+      MARC."410".ind"2" equals "0")
+   then
+      set TEMP"1" to MARC."410" excluding subfields without sorting "[0-9]|e|u"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |;|,)+$")
+      create pnx."search"."lsr34" with TEMP"1"
+end
+
+rule "Primo VE Marc - Lsr34_3"
+   # Series 110 + 410/any/1
+   when
+      MARC is "110" AND
+      MARC is "410" AND
+      MARC."410".ind"2" equals "1"
+   then
+      set TEMP"1" to MARC."110" excluding subfields without sorting "[0-9]|e|u"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |;|,|\\.)+$")
+      set TEMP"2" to MARC."410" sub without sort "f,k,l,n,p,t"
+      remove leading and trailing spaces (TEMP"2")
+      remove substring using regex (TEMP"2","( |;|,)+$")
+      concatenate with delimiter (TEMP"1",TEMP"2",". ")
+      create pnx."search"."lsr34" with TEMP"1"
+end
+
+rule "Primo VE Marc - Lsr34_4"
+   # Series 411/any/_,0
+   when
+      MARC is "411" AND
+      (MARC."411".ind"2" equals " " OR
+      MARC."411".ind"2" equals "0")
+   then
+      set TEMP"1" to MARC."411" excluding subfields without sorting "[0-9]|g|u"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |;|,)+$")
+      create pnx."search"."lsr34" with TEMP"1"
+end
+
+rule "Primo VE Marc - Lsr34_5"
+   # Series 111 + 411/any/1
+   when
+      MARC is "111" AND
+      MARC is "411" AND
+      MARC."411".ind"2" equals "1"
+   then
+      set TEMP"1" to MARC."111" excluding subfields without sorting "[0-9]|g|j|u"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |;|,|\\.)+$")
+      set TEMP"2" to MARC."411" sub without sort "f,k,l,n,p,t"
+      remove leading and trailing spaces (TEMP"2")
+      remove substring using regex (TEMP"2","( |;|,)+$")
+      concatenate with delimiter (TEMP"1",TEMP"2",". ")
+      create pnx."search"."lsr34" with TEMP"1"
+end
+
+rule "Primo VE Marc - Lsr34_6"
+   # Series 440/any/any
+   when
+      MARC is "440"
+   then
+      set TEMP"1" to MARC "440" excluding subfields without sorting "[0-9]|w"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |;|,)+$")
+      create pnx."search"."lsr34" with TEMP"1"
+end
+
+rule "Primo VE Marc - Lsr34_7"
+   # Series 490/any/any
+   when
+      MARC."490" has any "a,v,x"
+   then
+      set TEMP"1" to MARC."490" sub without sort "a,v,x"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |;|,)+$")
+      create pnx."search"."lsr34" with TEMP"1"
+end
+
+rule "Primo VE Marc - Lsr34_8"
+   # Series 800
+   # Exclude prima_w_relation "w" and prima_x_relation "x" functions
+   when
+      MARC."800" has any "t"
+   then
+      set TEMP"1" to MARC "800" excluding subfields without sorting "[0-9]|e|g|h|j|u|w"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |;|,)+$")
+      create pnx."search"."lsr34" with TEMP"1"
+end
+
+rule "Primo VE Marc - Lsr34_9"
+   # Series 810
+   # Exclude prima_w_relation "w" and prima_x_relation "x" functions
+   when
+      MARC."810" has any "t"
+   then
+      set TEMP"1" to MARC "810" excluding subfields without sorting "[0-9]|e|g|h|u|w"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |;|,)+$")
+      create pnx."search"."lsr34" with TEMP"1"
+end
+
+rule "Primo VE Marc - Lsr34_10"
+   # Series 811
+   # Exclude prima_w_relation "w" and prima_x_relation "x" functions
+   when
+      MARC."811" has any "t"
+   then
+      set TEMP"1" to MARC "811" excluding subfields without sorting "[0-9]|g|h|j|u|w"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |;|,)+$")
+      create pnx."search"."lsr34" with TEMP"1"
+end
+
+rule "Primo VE Marc - Lsr34_11"
+   # Series 830
+   # Exclude prima_w_relation "w" and prima_x_relation "x" functions
+   when
+      MARC is "830"
+   then
+      set TEMP"1" to MARC "830" excluding subfields without sorting "[0-9]|g|h|t|w"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |;|,)+$")
+      create pnx."search"."lsr34" with TEMP"1"
+end
+
+rule "Primo VE Marc - Lsr34_12"
+   # Series 928
+   # Exclude prima_w_relation "w" and prima_x_relation "x" functions
+   when
+      MARC is "928" AND
+      (MARC."928"."5" match "MnSB" OR
+      MARC."928"."5" match "MnSCC" OR
+      MARC."928"."5" match "MnSH" OR
+      MARC."928"."5" match "MnRoN" OR
+      MARC."928"."5" match "MnSSC" OR
+      MARC."928"."5" match "MnSST" OR
+      MARC."928"."5" match "MnMpUSTL" OR
+      MARC."928"."5" match "MnSpCLIC")
+   then
+      set TEMP"1" to MARC "928" excluding subfields without sorting "[0-9]|g|h|t|w"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |;|,)+$")
+      create pnx."search"."lsr34" with TEMP"1"
+end
