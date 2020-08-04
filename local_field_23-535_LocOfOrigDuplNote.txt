@@ -1,0 +1,59 @@
+rule "Primo VE - Lds23"
+   # Location of Originals/Duplicates Note
+   # 535 field with 1st indicator "1"
+   priority 1
+   when
+      MARC."535" has any "a,b,c,d" AND
+      MARC."535".ind"1" equals "1"
+   then
+      set TEMP"1" to MARC."535" subfields "a"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |;|,)+$")
+      add prefix (TEMP"1","<b>Custodian of originals</b>: ")
+      set TEMP"2" to MARC."535" subfields "b"
+      remove leading and trailing spaces (TEMP"2")
+      remove substring using regex (TEMP"2","( |;|,)+$")
+      add prefix (TEMP"2","<br /><b>- Address</b>: ")
+      set TEMP"3" to MARC."535" subfields "c"
+      remove leading and trailing spaces (TEMP"3")
+      remove substring using regex (TEMP"3","( |;|,)+$")
+      add prefix (TEMP"3","<br /><b>- Country</b>: ")
+      set TEMP"4" to MARC."535" subfields "c"
+      remove leading and trailing spaces (TEMP"4")
+      remove substring using regex (TEMP"4","( |;|,)+$")
+      add prefix (TEMP"4","<br /><b>- Contact</b>: ")
+      concatenate with delimiter (TEMP"1",TEMP"2","")
+      concatenate with delimiter (TEMP"1",TEMP"3","")
+      concatenate with delimiter (TEMP"1",TEMP"4","")
+      create pnx."display"."lds23" with TEMP"1"
+end
+
+rule "Primo VE - Lds23_1"
+   # Location of Originals/Duplicates Note
+   # 535 field with 1st indicator "2"
+   priority 2
+   when
+      MARC."535" has any "a,b,c,d" AND
+      MARC."535".ind"1" equals "2"
+   then
+      set TEMP"1" to MARC."535" subfields "a"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |;|,)+$")
+      add prefix (TEMP"1","<b>Custodian of duplicate copies</b>: ")
+      set TEMP"2" to MARC."535" subfields "b"
+      remove leading and trailing spaces (TEMP"2")
+      remove substring using regex (TEMP"2","( |;|,)+$")
+      add prefix (TEMP"2","<br /><b>- Address</b>: ")
+      set TEMP"3" to MARC."535" subfields "c"
+      remove leading and trailing spaces (TEMP"3")
+      remove substring using regex (TEMP"3","( |;|,)+$")
+      add prefix (TEMP"3","<br /><b>- Country</b>: ")
+      set TEMP"4" to MARC."535" subfields "c"
+      remove leading and trailing spaces (TEMP"4")
+      remove substring using regex (TEMP"4","( |;|,)+$")
+      add prefix (TEMP"4","<br /><b>- Contact</b>: ")
+      concatenate with delimiter (TEMP"1",TEMP"2","")
+      concatenate with delimiter (TEMP"1",TEMP"3","")
+      concatenate with delimiter (TEMP"1",TEMP"4","")
+      create pnx."display"."lds23" with TEMP"1"
+end
