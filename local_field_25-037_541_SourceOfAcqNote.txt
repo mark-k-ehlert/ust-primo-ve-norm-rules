@@ -1,0 +1,14 @@
+rule "Primo VE - Lds25"
+   # Immediate Source of Acquisition Note
+   # 541 field with 1st indicator "blank" or "1"
+   # 037 field, employed in PBO, ignored for now until
+   #   norm rules can review 008 field data
+   when
+      MARC."541" has any "a,b,c,d,e,f,h,n,o" AND
+      (MARC."541".ind"1" equals " " OR
+      MARC."541".ind"1" equals "1")
+   then
+      set TEMP"1" to MARC."541" sub without sort "a,b,c,d,e,f,h,n,o"
+      remove leading and trailing spaces (TEMP"1")
+      create pnx."display"."lds25" with TEMP"1"
+end
