@@ -1,0 +1,46 @@
+rule "Primo VE - Lds26"
+   # Information Relating to Copyright Status
+   # 542 field with 1st indicator "blank" or "1" with no subfield $d
+   when
+      MARC."542" has any "f,n" AND
+      (MARC."542".ind"1" equals " " OR
+      MARC."542".ind"1" equals "1") AND NOT
+      MARC."542"."d" match ".+"
+   then
+      set TEMP"1" to MARC."542" subfields "f"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |;|,)+$")
+      add prefix (TEMP"1","<b>Copyright statement</b>: ")
+      set TEMP"2" to MARC."542" subfields "n"
+      remove leading and trailing spaces (TEMP"2")
+      remove substring using regex (TEMP"2","( |;|,)+$")
+      add prefix (TEMP"2","<br /><b>- Note</b>: ")
+      concatenate with delimiter (TEMP"1",TEMP"2","")
+      create pnx."display"."lds26" with TEMP"1"
+end
+
+rule "Primo VE - Lds26_1"
+   # Information Relating to Copyright Status
+   # 542 field with 1st indicator "blank" or "1" with subfield $d
+   when
+      MARC."542" has any "f,n" AND
+      (MARC."542".ind"1" equals " " OR
+      MARC."542".ind"1" equals "1") AND
+      MARC."542"."d" match ".+"
+   then
+      set TEMP"1" to MARC."542" subfields "d"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |;|,)+$")
+      add prefix (TEMP"1","<b>Copyright holder</b>: ")
+      set TEMP"2" to MARC."542" subfields "f"
+      remove leading and trailing spaces (TEMP"2")
+      remove substring using regex (TEMP"2","( |;|,)+$")
+      add prefix (TEMP"2","<br /><b>- Copyright statement</b>: ")
+      set TEMP"3" to MARC."542" subfields "n"
+      remove leading and trailing spaces (TEMP"3")
+      remove substring using regex (TEMP"3","( |;|,)+$")
+      add prefix (TEMP"3","<br /><b>- Note</b>: ")
+      concatenate with delimiter (TEMP"1",TEMP"2","")
+      concatenate with delimiter (TEMP"1",TEMP"3","")
+      create pnx."display"."lds26" with TEMP"1"
+end
