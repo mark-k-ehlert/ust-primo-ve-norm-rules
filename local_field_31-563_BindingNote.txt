@@ -1,0 +1,16 @@
+rule "Primo VE - Lds31"
+   # 563 Binding Note
+   # Display limited to notes with CLIC's $5 MARC org codes
+   when
+      MARC is "563"."a" AND
+      (MARC."563"."5" match "MnSB" OR
+      MARC."563"."5" match "MnSCC" OR
+      MARC."563"."5" match "MnSH" OR
+      MARC."563"."5" match "MnRoN" OR
+      MARC."563"."5" match "MnSSC" OR
+      MARC."563"."5" match "MnSST" OR
+      MARC."563"."5" match "MnMpUSTL" OR
+      MARC."563"."5" match "MnSpCLIC")
+   then
+      create pnx."display"."lds31" with MARC."563"."a"
+end
