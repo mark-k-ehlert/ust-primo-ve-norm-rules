@@ -1,0 +1,56 @@
+rule "Primo VE - Lds18"
+   # Citation/References Note
+   # 510 field with 1st indicator "0", "1", "2"
+   priority 1
+   when
+      MARC."510" has any "a,b,c,x" AND
+      (MARC."510".ind"1" equals "0" OR
+      MARC."510".ind"1" equals "1" OR
+      MARC."510".ind"1" equals "2")
+   then
+      set TEMP"1" to MARC."510" subfields "a"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |;|:|,)+$")
+      add prefix (TEMP"1","<b>Indexed by</b>: ")
+      set TEMP"2" to MARC."510" subfields "b"
+      remove leading and trailing spaces (TEMP"2")
+      remove substring using regex (TEMP"2","( |;|:|,)+$")
+      set TEMP"3" to MARC."510" subfields "c"
+      remove leading and trailing spaces (TEMP"3")
+      remove substring using regex (TEMP"3","( |;|:|,)+$")
+      set TEMP"4" to MARC."510" subfields "x"
+      remove leading and trailing spaces (TEMP"4")
+      remove substring using regex (TEMP"4","( |;|:|,)+$")
+      concatenate with delimiter (TEMP"1",TEMP"2",", ")
+      concatenate with delimiter (TEMP"1",TEMP"3",", ")
+      concatenate with delimiter (TEMP"1",TEMP"4",", ")
+      create pnx."display"."lds18" with TEMP"1"
+end
+
+rule "Primo VE - Lds18_1"
+   # Citation/References Note
+   # 510 field with 1st indicator "3" or "4"
+   priority 1
+   when
+      MARC."510" has any "a,b,c,x" AND
+      (MARC."510".ind"1" equals "3" OR
+      MARC."510".ind"1" equals "4")
+   then
+      set TEMP"1" to MARC."510" subfields "a"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |;|:|,)+$")
+      add prefix (TEMP"1","<b>References</b>: ")
+      set TEMP"2" to MARC."510" subfields "b"
+      remove leading and trailing spaces (TEMP"2")
+      remove substring using regex (TEMP"2","( |;|:|,)+$")
+      set TEMP"3" to MARC."510" subfields "c"
+      remove leading and trailing spaces (TEMP"3")
+      remove substring using regex (TEMP"3","( |;|:|,)+$")
+      set TEMP"4" to MARC."510" subfields "x"
+      remove leading and trailing spaces (TEMP"4")
+      remove substring using regex (TEMP"4","( |;|:|,)+$")
+      concatenate with delimiter (TEMP"1",TEMP"2",", ")
+      concatenate with delimiter (TEMP"1",TEMP"3",", ")
+      concatenate with delimiter (TEMP"1",TEMP"4",", ")
+      create pnx."display"."lds18" with TEMP"1"
+end
