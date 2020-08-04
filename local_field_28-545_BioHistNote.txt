@@ -1,0 +1,58 @@
+rule "Primo VE - Lds28"
+   # Biographical or Historical Data
+   # 545 field with 1st indicator "blank"
+   priority 1
+   when
+      MARC."545" has any "a,b" AND
+      MARC."545".ind"1" equals " "
+   then
+      set TEMP"1" to MARC."545" subfields "a"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |;|,)+$")
+      set TEMP"2" to MARC."545" subfields "b"
+      remove leading and trailing spaces (TEMP"2")
+      remove substring using regex (TEMP"2","( |;|,)+$")
+      add prefix (TEMP"2","<br /><b>- Details</b>: ")
+      concatenate with delimiter (TEMP"1",TEMP"2","")
+      create pnx."display"."lds28" with TEMP"1"
+end
+
+rule "Primo VE - Lds28_1"
+   # Biographical or Historical Data
+   # 545 field with 1st indicator "0"
+   priority 2
+   when
+      MARC."545" has any "a,b" AND
+      MARC."545".ind"1" equals "0"
+   then
+      set TEMP"1" to MARC."545" subfields "a"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |;|,)+$")
+      add prefix (TEMP"1","<b>Biographical note</b>: ")
+      set TEMP"2" to MARC."545" subfields "b"
+      remove leading and trailing spaces (TEMP"2")
+      remove substring using regex (TEMP"2","( |;|,)+$")
+      add prefix (TEMP"2","<br /><b>- Details</b>: ")
+      concatenate with delimiter (TEMP"1",TEMP"2","")
+      create pnx."display"."lds28" with TEMP"1"
+end
+
+rule "Primo VE - Lds28_2"
+   # Biographical or Historical Data
+   # 545 field with 1st indicator "1"
+   priority 3
+   when
+      MARC."545" has any "a,b" AND
+      MARC."545".ind"1" equals "1"
+   then
+      set TEMP"1" to MARC."545" subfields "a"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |;|,)+$")
+      add prefix (TEMP"1","<b>Administrative history</b>: ")
+      set TEMP"2" to MARC."545" subfields "b"
+      remove leading and trailing spaces (TEMP"2")
+      remove substring using regex (TEMP"2","( |;|,)+$")
+      add prefix (TEMP"2","<br /><b>- Details</b>: ")
+      concatenate with delimiter (TEMP"1",TEMP"2","")
+      create pnx."display"."lds28" with TEMP"1"
+end
