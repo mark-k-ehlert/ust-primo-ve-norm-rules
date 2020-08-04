@@ -1,0 +1,46 @@
+rule "Primo VE - Lds24"
+   # Funding Information Note
+   # 536 field with various subfields
+   when
+      MARC."536" has any "a,b,c,d,e,f,g,h"
+   then
+      set TEMP"1" to MARC."536" subfields "a"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |;|,)+$")
+      set TEMP"2" to MARC."536" subfields "b"
+      remove leading and trailing spaces (TEMP"2")
+      remove substring using regex (TEMP"2","( |;|,)+$")
+      add prefix (TEMP"2","<br /><b>Contract</b>: ")
+      set TEMP"3" to MARC."536" subfields "c"
+      remove leading and trailing spaces (TEMP"3")
+      remove substring using regex (TEMP"3","( |;|,)+$")
+      add prefix (TEMP"3","<br /><b>Grant</b>: ")
+      set TEMP"4" to MARC."536" subfields "d"
+      remove leading and trailing spaces (TEMP"4")
+      remove substring using regex (TEMP"4","( |;|,)+$")
+      add prefix (TEMP"4","<br /><b>Other number</b>: ")
+      set TEMP"5" to MARC."536" subfields "e"
+      remove leading and trailing spaces (TEMP"5")
+      remove substring using regex (TEMP"5","( |;|,)+$")
+      add prefix (TEMP"5","<br /><b>Program</b>: ")
+      set TEMP"6" to MARC."536" subfields "f"
+      remove leading and trailing spaces (TEMP"6")
+      remove substring using regex (TEMP"6","( |;|,)+$")
+      add prefix (TEMP"6","<br /><b>Project</b>: ")
+      set TEMP"7" to MARC."536" subfields "g"
+      remove leading and trailing spaces (TEMP"7")
+      remove substring using regex (TEMP"7","( |;|,)+$")
+      add prefix (TEMP"3","<br /><b>Task</b>: ")
+      set TEMP"8" to MARC."536" subfields "h"
+      remove leading and trailing spaces (TEMP"8")
+      remove substring using regex (TEMP"8","( |;|,)+$")
+      add prefix (TEMP"8","<br /><b>Unit</b>: ")
+      concatenate with delimiter (TEMP"1",TEMP"2","")
+      concatenate with delimiter (TEMP"1",TEMP"3","")
+      concatenate with delimiter (TEMP"1",TEMP"4","")
+      concatenate with delimiter (TEMP"1",TEMP"5","")
+      concatenate with delimiter (TEMP"1",TEMP"6","")
+      concatenate with delimiter (TEMP"1",TEMP"7","")
+      concatenate with delimiter (TEMP"1",TEMP"8","")
+      create pnx."display"."lds24" with TEMP"1"
+end
