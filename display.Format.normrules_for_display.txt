@@ -5,58 +5,86 @@ rule "Primo VE Display - Format 300"
    then
       set TEMP"1" to MARC."300" sub without sort "a,b,c,e,f,g"
       remove leading and trailing spaces (TEMP"1")
-      remove substring using regex (TEMP"1","(:|;|,)+$")
+      remove substring using regex (TEMP"1","( |:|;|,)+$")
+      add prefix (TEMP"1","300 ")
+      create pnx."display"."format" with TEMP"1"
+end
+
+rule "Primo VE Display - Format 305"
+   priority 2
+   when
+      MARC."305" has any "a,b,c,d,e,f,m,n"
+   then
+      set TEMP"1" to MARC."305" sub without sort "a,b,c,d,e"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |:|;|,)+$")
+      set TEMP"2" to MARC."305" subfields "f"
+      remove leading and trailing spaces (TEMP"2")
+      remove substring using regex (TEMP"2","( |:|;|,)+$")
+      add prefix (TEMP"2","<br /><b>- Number of tracks</b>: ")
+      set TEMP"3" to MARC."305" subfields "m"
+      remove leading and trailing spaces (TEMP"3")
+      remove substring using regex (TEMP"3","( |:|;|,)+$")
+      add prefix (TEMP"3","<br /><b>- Issue number</b>: ")
+      set TEMP"4" to MARC."305" subfields "n"
+      remove leading and trailing spaces (TEMP"4")
+      remove substring using regex (TEMP"4","( |:|;|,)+$")
+      add prefix (TEMP"4","<br /><b>- Matrix/take number</b>: ")
+      concatenate with delimiter (TEMP"1",TEMP"2","")
+      concatenate with delimiter (TEMP"1",TEMP"3","")
+      concatenate with delimiter (TEMP"1",TEMP"4","")
+      add prefix (TEMP"1","305 ")
       create pnx."display"."format" with TEMP"1"
 end
 
 rule "Primo VE Display - Format 255"
-   priority 2
+   priority 3
    when
       MARC is "255"
    then
       set TEMP"1" to MARC."255" excluding num subfields without sort
-      add prefix (TEMP"1","<b>Cartographic details</b>: ")
+      add prefix (TEMP"1","<b>- Cartographic details</b>: ")
       create pnx."display"."format" with TEMP"1"
 end
 
 rule "Primo VE Display - Format 351 c"
-   priority 3
+   priority 4
    when
       MARC is "351"."c"
    then
       set TEMP"1" to MARC."351"."c"
       remove leading and trailing spaces (TEMP"1")
-      remove substring using regex (TEMP"1","(:|;|,)+$")
-      add prefix (TEMP"1","<b>Level of description</b>: ")
+      remove substring using regex (TEMP"1","( |:|;|,)+$")
+      add prefix (TEMP"1","<b>- Level of description</b>: ")
       create pnx."display"."format" with TEMP"1"
 end
 
 rule "Primo VE Display - Format 351 a"
-   priority 4
+   priority 5
    when
       MARC is "351"."a"
    then
       set TEMP"1" to MARC."351"."a"
       remove leading and trailing spaces (TEMP"1")
-      remove substring using regex (TEMP"1","(:|;|,)+$")
-      add prefix (TEMP"1","<b>Material organization</b>: ")
+      remove substring using regex (TEMP"1","( |:|;|,)+$")
+      add prefix (TEMP"1","<b>- Material organization</b>: ")
       create pnx."display"."format" with TEMP"1"
 end
 
 rule "Primo VE Display - Format 351 b"
-   priority 5
+   priority 6
    when
       MARC is "351"."b"
    then
       set TEMP"1" to MARC."351"."b"
       remove leading and trailing spaces (TEMP"1")
-      remove substring using regex (TEMP"1","(:|;|,)+$")
-      add prefix (TEMP"1","<b>Material arrangement</b>: ")
+      remove substring using regex (TEMP"1","( |:|;|,)+$")
+      add prefix (TEMP"1","<b>- Material arrangement</b>: ")
       create pnx."display"."format" with TEMP"1"
 end
 
 rule "Primo VE Display - Format 507"
-   priority 6
+   priority 7
    when
       MARC."507" has any "a,b"
    then
@@ -64,8 +92,8 @@ rule "Primo VE Display - Format 507"
       set TEMP"2" to MARC."507" subfields "b"
       remove leading and trailing spaces (TEMP"1")
       remove leading and trailing spaces (TEMP"2")
-      remove substring using regex (TEMP"1","(:|;|,)+$")
-      add prefix (TEMP"1","<b>Graphic material details</b>: ")
+      remove substring using regex (TEMP"1","( |:|;|,)+$")
+      add prefix (TEMP"1","<b>- Graphic material details</b>: ")
       concatenate with delimiter (TEMP"1",TEMP"2","; ")
       create pnx."display"."format" with TEMP"1"
 end
