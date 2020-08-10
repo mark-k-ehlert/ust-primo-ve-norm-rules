@@ -1,0 +1,62 @@
+rule "Primo VE - Lds35"
+   # Accessibility Note
+   # 532 field with 1st indicator "8"
+   priority 1
+   when
+      MARC is "532"."a" AND
+      MARC."532".ind"1" equals "8"
+   then
+      set TEMP"1" to MARC."532" subfields "a"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |\\.)+$")
+      add suffix (TEMP"1",".")
+      create pnx."display"."lds35" with TEMP"1"
+end
+
+rule "Primo VE - Lds35_1"
+   # Accessibility Note
+   # 532 field with 1st indicator "1"
+   priority 2
+   when
+      MARC is "532"."a" AND
+      MARC."532".ind"1" equals "1"
+   then
+      set TEMP"1" to MARC."532" subfields "a"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |\\.)+$")
+      add prefix (TEMP"1","<b>Features</b>: ")
+      add suffix (TEMP"1",".")
+      create pnx."display"."lds35" with TEMP"1"
+end
+   
+rule "Primo VE - Lds35_2"
+   # Accessibility Note
+   # 532 field with 1st indicator "2"
+   priority 3
+   when
+      MARC is "532"."a" AND
+      MARC."532".ind"1" equals "2"
+   then
+      set TEMP"1" to MARC."532" subfields "a"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |\\.)+$")
+      add prefix (TEMP"1","<b>Limitations</b>: ")
+      add suffix (TEMP"1",".")
+      create pnx."display"."lds35" with TEMP"1"
+end
+
+rule "Primo VE - Lds35_3"
+   # Accessibility Note
+   # 532 field with 1st indicator "0"
+   priority 4
+   when
+      MARC is "532"."a" AND
+      MARC."532".ind"1" equals "0"
+   then
+      set TEMP"1" to MARC."532" subfields "a"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |\\.)+$")
+      add prefix (TEMP"1","<b>Technical details</b>: ")
+      add suffix (TEMP"1",".")
+      create pnx."display"."lds35" with TEMP"1"
+end
