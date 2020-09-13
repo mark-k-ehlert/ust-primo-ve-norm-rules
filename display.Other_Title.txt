@@ -20,7 +20,7 @@ rule "Primo VE Display - Other Title 246/0,1/0 - Portion of Title"
    then
       set TEMP"1" to MARC."246" sub without sort "a,b,f,g,i,n,p"
       remove leading and trailing spaces (TEMP"1")
-      add prefix (TEMP"1","<b>Portion of title</b>: ")
+      add prefix (TEMP"1","<b>- Portion of title</b>: ")
       create pnx."display"."addtitle" with TEMP"1"
 end
 
@@ -34,7 +34,7 @@ rule "Primo VE Display - Other Title 246/0,1/1 - Parallel Title"
    then
       set TEMP"1" to MARC."246" sub without sort "a,b,f,g,i,n,p"
       remove leading and trailing spaces (TEMP"1")
-      add prefix (TEMP"1","<b>Title in other language</b>: ")
+      add prefix (TEMP"1","<b>- Title in other language</b>: ")
       create pnx."display"."addtitle" with TEMP"1"
 end
 
@@ -48,7 +48,7 @@ rule "Primo VE Display - Other Title 246/0,1/2 - Distinctive Title"
    then
       set TEMP"1" to MARC."246" sub without sort "a,b,f,g,i,n,p"
       remove leading and trailing spaces (TEMP"1")
-      add prefix (TEMP"1","<b>Distinctive title</b>: ")
+      add prefix (TEMP"1","<b>- Distinctive title</b>: ")
       create pnx."display"."addtitle" with TEMP"1"
 end
 
@@ -62,7 +62,7 @@ rule "Primo VE Display - Other Title 246/0,1/4 - Cover Title"
    then
       set TEMP"1" to MARC."246" sub without sort "a,b,f,g,i,n,p"
       remove leading and trailing spaces (TEMP"1")
-      add prefix (TEMP"1","<b>Cover title</b>: ")
+      add prefix (TEMP"1","<b>- Cover title</b>: ")
       create pnx."display"."addtitle" with TEMP"1"
 end
 
@@ -76,7 +76,7 @@ rule "Primo VE Display - Other Title 246/0,1/5 - Added Title Page Title"
    then
       set TEMP"1" to MARC."246" sub without sort "a,b,f,g,i,n,p"
       remove leading and trailing spaces (TEMP"1")
-      add prefix (TEMP"1","<b>Added title page title</b>: ")
+      add prefix (TEMP"1","<b>- Added title page title</b>: ")
       create pnx."display"."addtitle" with TEMP"1"
 end
 
@@ -90,7 +90,7 @@ rule "Primo VE Display - Other Title 246/0,1/6 - Caption Title"
    then
       set TEMP"1" to MARC."246" sub without sort "a,b,f,g,i,n,p"
       remove leading and trailing spaces (TEMP"1")
-      add prefix (TEMP"1","<b>Caption title</b>: ")
+      add prefix (TEMP"1","<b>- Caption title</b>: ")
       create pnx."display"."addtitle" with TEMP"1"
 end
 
@@ -104,7 +104,7 @@ rule "Primo VE Display - Other Title 246/0,1/7 - Running Title"
    then
       set TEMP"1" to MARC."246" sub without sort "a,b,f,g,i,n,p"
       remove leading and trailing spaces (TEMP"1")
-      add prefix (TEMP"1","<b>Running title</b>: ")
+      add prefix (TEMP"1","<b>- Running title</b>: ")
       create pnx."display"."addtitle" with TEMP"1"
 end
 
@@ -118,7 +118,7 @@ rule "Primo VE Display - Other Title 246/0,1/8 - Spine Title"
    then
       set TEMP"1" to MARC."246" sub without sort "a,b,f,g,i,n,p"
       remove leading and trailing spaces (TEMP"1")
-      add prefix (TEMP"1","<b>Spine title</b>: ")
+      add prefix (TEMP"1","<b>- Spine title</b>: ")
       create pnx."display"."addtitle" with TEMP"1"
 end
 
@@ -144,7 +144,7 @@ rule "Primo VE Display - Other Title 927/0,1/0 - Portion of Title"
    then
       set TEMP"1" to MARC."927" sub without sort "a,b,f,g,i,n,p"
       remove leading and trailing spaces (TEMP"1")
-      add prefix (TEMP"1","<b>Portion of title</b>: ")
+      add prefix (TEMP"1","<b>- Portion of title</b>: ")
       create pnx."display"."addtitle" with TEMP"1"
 end
 
@@ -158,7 +158,7 @@ rule "Primo VE Display - Other Title 927/0,1/1 - Parallel Title"
    then
       set TEMP"1" to MARC."927" sub without sort "a,b,f,g,i,n,p"
       remove leading and trailing spaces (TEMP"1")
-      add prefix (TEMP"1","<b>Title in other language</b>: ")
+      add prefix (TEMP"1","<b>- Title in other language</b>: ")
       create pnx."display"."addtitle" with TEMP"1"
 end
 
@@ -172,7 +172,7 @@ rule "Primo VE Display - Other Title 927/0,1/2 - Distinctive Title"
    then
       set TEMP"1" to MARC."927" sub without sort "a,b,f,g,i,n,p"
       remove leading and trailing spaces (TEMP"1")
-      add prefix (TEMP"1","<b>Distinctive title</b>: ")
+      add prefix (TEMP"1","<b>- Distinctive title</b>: ")
       create pnx."display"."addtitle" with TEMP"1"
 end
 
@@ -186,7 +186,7 @@ rule "Primo VE Display - Other Title 927/0,1/4 - Cover Title"
    then
       set TEMP"1" to MARC."927" sub without sort "a,b,f,g,i,n,p"
       remove leading and trailing spaces (TEMP"1")
-      add prefix (TEMP"1","<b>Cover title</b>: ")
+      add prefix (TEMP"1","<b>- Cover title</b>: ")
       create pnx."display"."addtitle" with TEMP"1"
 end
 
@@ -200,7 +200,7 @@ rule "Primo VE Display - Other Title 927/0,1/5 - Added Title Page Title"
    then
       set TEMP"1" to MARC."927" sub without sort "a,b,f,g,i,n,p"
       remove leading and trailing spaces (TEMP"1")
-      add prefix (TEMP"1","<b>Added title page title</b>: ")
+      add prefix (TEMP"1","<b>- Added title page title</b>: ")
       create pnx."display"."addtitle" with TEMP"1"
 end
 
@@ -214,7 +214,7 @@ rule "Primo VE Display - Other Title 927/0,1/6 - Caption Title"
    then
       set TEMP"1" to MARC."927" sub without sort "a,b,f,g,i,n,p"
       remove leading and trailing spaces (TEMP"1")
-      add prefix (TEMP"1","<b>Caption title</b>: ")
+      add prefix (TEMP"1","<b>- Caption title</b>: ")
       create pnx."display"."addtitle" with TEMP"1"
 end
 
@@ -228,7 +228,7 @@ rule "Primo VE Display - Other Title 927/0,1/7 - Running Title"
    then
       set TEMP"1" to MARC."927" sub without sort "a,b,f,g,i,n,p"
       remove leading and trailing spaces (TEMP"1")
-      add prefix (TEMP"1","<b>Running title</b>: ")
+      add prefix (TEMP"1","<b>- Running title</b>: ")
       create pnx."display"."addtitle" with TEMP"1"
 end
 
@@ -242,7 +242,7 @@ rule "Primo VE Display - Other Title 927/0,1/8 - Spine Title"
    then
       set TEMP"1" to MARC."927" sub without sort "a,b,f,g,i,n,p"
       remove leading and trailing spaces (TEMP"1")
-      add prefix (TEMP"1","<b>Spine title</b>: ")
+      add prefix (TEMP"1","<b>- Spine title</b>: ")
       create pnx."display"."addtitle" with TEMP"1"
 end
 
@@ -272,11 +272,11 @@ rule "Primo VE Display - Other Title 247 - Former Title"
    then
       set TEMP"1" to MARC."247" sub without sort "a,b,n,p,x"
       remove leading and trailing spaces (TEMP"1")
-      remove substring using regex (TEMP"1","(:|,| )+$")
-      add prefix (TEMP"1","<b>Former title</b>: ")
+      remove substring using regex (TEMP"1","(;|:|,| )+$")
+      add prefix (TEMP"1","<b>- Former title</b>: ")
       set TEMP"2" to MARC."247" subfields "f"
       remove leading and trailing spaces (TEMP"2")
-      remove substring using regex (TEMP"2","(,| )+$")
+      remove substring using regex (TEMP"2","(,|;| )+$")
       set TEMP"3" to MARC."247" subfields "g"
       remove leading and trailing spaces (TEMP"3")
       remove substring using regex (TEMP"3","^\\(")

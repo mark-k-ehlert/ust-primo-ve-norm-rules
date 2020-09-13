@@ -19,7 +19,7 @@ rule "Primo VE Display - Frequency 310 a,b"
       set TEMP"1" to MARC."310" subfields "a"
       remove leading and trailing spaces (TEMP"1")
       remove substring using regex (TEMP"1","( |:|;|,)+$")
-      add prefix (TEMP"1","<b>Current frequency</b>: ")
+      add prefix (TEMP"1","<b>- Current frequency</b>: ")
       set TEMP"2" to MARC."310" subfields "b"
       remove leading and trailing spaces (TEMP"2")
       concatenate with delimiter (TEMP"1",TEMP"2",", ")
@@ -34,7 +34,7 @@ rule "Primo VE Display - Frequency 321 a,b"
       set TEMP"1" to MARC."321" subfields "a"
       remove leading and trailing spaces (TEMP"1")
       remove substring using regex (TEMP"1","( |:|;|,)+$")
-      add prefix (TEMP"1","<b>Former frequency</b>: ")
+      add prefix (TEMP"1","<b>- Former frequency</b>: ")
       set TEMP"2" to MARC."321" subfields "b"
       remove leading and trailing spaces (TEMP"2")
       concatenate with delimiter (TEMP"1",TEMP"2",", ")

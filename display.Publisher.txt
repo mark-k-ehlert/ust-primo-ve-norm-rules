@@ -1,0 +1,38 @@
+rule "Primo VE Display - Publisher 260 a,b"
+   when
+      MARC."260" has any "a,b"
+   then
+      set TEMP"1" to MARC."260" sub without sort "a,b"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |:|;|,)+$")
+      create pnx."display"."publisher" with TEMP"1"
+end
+
+rule "Primo VE Display - Publisher 264/_/0 - Producer"
+   when
+      MARC."264" has any "a,b" AND
+      MARC."264".ind"2" equals "0"
+   then
+      set TEMP"1" to MARC."264" sub without sort "a,b"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |:|;|,)+$")
+      create pnx."display"."publisher" with TEMP"1"
+end
+
+rule "Primo VE Display - Publisher 264/_/1 - Publisher"
+   when
+      MARC."264" has any "a,b" AND
+      MARC."264".ind"2" equals "1"
+   then
+      set TEMP"1" to MARC."264" sub without sort "a,b"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |:|;|,)+$")
+      create pnx."display"."publisher" with TEMP"1"
+end
+
+rule "Primo VE Display - Publisher 362 - Suppress Field"
+   when
+      MARC."362" has any "a,z"
+   then
+      set pnx."display"."publisher_notes" to "<span style=display:none;></span>"
+end
