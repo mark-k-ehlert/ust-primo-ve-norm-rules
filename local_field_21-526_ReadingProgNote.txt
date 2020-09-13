@@ -9,19 +9,19 @@ rule "Primo VE - Lds21"
       set TEMP"2" to MARC."526" subfields "b"
       remove leading and trailing spaces (TEMP"2")
       remove substring using regex (TEMP"2","( |;|,)+$")
-      add prefix (TEMP"2","<b>Interest level</b>: ")
+      add prefix (TEMP"2","<b>- Interest level</b>: ")
       set TEMP"3" to MARC."526" subfields "c"
       remove leading and trailing spaces (TEMP"3")
       remove substring using regex (TEMP"3","( |;|,)+$")
-      add prefix (TEMP"3","<b>Reading level</b>: ")
+      add prefix (TEMP"3","<b>- Reading level</b>: ")
       set TEMP"4" to MARC."526" subfields "d"
       remove leading and trailing spaces (TEMP"4")
       remove substring using regex (TEMP"4","( |;|,)+$")
-      add prefix (TEMP"4","<b>Title point value</b>: ")
+      add prefix (TEMP"4","<b>- Title point value</b>: ")
       set TEMP"5" to MARC."526" subfields "z"
       remove leading and trailing spaces (TEMP"5")
       remove substring using regex (TEMP"5","( |;|,)+$")
-      add prefix (TEMP"5","<b>Note</b>: ")
+      add prefix (TEMP"5","<b>- Note</b>: ")
       concatenate with delimiter (TEMP"1",TEMP"2","<br />")
       concatenate with delimiter (TEMP"1",TEMP"3","<br />")
       concatenate with delimiter (TEMP"1",TEMP"4","<br />")

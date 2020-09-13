@@ -9,7 +9,7 @@ rule "Primo VE - Lds16"
    then
       set TEMP"1" to MARC."506" sub without sort "a,b,c,d,e,f"
       remove leading and trailing spaces (TEMP"1")
-      add prefix (TEMP"1","<b>Restrictions note</b>: ")
+      add prefix (TEMP"1","<b>- Restrictions note</b>: ")
       create pnx."display"."lds16" with TEMP"1"
 end
 
@@ -24,6 +24,6 @@ rule "Primo VE - Lds16_1"
    then
       set TEMP"1" to MARC."540" sub without sort "a,b,c,d"
       remove leading and trailing spaces (TEMP"1")
-      add prefix (TEMP"1","<b>Terms of use</b>: ")
+      add prefix (TEMP"1","<b>- Terms of use</b>: ")
       create pnx."display"."lds16" with TEMP"1"
 end

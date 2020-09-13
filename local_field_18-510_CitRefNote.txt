@@ -11,7 +11,7 @@ rule "Primo VE - Lds18"
       set TEMP"1" to MARC."510" subfields "a"
       remove leading and trailing spaces (TEMP"1")
       remove substring using regex (TEMP"1","( |;|:|,)+$")
-      add prefix (TEMP"1","<b>Indexed by</b>: ")
+      add prefix (TEMP"1","<b>- Indexed by</b>: ")
       set TEMP"2" to MARC."510" subfields "b"
       remove leading and trailing spaces (TEMP"2")
       remove substring using regex (TEMP"2","( |;|:|,)+$")
@@ -39,7 +39,7 @@ rule "Primo VE - Lds18_1"
       set TEMP"1" to MARC."510" subfields "a"
       remove leading and trailing spaces (TEMP"1")
       remove substring using regex (TEMP"1","( |;|:|,)+$")
-      add prefix (TEMP"1","<b>References</b>: ")
+      add prefix (TEMP"1","<b>- References</b>: ")
       set TEMP"2" to MARC."510" subfields "b"
       remove leading and trailing spaces (TEMP"2")
       remove substring using regex (TEMP"2","( |;|:|,)+$")

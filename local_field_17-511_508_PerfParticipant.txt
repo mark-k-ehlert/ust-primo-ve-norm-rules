@@ -22,7 +22,7 @@ rule "Primo VE - Lds17_1"
    then
       set TEMP"1" to MARC."511" subfields "a"
       remove leading and trailing spaces (TEMP"1")
-      add prefix (TEMP"1","<b>Cast</b>: ")
+      add prefix (TEMP"1","<b>- Cast</b>: ")
       create pnx."display"."lds17" with TEMP"1"
 end
 
@@ -35,6 +35,6 @@ rule "Primo VE - Lds17_2"
    then
       set TEMP"1" to MARC."508" subfields "a"
       remove leading and trailing spaces (TEMP"1")
-      add prefix (TEMP"1","<b>Credits</b>: ")
+      add prefix (TEMP"1","<b>- Credits</b>: ")
       create pnx."display"."lds17" with TEMP"1"
 end
