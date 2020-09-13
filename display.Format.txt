@@ -33,7 +33,6 @@ rule "Primo VE Display - Format 305"
       concatenate with delimiter (TEMP"1",TEMP"2","")
       concatenate with delimiter (TEMP"1",TEMP"3","")
       concatenate with delimiter (TEMP"1",TEMP"4","")
-      add prefix (TEMP"1","305 ")
       create pnx."display"."format" with TEMP"1"
 end
 
