@@ -1,0 +1,12 @@
+rule "Primo VE - Lds38"
+   # Ownership and Custodial History
+   # 561 field with 1st indicator "blank" or "1"
+   when
+      MARC is "561"."a" AND
+      (MARC."561".ind"1" equals " " OR
+      MARC."561".ind"1" equals "1")
+   then
+      set TEMP"1" to MARC."561" subfields "a"
+      remove leading and trailing spaces (TEMP"1")
+      create pnx."display"."lds38" with TEMP"1"
+end
