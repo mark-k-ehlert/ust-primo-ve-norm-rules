@@ -20,7 +20,7 @@ rule "Primo VE - Lds15_1"
    then
       set TEMP"1" to MARC."522" subfields "a"
       remove leading and trailing spaces (TEMP"1")
-      add prefix (TEMP"1","<b>Geographic coverage</b>: ")
+      add prefix (TEMP"1","<b>- Geographic coverage</b>: ")
       create pnx."display"."lds15" with TEMP"1"
 end
 
@@ -33,7 +33,7 @@ rule "Primo VE - Lds15_2"
    then
       set TEMP"1" to MARC."516" subfields "a"
       remove leading and trailing spaces (TEMP"1")
-      add prefix (TEMP"1","<b>File type</b>: ")
+      add prefix (TEMP"1","<b>- File type</b>: ")
       create pnx."display"."lds15" with TEMP"1"
 end
 
@@ -46,7 +46,7 @@ rule "Primo VE - Lds15_3"
    then
       set TEMP"1" to MARC."567" subfields "a"
       remove leading and trailing spaces (TEMP"1")
-      add prefix (TEMP"1","<b>Methodology</b>: ")
+      add prefix (TEMP"1","<b>- Methodology</b>: ")
       create pnx."display"."lds15" with TEMP"1"
 end
 
@@ -59,12 +59,71 @@ rule "Primo VE - Lds15_4"
    then
       set TEMP"1" to MARC."556" subfields "a"
       remove leading and trailing spaces (TEMP"1")
-      add prefix (TEMP"1","<b>Documentation</b>: ")
+      add prefix (TEMP"1","<b>- Documentation</b>: ")
       set TEMP"2" to MARC."556" subfields "z"
       remove leading and trailing spaces (TEMP"2")
       remove substring using regex (TEMP"2","( |\\.)+$")
       add prefix (TEMP"2","(ISBN ")
       add suffix (TEMP"2",")")
       concatenate with delimiter (TEMP"1",TEMP"2"," ")
+      create pnx."display"."lds15" with TEMP"1"
+end
+
+rule "Primo VE - Lds15_5"
+   # Exhibitions Note
+   # 585 field
+   priority 6
+   when
+      MARC is "585"."a"
+   then
+      set TEMP"1" to MARC."585" subfields "a"
+      remove leading and trailing spaces (TEMP"1")
+      add prefix (TEMP"1","<b>- Exhibitions note</b>: ")
+      create pnx."display"."lds15" with TEMP"1"
+end
+
+rule "Primo VE - Lds15_6"
+   # Accumulation and Frequency of Use Note
+   # 584 field - $a only
+   priority 7
+   when
+      MARC is "584"."a" AND NOT
+      MARC "584"."b" match ".+"
+   then
+      set TEMP"1" to MARC."584" subfields "a"
+      remove leading and trailing spaces (TEMP"1")
+      add prefix (TEMP"1","<b>- Accumulation</b>: ")
+      create pnx."display"."lds15" with TEMP"1"
+end
+
+rule "Primo VE - Lds15_7"
+   # Accumulation and Frequency of Use Note
+   # 584 field - $b only
+   priority 8
+   when
+      MARC is "584"."b" AND NOT
+      MARC "584"."a" match ".+"
+   then
+      set TEMP"1" to MARC."584" subfields "b"
+      remove leading and trailing spaces (TEMP"1")
+      add prefix (TEMP"1","<b>- Frequency of Use</b>: ")
+      create pnx."display"."lds15" with TEMP"1"
+end
+
+rule "Primo VE - Lds15_8"
+   # Accumulation and Frequency of Use Note
+   # 584 field - $a and $b
+   priority 9
+   when
+      MARC is "584"."a" AND
+      MARC is "584"."b"
+   then
+      set TEMP"1" to MARC."584" subfields "a"
+      remove leading and trailing spaces (TEMP"1")
+      add prefix (TEMP"1","<b>- Accumulation</b>: ")
+      set TEMP"2" to MARC."584" subfields "b"
+      remove leading and trailing spaces (TEMP"2")
+      add prefix (TEMP"2","<b>- Frequency of Use</b>: ")
+      concatenate with delimiter (TEMP"1",TEMP"2","<br />")
       create pnx."display"."lds15" with TEMP"1"
 end
