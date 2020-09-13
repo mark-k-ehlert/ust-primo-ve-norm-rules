@@ -1,0 +1,49 @@
+rule "Primo VE - Lds36"
+   # Manufacturer statement
+   # 260 field with $e, $f, $g
+   when
+      MARC."260" has any "e,f,g"
+   then
+      set TEMP"1" to MARC."260" sub without sort "e,f,g"
+      remove substring using regex (TEMP"1","^\\(")
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |:|;|,|\\))+$")
+      add prefix (TEMP"1","<b>- Manufacturer</b>: ")
+      create pnx."display"."lds36" with TEMP"1"
+end
+
+rule "Primo VE - Lds36_1"
+   # Distributor statement
+   # 264 field with 1st ind "2"
+   when
+      MARC."264" has any "a,b,c" AND
+      MARC."264".ind"2" equals "2"
+   then
+      set TEMP"1" to MARC."264" sub without sort "a,b"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |:|;|,)+$")
+      add prefix (TEMP"1","<b>- Distributor</b>: ")
+      set TEMP"2" to MARC."264" subfields "c"
+      remove leading and trailing spaces (TEMP"2")
+      remove substring using regex (TEMP"2","(\\.|:|;|,| )+$")
+      concatenate with delimiter (TEMP"1",TEMP"2",", ")
+      create pnx."display"."lds36" with TEMP"1"
+end
+
+rule "Primo VE - Lds36_2"
+   # Manufacturer statement
+   # 264 field with 1st ind "3"
+   when
+      MARC."264" has any "a,b,c" AND
+      MARC."264".ind"2" equals "3"
+   then
+      set TEMP"1" to MARC."264" sub without sort "a,b"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |:|;|,)+$")
+      add prefix (TEMP"1","<b>- Manufacturer</b>: ")
+      set TEMP"2" to MARC."264" subfields "c"
+      remove leading and trailing spaces (TEMP"2")
+      remove substring using regex (TEMP"2","(\\.|:|;|,| )+$")
+      concatenate with delimiter (TEMP"1",TEMP"2",", ")
+      create pnx."display"."lds36" with TEMP"1"
+end
