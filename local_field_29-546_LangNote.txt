@@ -7,7 +7,7 @@ rule "Primo VE - Lds29"
    then
       set TEMP"1" to MARC."546" subfields "a"
       remove leading and trailing spaces (TEMP"1")
-      add prefix (TEMP"1","<b>Language note</b>: ")
+      add prefix (TEMP"1","<b>- Language note</b>: ")
       create pnx."display"."lds29" with TEMP"1"
 end
 
@@ -22,11 +22,11 @@ rule "Primo VE - Lds29_1"
       set TEMP"1" to MARC."546" subfields "a"
       remove leading and trailing spaces (TEMP"1")
       remove substring using regex (TEMP"1","( |;|,)+$")
-      add prefix (TEMP"1","<b>Language note</b>: ")
+      add prefix (TEMP"1","<b>- Language note</b>: ")
       set TEMP"2" to MARC."546" subfields "b"
       remove leading and trailing spaces (TEMP"2")
-      remove substring using regex (TEMP"2","^( |;)+")
-      remove substring using regex (TEMP"2","( |;|,)+$")
+      remove substring using regex (TEMP"2","^( |;|\\()+")
+      remove substring using regex (TEMP"2","( |;|,|\\))+$")
       add prefix (TEMP"2","(")
       add suffix (TEMP"2",")")
       concatenate with delimiter (TEMP"1",TEMP"2"," ")
@@ -42,6 +42,6 @@ rule "Primo VE - Lds29_2"
    then
       set TEMP"1" to MARC."546" subfields "b"
       remove leading and trailing spaces (TEMP"1")
-      add prefix (TEMP"1","<b>Notation/script</b>: ")
+      add prefix (TEMP"1","<b>- Notation/script</b>: ")
       create pnx."display"."lds29" with TEMP"1"
 end
