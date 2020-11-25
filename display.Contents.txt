@@ -53,5 +53,6 @@ rule "Primo VE Display - Contents 505/8/_,0 - TOC"
    then
       set TEMP"1" to MARC."505" sub without sort "a,g,r,t"
       remove leading and trailing spaces (TEMP"1")
+      add prefix (TEMP"1","<b>-</b> ")
       create pnx."display"."contents" with TEMP"1"
 end
