@@ -25,7 +25,7 @@ rule "Primo VE - Lds01_1"
       MARC is "590"."a" AND
       (MARC."590"."5" match "MnSST" OR
       MARC."590"."5" match "MnMpUSTL") AND
-      MARC."590"."9" match "[Ll][Oo][Cc][Aa][Ll]]"
+      MARC."590"."9" match "LOCAL|local|Local"
    then
       set TEMP"1" to MARC."590" subfields "a"
       remove leading and trailing spaces (TEMP"1")
@@ -41,7 +41,7 @@ rule "Primo VE - Lds01_2"
       MARC is "599"."a" AND
       (MARC."599"."5" match "MnSST" OR
       MARC."599"."5" match "MnMpUSTL") AND
-      MARC."599"."9" match "[Ll][Oo][Cc][Aa][Ll]]"
+      MARC."599"."9" match "LOCAL|local|Local"
    then
       set TEMP"1" to MARC."599" subfields "a"
       remove leading and trailing spaces (TEMP"1")
