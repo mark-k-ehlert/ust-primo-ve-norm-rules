@@ -1,11 +1,19 @@
 rule "Primo VE - Lds40"
    # Genre 929
-   # Field 929/any/0,1,2
+   # Field 929/any/0,1,2 and $5 CLIC
    when
       MARC."929" has any "a-z" AND
       (MARC."929".ind"2" equals "0" OR
       MARC."929".ind"2" equals "1" OR
-      MARC."929".ind"2" equals "2")
+      MARC."929".ind"2" equals "2") AND
+      (MARC."929"."5" match "MnSB" OR
+      MARC."929"."5" match "MnSCC" OR
+      MARC."929"."5" match "MnSH" OR
+      MARC."929"."5" match "MnRoN" OR
+      MARC."929"."5" match "MnSSC" OR
+      MARC."929"."5" match "MnSST" OR
+      MARC."929"."5" match "MnMpUSTL" OR
+      MARC."929"."5" match "MnSpCLIC")
    then
       # Capture all subfields for string display
       set TEMP"1" to MARC."929" subfields "a"
