@@ -1,0 +1,75 @@
+rule "Primo VE Marc - Lsr12"
+   # Series 928 without $x
+   # Field 928/_/any and $5 CLIC
+   # Network-level field
+   when
+      MARC is "928" AND
+      MARC."928".ind"1" equals " " AND
+      (MARC."928"."5" match "MnSB" OR
+      MARC."928"."5" match "MnSCC" OR
+      MARC."928"."5" match "MnSH" OR
+      MARC."928"."5" match "MnRoN" OR
+      MARC."928"."5" match "MnSSC" OR
+      MARC."928"."5" match "MnSpCLIC")
+   then
+      set TEMP"1" to MARC "928" excluding subfields without sorting "[0-9]|g|h|t|w|x"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |;|,)+$")
+      create pnx."search"."lsr12" with TEMP"1"
+end
+
+rule "Primo VE Marc - Lsr12_1"
+   # Series 928 without $x
+   # Field 928/_/any and $5 UST
+   # Local extension
+   when
+      MARC is "928" AND
+      MARC."928".ind"1" equals " " AND
+      (MARC."928"."5" match "MnSST" OR
+      MARC."928"."5" match "MnMpUSTL") AND
+      MARC."928"."9" match "LOCAL|local|Local"
+   then
+      set TEMP"1" to MARC "928" excluding subfields without sorting "[0-9]|g|h|t|w|x"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |;|,)+$")
+      create pnx."search"."lsr12" with TEMP"1"
+end
+
+rule "Primo VE Marc - Lsr12_2"
+   # Series 928 $x only
+   # Field 928/_/any and $5 CLIC
+   # Network-level field
+   when
+      MARC is "928"."x" AND
+      MARC."928".ind"1" equals " " AND
+      (MARC."928"."5" match "MnSB" OR
+      MARC."928"."5" match "MnSCC" OR
+      MARC."928"."5" match "MnSH" OR
+      MARC."928"."5" match "MnRoN" OR
+      MARC."928"."5" match "MnSSC" OR
+      MARC."928"."5" match "MnSpCLIC")
+   then
+      set TEMP"1" to MARC."928" subfields "x"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","^( |;|,)+")
+      remove substring using regex (TEMP"1","( |;|,)+$")
+      create pnx."search"."lsr12" with TEMP"1"
+end
+
+rule "Primo VE Marc - Lsr12_3"
+   # Series 928 $x only
+   # Field 928/_/any and $5 UST
+   # Local extension
+   when
+      MARC is "928"."x" AND
+      MARC."928".ind"1" equals " " AND
+      (MARC."928"."5" match "MnSST" OR
+      MARC."928"."5" match "MnMpUSTL") AND
+      MARC."928"."9" match "LOCAL|local|Local"
+   then
+      set TEMP"1" to MARC."928" subfields "x"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","^( |;|,)+")
+      remove substring using regex (TEMP"1","( |;|,)+$")
+      create pnx."search"."lsr12" with TEMP"1"
+end
