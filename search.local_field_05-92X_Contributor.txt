@@ -1,4 +1,4 @@
-rule "Primo VE - Lds05"
+rule "Primo VE Marc - Lsr05"
    # Contributor 920 - Person
    # Field 920/any/any and $5 CLIC
    # Network-level field
@@ -15,16 +15,10 @@ rule "Primo VE - Lds05"
       set TEMP"1" to MARC."920" sub without sort "a,b,c,d,j,q,u"
       remove leading and trailing spaces (TEMP"1")
       remove substring using regex (TEMP"1","( |/|:|;|=|,)+$")
-      set TEMP"2" to MARC."920" sub without sort "a,b,c,d,j,q"
-      remove leading and trailing spaces (TEMP"2")
-      remove substring using regex (TEMP"2","( |/|:|;|=|,)+$")
-      add prefix (TEMP"2","$$Q")
-      remove substring using regex (TEMP"2","^$$Q$")
-      concatenate with delimiter (TEMP"1",TEMP"2","")
-      create pnx."display"."lds05" with TEMP"1"
+      create pnx."search"."lsr05" with TEMP"1"
 end
 
-rule "Primo VE - Lds05_1"
+rule "Primo VE Marc - Lsr05_1"
    # Contributor 920 - Person
    # Field 920/any/any and $5 UST
    # Local extension
@@ -38,16 +32,10 @@ rule "Primo VE - Lds05_1"
       set TEMP"1" to MARC."920" sub without sort "a,b,c,d,j,q,u"
       remove leading and trailing spaces (TEMP"1")
       remove substring using regex (TEMP"1","( |/|:|;|=|,)+$")
-      set TEMP"2" to MARC."920" sub without sort "a,b,c,d,j,q"
-      remove leading and trailing spaces (TEMP"2")
-      remove substring using regex (TEMP"2","( |/|:|;|=|,)+$")
-      add prefix (TEMP"2","$$Q")
-      remove substring using regex (TEMP"2","^$$Q$")
-      concatenate with delimiter (TEMP"1",TEMP"2","")
-      create pnx."display"."lds05" with TEMP"1"
+      create pnx."search"."lsr05" with TEMP"1"
 end
 
-rule "Primo VE - Lds05_2"
+rule "Primo VE Marc - Lsr05_2"
    # Contributor 921 - Corp body
    # Field 921/any/any and $5 CLIC
    # Network-level field
@@ -64,16 +52,10 @@ rule "Primo VE - Lds05_2"
       set TEMP"1" to MARC."921" sub without sort "a,b,c,d,g,n,u"
       remove leading and trailing spaces (TEMP"1")
       remove substring using regex (TEMP"1","( |/|:|;|=|,)+$")
-      set TEMP"2" to MARC."921" sub without sort "a,b,c,d,g,n"
-      remove leading and trailing spaces (TEMP"2")
-      remove substring using regex (TEMP"2","( |/|:|;|=|,)+$")
-      add prefix (TEMP"2","$$Q")
-      remove substring using regex (TEMP"2","^$$Q$")
-      concatenate with delimiter (TEMP"1",TEMP"2","")
-      create pnx."display"."lds05" with TEMP"1"
+      create pnx."search"."lsr05" with TEMP"1"
 end
 
-rule "Primo VE - Lds05_3"
+rule "Primo VE Marc - Lsr05_3"
    # Contributor 921 - Corp body
    # Field 921/any/any and $5 UST
    # Local extension
@@ -87,16 +69,10 @@ rule "Primo VE - Lds05_3"
       set TEMP"1" to MARC."921" sub without sort "a,b,c,d,g,n,u"
       remove leading and trailing spaces (TEMP"1")
       remove substring using regex (TEMP"1","( |/|:|;|=|,)+$")
-      set TEMP"2" to MARC."921" sub without sort "a,b,c,d,g,n"
-      remove leading and trailing spaces (TEMP"2")
-      remove substring using regex (TEMP"2","( |/|:|;|=|,)+$")
-      add prefix (TEMP"2","$$Q")
-      remove substring using regex (TEMP"2","^$$Q$")
-      concatenate with delimiter (TEMP"1",TEMP"2","")
-      create pnx."display"."lds05" with TEMP"1"
+      create pnx."search"."lsr05" with TEMP"1"
 end
 
-rule "Primo VE - Lds05_4"
+rule "Primo VE Marc - Lsr05_4"
    # Contributor 922 - Conference/meeting
    # Field 922/any/any and $5 CLIC
    # Network-level field
@@ -113,16 +89,10 @@ rule "Primo VE - Lds05_4"
       set TEMP"1" to MARC."922" sub without sort "a,c,d,e,g,n,q,u"
       remove leading and trailing spaces (TEMP"1")
       remove substring using regex (TEMP"1","( |/|:|;|=|,)+$")
-      set TEMP"2" to MARC."922" sub without sort "a,c,d,e,g,n,q"
-      remove leading and trailing spaces (TEMP"2")
-      remove substring using regex (TEMP"2","( |/|:|;|=|,)+$")
-      add prefix (TEMP"2","$$Q")
-      remove substring using regex (TEMP"2","^$$Q$")
-      concatenate with delimiter (TEMP"1",TEMP"2","")
-      create pnx."display"."lds05" with TEMP"1"
+      create pnx."search"."lsr05" with TEMP"1"
 end
 
-rule "Primo VE - Lds05_5"
+rule "Primo VE Marc - Lsr05_5"
    # Contributor 922 - Conference/meeting
    # Field 922/any/any and $5 UST
    # Local extension
@@ -136,11 +106,5 @@ rule "Primo VE - Lds05_5"
       set TEMP"1" to MARC."922" sub without sort "a,c,d,e,g,n,q,u"
       remove leading and trailing spaces (TEMP"1")
       remove substring using regex (TEMP"1","( |/|:|;|=|,)+$")
-      set TEMP"2" to MARC."922" sub without sort "a,c,d,e,g,n,q"
-      remove leading and trailing spaces (TEMP"2")
-      remove substring using regex (TEMP"2","( |/|:|;|=|,)+$")
-      add prefix (TEMP"2","$$Q")
-      remove substring using regex (TEMP"2","^$$Q$")
-      concatenate with delimiter (TEMP"1",TEMP"2","")
-      create pnx."display"."lds05" with TEMP"1"
+      create pnx."search"."lsr05" with TEMP"1"
 end
