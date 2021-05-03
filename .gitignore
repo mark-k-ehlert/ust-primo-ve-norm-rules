@@ -4,6 +4,7 @@ Primo VE Norm Rules.bbprojectd/Scratchpad.txt
 Primo VE Norm Rules.bbprojectd/project.bbprojectdata
 Primo VE Norm Rules.bbprojectd/markkehlert.bbprojectsettings
 .DS_Store
+<<<<<<< Updated upstream
 README.md
 README.md
 *.md
@@ -12,3 +13,8 @@ README.md
 .README.md.icloud
 README.md
 README.md
+=======
+*.txt~
+>>>>>>> Stashed changes
+*.md~
+*.md~

@@ -1,0 +1,110 @@
+rule "Primo VE Marc - Lsr05"
+   # Contributor 920 - Person
+   # Field 920/any/any and $5 CLIC
+   # Network-level field
+   when
+      MARC."920" has any "a,b,c,d,j,q,u" AND NOT
+      MARC."920"."t" match ".+" AND
+      (MARC."920"."5" match "MnSB" OR
+      MARC."920"."5" match "MnSCC" OR
+      MARC."920"."5" match "MnSH" OR
+      MARC."920"."5" match "MnRoN" OR
+      MARC."920"."5" match "MnSSC" OR
+      MARC."920"."5" match "MnSpCLIC")
+   then
+      set TEMP"1" to MARC."920" sub without sort "a,b,c,d,j,q,u"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |/|:|;|=|,)+$")
+      create pnx."search"."lsr05" with TEMP"1"
+end
+
+rule "Primo VE Marc - Lsr05_1"
+   # Contributor 920 - Person
+   # Field 920/any/any and $5 UST
+   # Local extension
+   when
+      MARC."920" has any "a,b,c,d,j,q,u" AND NOT
+      MARC."920"."t" match ".+" AND
+      (MARC."920"."5" match "MnSST" OR
+      MARC."920"."5" match "MnMpUSTL") AND
+      MARC."920"."9" match "LOCAL|local|Local"
+   then
+      set TEMP"1" to MARC."920" sub without sort "a,b,c,d,j,q,u"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |/|:|;|=|,)+$")
+      create pnx."search"."lsr05" with TEMP"1"
+end
+
+rule "Primo VE Marc - Lsr05_2"
+   # Contributor 921 - Corp body
+   # Field 921/any/any and $5 CLIC
+   # Network-level field
+   when
+      MARC."921" has any "a,b,c,d,g,n,u" AND NOT
+      MARC."921"."t" match ".+" AND
+      (MARC."921"."5" match "MnSB" OR
+      MARC."921"."5" match "MnSCC" OR
+      MARC."921"."5" match "MnSH" OR
+      MARC."921"."5" match "MnRoN" OR
+      MARC."921"."5" match "MnSSC" OR
+      MARC."921"."5" match "MnSpCLIC")
+   then
+      set TEMP"1" to MARC."921" sub without sort "a,b,c,d,g,n,u"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |/|:|;|=|,)+$")
+      create pnx."search"."lsr05" with TEMP"1"
+end
+
+rule "Primo VE Marc - Lsr05_3"
+   # Contributor 921 - Corp body
+   # Field 921/any/any and $5 UST
+   # Local extension
+   when
+      MARC."921" has any "a,b,c,d,g,n,u" AND NOT
+      MARC."921"."t" match ".+" AND
+      (MARC."921"."5" match "MnSST" OR
+      MARC."921"."5" match "MnMpUSTL") AND
+      MARC."921"."9" match "LOCAL|local|Local"
+   then
+      set TEMP"1" to MARC."921" sub without sort "a,b,c,d,g,n,u"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |/|:|;|=|,)+$")
+      create pnx."search"."lsr05" with TEMP"1"
+end
+
+rule "Primo VE Marc - Lsr05_4"
+   # Contributor 922 - Conference/meeting
+   # Field 922/any/any and $5 CLIC
+   # Network-level field
+   when
+      MARC."922" has any "a,c,d,e,g,n,q" AND NOT
+      MARC."922"."t" match ".+" AND
+      (MARC."922"."5" match "MnSB" OR
+      MARC."922"."5" match "MnSCC" OR
+      MARC."922"."5" match "MnSH" OR
+      MARC."922"."5" match "MnRoN" OR
+      MARC."922"."5" match "MnSSC" OR
+      MARC."922"."5" match "MnSpCLIC")
+   then
+      set TEMP"1" to MARC."922" sub without sort "a,c,d,e,g,n,q,u"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |/|:|;|=|,)+$")
+      create pnx."search"."lsr05" with TEMP"1"
+end
+
+rule "Primo VE Marc - Lsr05_5"
+   # Contributor 922 - Conference/meeting
+   # Field 922/any/any and $5 UST
+   # Local extension
+   when
+      MARC."922" has any "a,c,d,e,g,n,q" AND NOT
+      MARC."922"."t" match ".+" AND
+      (MARC."922"."5" match "MnSST" OR
+      MARC."922"."5" match "MnMpUSTL") AND
+      MARC."922"."9" match "LOCAL|local|Local"
+   then
+      set TEMP"1" to MARC."922" sub without sort "a,c,d,e,g,n,q,u"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |/|:|;|=|,)+$")
+      create pnx."search"."lsr05" with TEMP"1"
+end
