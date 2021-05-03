@@ -1,0 +1,68 @@
+rule "Primo VE - Lds05"
+   # Contributor 952 - Person
+   # Field 952/any/any and $5 UST
+   # Local extension
+   when
+      MARC."952" has any "a,b,c,d,j,q,u" AND NOT
+      MARC."952"."t" match ".+" AND
+      (MARC."952"."5" match "MnSST" OR
+      MARC."952"."5" match "MnMpUSTL") AND
+      MARC."952"."9" match "LOCAL|local|Local"
+   then
+      set TEMP"1" to MARC."952" sub without sort "a,b,c,d,j,q,u"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |/|:|;|=|,)+$")
+      set TEMP"2" to MARC."952" sub without sort "a,b,c,d,j,q"
+      remove leading and trailing spaces (TEMP"2")
+      remove substring using regex (TEMP"2","( |/|:|;|=|,)+$")
+      add prefix (TEMP"2","$$Q")
+      remove substring using regex (TEMP"2","^$$Q$")
+      concatenate with delimiter (TEMP"1",TEMP"2","")
+      create pnx."display"."lds05" with TEMP"1"
+end
+
+rule "Primo VE - Lds05_1"
+   # Contributor 953 - Corp body
+   # Field 953/any/any and $5 UST
+   # Local extension
+   when
+      MARC."953" has any "a,b,c,d,g,n,u" AND NOT
+      MARC."953"."t" match ".+" AND
+      (MARC."953"."5" match "MnSST" OR
+      MARC."953"."5" match "MnMpUSTL") AND
+      MARC."953"."9" match "LOCAL|local|Local"
+   then
+      set TEMP"1" to MARC."953" sub without sort "a,b,c,d,g,n,u"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |/|:|;|=|,)+$")
+      set TEMP"2" to MARC."953" sub without sort "a,b,c,d,g,n"
+      remove leading and trailing spaces (TEMP"2")
+      remove substring using regex (TEMP"2","( |/|:|;|=|,)+$")
+      add prefix (TEMP"2","$$Q")
+      remove substring using regex (TEMP"2","^$$Q$")
+      concatenate with delimiter (TEMP"1",TEMP"2","")
+      create pnx."display"."lds05" with TEMP"1"
+end
+
+rule "Primo VE - Lds05_2"
+   # Contributor 954 - Conference/meeting
+   # Field 954/any/any and $5 UST
+   # Local extension
+   when
+      MARC."954" has any "a,c,d,e,g,n,q" AND NOT
+      MARC."954"."t" match ".+" AND
+      (MARC."954"."5" match "MnSST" OR
+      MARC."954"."5" match "MnMpUSTL") AND
+      MARC."954"."9" match "LOCAL|local|Local"
+   then
+      set TEMP"1" to MARC."954" sub without sort "a,c,d,e,g,n,q,u"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |/|:|;|=|,)+$")
+      set TEMP"2" to MARC."954" sub without sort "a,c,d,e,g,n,q"
+      remove leading and trailing spaces (TEMP"2")
+      remove substring using regex (TEMP"2","( |/|:|;|=|,)+$")
+      add prefix (TEMP"2","$$Q")
+      remove substring using regex (TEMP"2","^$$Q$")
+      concatenate with delimiter (TEMP"1",TEMP"2","")
+      create pnx."display"."lds05" with TEMP"1"
+end
