@@ -1,0 +1,29 @@
+rule "Primo VE - Lds12"
+   # Series 961
+   # Field 961/_/any and $5 UST
+   # Local extension
+   when
+      MARC is "961" AND
+      MARC."961".ind"1" equals " " AND
+      (MARC."961"."5" match "MnSST" OR
+      MARC."961"."5" match "MnMpUSTL") AND
+      MARC."961"."9" match "LOCAL|local|Local"
+   then
+      set TEMP"1" to MARC "961" excluding subfields without sorting "[0-9]|g|h|t|v|w|x"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |;|,)+$")
+      set TEMP"2" to MARC."961" subfields "v"
+      remove leading and trailing spaces (TEMP"2")
+      concatenate with delimiter (TEMP"1",TEMP"2"," ; ")
+      set TEMP"3" to MARC "961" excluding subfields without sorting "[0-9]|g|h|t|v|w|x"
+      remove leading and trailing spaces (TEMP"3")
+      remove substring using regex (TEMP"3","( |;|,)+$")
+      add prefix (TEMP"3","$$Q")
+      remove substring using regex (TEMP"3","^$$Q$")
+      set TEMP"4" to MARC."961" prima_w_relation "w"
+      set TEMP"5" to MARC."961" prima_x_relation "x"
+      concatenate with delimiter (TEMP"1",TEMP"3","")
+      concatenate with delimiter (TEMP"1",TEMP"4","")
+      concatenate with delimiter (TEMP"1",TEMP"5","")
+      create pnx."display"."lds12" with TEMP"1"
+end
