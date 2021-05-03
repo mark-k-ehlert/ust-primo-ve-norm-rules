@@ -1,0 +1,61 @@
+rule "Primo VE Marc - Lsr40"
+   # Genre 962
+   # Field 962/any/0,1,2 and $5 UST
+   # Local extension
+   when
+      MARC."962" has any "a-z" AND
+      (MARC."962".ind"2" equals "0" OR
+      MARC."962".ind"2" equals "1" OR
+      MARC."962".ind"2" equals "2") AND
+      (MARC."962"."5" match "MnSST" OR
+      MARC."962"."5" match "MnMpUSTL") AND
+      MARC."962"."9" match "LOCAL|local|Local"
+   then
+      set TEMP"1" to MARC."962" subfields "a"
+      set TEMP"2" to MARC."962" sub without sorting "v,x-z" delimited by " -- "
+      concatenate with delimiter (TEMP"1",TEMP"2"," -- ")
+      create pnx."search"."lsr40" with TEMP"1"
+end
+
+rule "Primo VE Marc - Lsr40_1"
+   # Genre 962
+   # Field 962/any/7 with $2 and $5 UST
+   # Local extension
+   when
+      MARC."962" has any "a-z" AND
+      MARC."962".ind"2" equals "7" AND
+      # Includes term 'local'
+      (MARC."962"."2" match "(aat|AAT)" OR
+      MARC."962"."2" match "(bisacsh|BISACSH)" OR
+      MARC."962"."2" match "(ftamc|FTAMC)" OR
+      MARC."962"."2" match "(gmgpc|GMGPC)" OR
+      MARC."962"."2" match "(gsafd|GSAFD)" OR
+      MARC."962"."2" match "(lcac|LCAC)" OR
+      MARC."962"."2" match "(lcdgt|LCDGT)" OR
+      MARC."962"."2" match "(lcgft|LCGFT)" OR
+      MARC."962"."2" match "(lcmpt|LCMPT)" OR
+      MARC."962"."2" match "(lcsh|LCSH)" OR
+      MARC."962"."2" match "(lctgm|LCTGM)" OR
+      MARC."962"."2" match "(local|LOCAL)" OR
+      MARC."962"."2" match "(mesh|MESH)" OR
+      MARC."962"."2" match "(migfg|MIGFG)" OR
+      MARC."962"."2" match "(mim|MIM)" OR
+      MARC."962"."2" match "(naf|NAF)" OR
+      MARC."962"."2" match "(radfg|RADFG)" OR
+      MARC."962"."2" match "(rbbin|RBBIN)" OR
+      MARC."962"."2" match "(rbgenr|RBGENR)" OR
+      MARC."962"."2" match "(rbmscv|RBMSCV)" OR
+      MARC."962"."2" match "(rbpap|RBPAP)" OR
+      MARC."962"."2" match "(rbpri|RBPRI)" OR
+      MARC."962"."2" match "(rbprov|RBPROV)" OR
+      MARC."962"."2" match "(rbpub|RBPUB)" OR
+      MARC."962"."2" match "(rbtyp|RBTYP)") AND
+      (MARC."962"."5" match "MnSST" OR
+      MARC."962"."5" match "MnMpUSTL") AND
+      MARC."962"."9" match "LOCAL|local|Local"
+   then
+      set TEMP"1" to MARC."962" sub without sorting "a-b" delimited by " "
+      set TEMP"2" to MARC."962" sub without sorting "v,x-z" delimited by " -- "
+      concatenate with delimiter (TEMP"1",TEMP"2"," -- ")
+      create pnx."search"."lsr40" with TEMP"1"
+end
