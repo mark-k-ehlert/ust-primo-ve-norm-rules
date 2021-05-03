@@ -1,0 +1,34 @@
+rule "Primo VE Marc - Lsr12"
+   # Series 961 without $x
+   # Field 961/_/any and $5 UST
+   # Local extension
+   when
+      MARC is "961" AND
+      MARC."961".ind"1" equals " " AND
+      (MARC."961"."5" match "MnSST" OR
+      MARC."961"."5" match "MnMpUSTL") AND
+      MARC."961"."9" match "LOCAL|local|Local"
+   then
+      set TEMP"1" to MARC "961" excluding subfields without sorting "[0-9]|g|h|t|w|x"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |;|,)+$")
+      create pnx."search"."lsr12" with TEMP"1"
+end
+
+rule "Primo VE Marc - Lsr12_1"
+   # Series 961 $x only
+   # Field 961/_/any and $5 UST
+   # Local extension
+   when
+      MARC is "961"."x" AND
+      MARC."961".ind"1" equals " " AND
+      (MARC."961"."5" match "MnSST" OR
+      MARC."961"."5" match "MnMpUSTL") AND
+      MARC."961"."9" match "LOCAL|local|Local"
+   then
+      set TEMP"1" to MARC."961" subfields "x"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","^( |;|,)+")
+      remove substring using regex (TEMP"1","( |;|,)+$")
+      create pnx."search"."lsr12" with TEMP"1"
+end
