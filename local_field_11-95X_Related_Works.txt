@@ -1,6 +1,6 @@
 rule "Primo VE - Lds11"
    # Contributor 952 - Person + title
-   # Field 952/any/2 and $5 UST
+   # Field 952/any/not 2 and $5 UST
    # Local extension
    when
       MARC."952" has any "t" AND NOT
@@ -18,12 +18,12 @@ rule "Primo VE - Lds11"
       add prefix (TEMP"2","$$Q")
       remove substring using regex (TEMP"2","^$$Q$")
       concatenate with delimiter (TEMP"1",TEMP"2","")
-      create pnx."display"."lds10" with TEMP"1"
+      create pnx."display"."lds11" with TEMP"1"
 end
 
 rule "Primo VE - Lds11_1"
    # Contributor 953 - Corp body + title
-   # Field 953/any/2 and $5 UST
+   # Field 953/any/not 2 and $5 UST
    # Local extension
    when
       MARC."953" has any "t" AND NOT
@@ -41,12 +41,12 @@ rule "Primo VE - Lds11_1"
       add prefix (TEMP"2","$$Q")
       remove substring using regex (TEMP"2","^$$Q$")
       concatenate with delimiter (TEMP"1",TEMP"2","")
-      create pnx."display"."lds10" with TEMP"1"
+      create pnx."display"."lds11" with TEMP"1"
 end
 
 rule "Primo VE - Lds11_2"
    # Contributor 954 - Conference/meeting + title
-   # Field 954/any/2 and $5 UST
+   # Field 954/any/not 2 and $5 UST
    # Local extension
    when
       MARC."954" has any "t" AND NOT
@@ -64,12 +64,12 @@ rule "Primo VE - Lds11_2"
       add prefix (TEMP"2","$$Q")
       remove substring using regex (TEMP"2","^$$Q$")
       concatenate with delimiter (TEMP"1",TEMP"2","")
-      create pnx."display"."lds10" with TEMP"1"
+      create pnx."display"."lds11" with TEMP"1"
 end
 
 rule "Primo VE - Lds11_3"
    # Uniform title 955
-   # Field 955/any/2 and $5 UST
+   # Field 955/any/not 2 and $5 UST
    # Local extension
    when
       MARC is "955" AND NOT
@@ -87,5 +87,5 @@ rule "Primo VE - Lds11_3"
       add prefix (TEMP"2","$$Q")
       remove substring using regex (TEMP"2","^$$Q$")
       concatenate with delimiter (TEMP"1",TEMP"2","")
-      create pnx."display"."lds10" with TEMP"1"
+      create pnx."display"."lds11" with TEMP"1"
 end
