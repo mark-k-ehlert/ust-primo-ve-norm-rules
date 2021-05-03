@@ -1,0 +1,67 @@
+rule "Primo VE Marc - Lsr11"
+   # Contributor 952 - Person + title
+   # Field 952/any/2 and $5 UST
+   # Local extension
+   when
+      MARC."952" has any "t" AND
+      MARC."952".ind"2" equals "2" AND
+      (MARC."952"."5" match "MnSST" OR
+      MARC."952"."5" match "MnMpUSTL") AND
+      MARC."952"."9" match "LOCAL|local|Local"
+   then
+      set TEMP"1" to MARC."952" excluding subfields without sorting "[0-9]|e|i|x"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |/|:|;|=|,)+$")
+      create pnx."search"."lsr10" with TEMP"1"
+end
+
+rule "Primo VE Marc - Lsr11_1"
+   # Contributor 953 - Corp body + title
+   # Field 953/any/2 and $5 UST
+   # Local extension
+   when
+      MARC."953" has any "t" AND
+      MARC."953".ind"2" equals "2" AND
+      (MARC."953"."5" match "MnSST" OR
+      MARC."953"."5" match "MnMpUSTL") AND
+      MARC."953"."9" match "LOCAL|local|Local"
+   then
+      set TEMP"1" to MARC."953" excluding subfields without sorting "[0-9]|e|i|x"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |/|:|;|=|,)+$")
+      create pnx."search"."lsr10" with TEMP"1"
+end
+
+rule "Primo VE Marc - Lsr11_2"
+   # Contributor 954 - Conference/meeting + title
+   # Field 954/any/2 and $5 UST
+   # Local extension
+   when
+      MARC."954" has any "t" AND
+      MARC."954".ind"2" equals "2" AND
+      (MARC."954"."5" match "MnSST" OR
+      MARC."954"."5" match "MnMpUSTL") AND
+      MARC."954"."9" match "LOCAL|local|Local"
+   then
+      set TEMP"1" to MARC."954" excluding subfields without sorting "[0-9]|i|j|x"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |/|:|;|=|,)+$")
+      create pnx."search"."lsr10" with TEMP"1"
+end
+
+rule "Primo VE Marc - Lsr11_3"
+   # Uniform title 955
+   # Field 955/any/2 and $5 UST
+   # Local extension
+   when
+      MARC is "955" AND
+      MARC."955".ind"2" equals "2" AND
+      (MARC."955"."5" match "MnSST" OR
+      MARC."955"."5" match "MnMpUSTL") AND
+      MARC."955"."9" match "LOCAL|local|Local"
+   then
+      set TEMP"1" to MARC."955" excluding subfields without sorting "[0-9]|i|x"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |/|:|;|=|,)+$")
+      create pnx."search"."lsr10" with TEMP"1"
+end
