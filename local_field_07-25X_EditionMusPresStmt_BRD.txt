@@ -35,6 +35,21 @@ rule "Primo VE - Lds07_2"
 end
 
 rule "Primo VE - Lds07_3"
+   # Music Presentation Statement 254/_/_ a
+   # For brief record views
+   when
+      MARC is "254"."a" AND
+      MARC."254".ind"1" equals " " AND
+      MARC."254".ind"2" equals " " AND NOT
+      MARC."250" has any "a"
+   then
+      set TEMP"1" to MARC."254" subfields "a"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |;|:|,)+$")
+      create pnx."display"."lds07" with TEMP"1"
+end
+
+rule "Primo VE - Lds07_4"
    # Aspect Ratio Designator 345 $d mixed aspect ratio with 250
    # For brief record views
    when
@@ -46,12 +61,12 @@ rule "Primo VE - Lds07_3"
       MARC."250"."a" match ".*[Ff]ull ?screen.*"
    then
       set TEMP"1" to position("LDR",6-7)
-      add prefix (TEMP"1","Widescreen and fullscreenx")
+      add prefix (TEMP"1","<br />Widescreen and fullscreenx")
       remove string (TEMP"1","xg")
       create pnx."display"."lds07" with TEMP"1"
 end
 
-rule "Primo VE - Lds07_4"
+rule "Primo VE - Lds07_5"
    # Aspect Ratio Designator 345 $d mixed aspect ratio with no 250
    # For brief record views
    when
@@ -66,41 +81,7 @@ rule "Primo VE - Lds07_4"
       create pnx."display"."lds07" with TEMP"1"
 end
 
-rule "Primo VE - Lds07_5"
-   # Aspect Ratio Designator 345 $d widescreen and fullscreen with 250
-   # For brief record views
-   when
-      MARC.control."LDR"(6-7) matches "g" AND
-      MARC is "345"."d" AND
-      MARC."345"."d" match "full screen" AND
-      MARC."345"."d" match "wide screen" AND
-      MARC."250" has any "a" AND NOT
-      MARC."250"."a" match ".*[Ww]ide ?screen.*" AND NOT
-      MARC."250"."a" match ".*[Ff]ull ?screen.*"
-   then
-      set TEMP"1" to position("LDR",6-7)
-      add prefix (TEMP"1","Widescreen or fullscreenx")
-      remove string (TEMP"1","xg")
-      create pnx."display"."lds07" with TEMP"1"
-end
-
 rule "Primo VE - Lds07_6"
-   # Aspect Ratio Designator 345 $d widescreen and fullscreen with no 250
-   # For brief record views
-   when
-      MARC.control."LDR"(6-7) matches "g" AND
-      MARC is "345"."d" AND
-      MARC."345"."d" match "full screen" AND
-      MARC."345"."d" match "wide screen" AND NOT
-      MARC."250" has any "a"
-   then
-      set TEMP"1" to position("LDR",6-7)
-      add prefix (TEMP"1","Widescreen or fullscreenx")
-      remove string (TEMP"1","xg")
-      create pnx."display"."lds07" with TEMP"1"
-end
-
-rule "Primo VE - Lds07_7"
    # Aspect Ratio Designator 345 $d fullscreen with 250
    # For brief record views
    when
@@ -113,12 +94,12 @@ rule "Primo VE - Lds07_7"
       MARC."250"."a" match ".*[Ff]ull ?screen.*"
    then
       set TEMP"1" to position("LDR",6-7)
-      add prefix (TEMP"1","Fullscreenx")
+      add prefix (TEMP"1","<br />Fullscreenx")
       remove string (TEMP"1","xg")
       create pnx."display"."lds07" with TEMP"1"
 end
 
-rule "Primo VE - Lds07_8"
+rule "Primo VE - Lds07_7"
    # Aspect Ratio Designator 345 $d fullscreen with no 250
    # For brief record views
    when
@@ -134,8 +115,7 @@ rule "Primo VE - Lds07_8"
       create pnx."display"."lds07" with TEMP"1"
 end
 
-
-rule "Primo VE - Lds07_9"
+rule "Primo VE - Lds07_8"
    # Aspect Ratio Designator 345 $d widescreen with 250
    # For brief record views
    when
@@ -148,12 +128,12 @@ rule "Primo VE - Lds07_9"
       MARC."250"."a" match ".*[Ff]ull ?screen.*"
    then
       set TEMP"1" to position("LDR",6-7)
-      add prefix (TEMP"1","Widescreenx")
+      add prefix (TEMP"1","<br />Widescreenx")
       remove string (TEMP"1","xg")
       create pnx."display"."lds07" with TEMP"1"
 end
 
-rule "Primo VE - Lds07_10"
+rule "Primo VE - Lds07_9"
    # Aspect Ratio Designator 345 $d widescreen with no 250
    # For brief record views
    when
@@ -166,20 +146,5 @@ rule "Primo VE - Lds07_10"
       set TEMP"1" to position("LDR",6-7)
       add prefix (TEMP"1","Widescreenx")
       remove string (TEMP"1","xg")
-      create pnx."display"."lds07" with TEMP"1"
-end
-
-rule "Primo VE - Lds07_11"
-   # Music Presentation Statement 254/_/_ a
-   # For brief record views
-   when
-      MARC is "254"."a" AND
-      MARC."254".ind"1" equals " " AND
-      MARC."254".ind"2" equals " " AND NOT
-      MARC."250" has any "a"
-   then
-      set TEMP"1" to MARC."254" subfields "a"
-      remove leading and trailing spaces (TEMP"1")
-      remove substring using regex (TEMP"1","( |;|:|,)+$")
       create pnx."display"."lds07" with TEMP"1"
 end

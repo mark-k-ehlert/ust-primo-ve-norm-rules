@@ -23,22 +23,8 @@ rule "Primo VE Display - Format 345 d mixed aspect ratio"
       create pnx."display"."format" with TEMP"1"
 end
 
-rule "Primo VE Display - Format 345 d widescreen and fullscreen"
-   priority 12
-   when
-      MARC.control."LDR"(6-7) matches "g" AND
-      MARC is "345"."d" AND
-      MARC."345"."d" match "full screen" AND
-      MARC."345"."d" match "wide screen"
-   then
-      set TEMP"1" to position("LDR",6-7)
-      add prefix (TEMP"1","<b>&ndash;</b> <i>Presentation</i>: Widescreen or fullscreenx")
-      remove string (TEMP"1","xg")
-      create pnx."display"."format" with TEMP"1"
-end
-
 rule "Primo VE Display - Format 345 d fullscreen"
-   priority 13
+   priority 12
    when
       MARC.control."LDR"(6-7) matches "g" AND
       MARC is "345"."d" AND
@@ -52,7 +38,7 @@ rule "Primo VE Display - Format 345 d fullscreen"
 end
 
 rule "Primo VE Display - Format 345 d widescreen"
-   priority 14
+   priority 13
    when
       MARC.control."LDR"(6-7) matches "g" AND
       MARC is "345"."d" AND
@@ -64,6 +50,20 @@ rule "Primo VE Display - Format 345 d widescreen"
       remove string (TEMP"1","xg")
       create pnx."display"."format" with TEMP"1"
 end
+
+# rule "Primo VE Display - Format 345 d widescreen and fullscreen"
+#   priority 14
+#   when
+#      MARC.control."LDR"(6-7) matches "g" AND
+#      MARC is "345"."d" AND
+#      MARC."345"."d" match "full screen" AND
+#      MARC."345"."d" match "wide screen"
+#   then
+#      set TEMP"1" to position("LDR",6-7)
+#      add prefix (TEMP"1","<b>&ndash;</b> <i>Presentation</i>: Widescreen or fullscreenx")
+#      remove string (TEMP"1","xg")
+#      create pnx."display"."format" with TEMP"1"
+# end
 
 # rule "Primo VE Display - Format 347 e"
 #   priority 16
