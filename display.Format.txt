@@ -10,8 +10,108 @@ rule "Primo VE Display - Format 300"
       create pnx."display"."format" with TEMP"1"
 end
 
+rule "Primo VE Display - Format 345 d mixed aspect ratio"
+   priority 11
+   when
+      MARC.control."LDR"(6-7) matches "g" AND
+      MARC is "345"."d" AND
+      MARC."345"."d" match "mixed aspect ratio"
+   then
+      set TEMP"1" to position("LDR",6-7)
+      add prefix (TEMP"1","<b>&ndash;</b> <i>Presentation</i>: Widescreen and fullscreenx")
+      remove string (TEMP"1","xg")
+      create pnx."display"."format" with TEMP"1"
+end
+
+rule "Primo VE Display - Format 345 d widescreen and fullscreen"
+   priority 12
+   when
+      MARC.control."LDR"(6-7) matches "g" AND
+      MARC is "345"."d" AND
+      MARC."345"."d" match "full screen" AND
+      MARC."345"."d" match "wide screen"
+   then
+      set TEMP"1" to position("LDR",6-7)
+      add prefix (TEMP"1","<b>&ndash;</b> <i>Presentation</i>: Widescreen or fullscreenx")
+      remove string (TEMP"1","xg")
+      create pnx."display"."format" with TEMP"1"
+end
+
+rule "Primo VE Display - Format 345 d fullscreen"
+   priority 13
+   when
+      MARC.control."LDR"(6-7) matches "g" AND
+      MARC is "345"."d" AND
+      MARC."345"."d" match "full screen" AND NOT
+      MARC."345"."d" match "wide screen"
+   then
+      set TEMP"1" to position("LDR",6-7)
+      add prefix (TEMP"1","<b>&ndash;</b> <i>Presentation</i>: Fullscreenx")
+      remove string (TEMP"1","xg")
+      create pnx."display"."format" with TEMP"1"
+end
+
+rule "Primo VE Display - Format 345 d widescreen"
+   priority 14
+   when
+      MARC.control."LDR"(6-7) matches "g" AND
+      MARC is "345"."d" AND
+      MARC."345"."d" match "wide screen" AND NOT
+      MARC."345"."d" match "full screen"
+   then
+      set TEMP"1" to position("LDR",6-7)
+      add prefix (TEMP"1","<b>&ndash;</b> <i>Presentation</i>: Widescreenx")
+      remove string (TEMP"1","xg")
+      create pnx."display"."format" with TEMP"1"
+end
+
+# rule "Primo VE Display - Format 347 e"
+#   priority 16
+#   when
+#      MARC.control."LDR"(6-7) matches "g" AND
+#      MARC."347" has any "b,e" AND
+#      MARC."347"."b" match "DVD video" AND
+#      MARC."347"."e" match "region [2-8]" AND NOT
+#      MARC."347"."e" match "(region 1|all regions)"
+#   then
+#      set TEMP"1" to position("LDR",6-7)
+#      add prefix (TEMP"1","<b>&ndash; Note</b>: Playback requires a multi-region DVD player.x")
+#      remove string (TEMP"1","xg") 
+#      create pnx."display"."format" with TEMP"1"
+# end
+
+rule "Primo VE Display - Format 340 d multidiscs"
+   priority 17
+   when
+      MARC.control."LDR"(6-7) matches "g" AND
+      MARC is "300"."a" AND
+      MARC."300"."a" match "^[0-9]+ videodiscs.*" AND
+      MARC is "340"."d" AND
+      MARC."340"."d" match "burning*"
+   then
+      set TEMP"1" to position("LDR",6-7)
+      add prefix (TEMP"1","<b>&ndash; Note</b>: These discs are burned DVD-Rs and may not play in some DVD players or drives.x")
+      remove string (TEMP"1","xg") 
+      create pnx."display"."format" with TEMP"1"
+end
+
+rule "Primo VE Display - Format 340 d 1 disc"
+   priority 18
+   when
+      MARC.control."LDR"(6-7) matches "g" AND
+      MARC is "300"."a" AND
+      MARC."300"."a" match "^1 videodisc.*" AND
+      MARC is "340"."d" AND
+      MARC."340"."d" match "burning*"
+   then
+      set TEMP"1" to position("LDR",6-7)
+      add prefix (TEMP"1","<b>&ndash; Note</b>: This disc is a burned DVD-R and may not play in some DVD players or drives.x")
+      remove string (TEMP"1","xg") 
+      create pnx."display"."format" with TEMP"1"
+end
+
 rule "Primo VE Display - Format 305"
-   priority 2
+   priority 20
    when
       MARC."305" has any "a,b,c,d,e,f,m,n"
    then
@@ -21,15 +121,15 @@ rule "Primo VE Display - Format 305"
       set TEMP"2" to MARC."305" subfields "f"
       remove leading and trailing spaces (TEMP"2")
       remove substring using regex (TEMP"2","( |:|;|,)+$")
-      add prefix (TEMP"2","<br /><b>- Number of tracks</b>: ")
+      add prefix (TEMP"2","<br /><b>&ndash;</b> <i>Number of tracks</i>: ")
       set TEMP"3" to MARC."305" subfields "m"
       remove leading and trailing spaces (TEMP"3")
       remove substring using regex (TEMP"3","( |:|;|,)+$")
-      add prefix (TEMP"3","<br /><b>- Issue number</b>: ")
+      add prefix (TEMP"3","<br /><b><b>&ndash;</b> <i>Issue number</i>: ")
       set TEMP"4" to MARC."305" subfields "n"
       remove leading and trailing spaces (TEMP"4")
       remove substring using regex (TEMP"4","( |:|;|,)+$")
-      add prefix (TEMP"4","<br /><b>- Matrix/take number</b>: ")
+      add prefix (TEMP"4","<br /><b>&ndash;</b> <i>Matrix/take number</i>: ")
       concatenate with delimiter (TEMP"1",TEMP"2","")
       concatenate with delimiter (TEMP"1",TEMP"3","")
       concatenate with delimiter (TEMP"1",TEMP"4","")
@@ -37,53 +137,53 @@ rule "Primo VE Display - Format 305"
 end
 
 rule "Primo VE Display - Format 255"
-   priority 3
+   priority 22
    when
       MARC is "255"
    then
       set TEMP"1" to MARC."255" excluding num subfields without sort
-      add prefix (TEMP"1","<b>- Cartographic details</b>: ")
+      add prefix (TEMP"1","<b>&ndash;</b> <i>Cartographic details</i>: ")
       create pnx."display"."format" with TEMP"1"
 end
 
 rule "Primo VE Display - Format 351 c"
-   priority 4
+   priority 24
    when
       MARC is "351"."c"
    then
       set TEMP"1" to MARC."351"."c"
       remove leading and trailing spaces (TEMP"1")
       remove substring using regex (TEMP"1","( |:|;|,)+$")
-      add prefix (TEMP"1","<b>- Level of description</b>: ")
+      add prefix (TEMP"1","<b>&ndash;</b> <i>Level of description</i>: ")
       create pnx."display"."format" with TEMP"1"
 end
 
 rule "Primo VE Display - Format 351 a"
-   priority 5
+   priority 26
    when
       MARC is "351"."a"
    then
       set TEMP"1" to MARC."351"."a"
       remove leading and trailing spaces (TEMP"1")
       remove substring using regex (TEMP"1","( |:|;|,)+$")
-      add prefix (TEMP"1","<b>- Material organization</b>: ")
+      add prefix (TEMP"1","<b>&ndash;</b> <i>Material organization</i>: ")
       create pnx."display"."format" with TEMP"1"
 end
 
 rule "Primo VE Display - Format 351 b"
-   priority 6
+   priority 28
    when
       MARC is "351"."b"
    then
       set TEMP"1" to MARC."351"."b"
       remove leading and trailing spaces (TEMP"1")
       remove substring using regex (TEMP"1","( |:|;|,)+$")
-      add prefix (TEMP"1","<b>- Material arrangement</b>: ")
+      add prefix (TEMP"1","<b>&ndash;</b> <i>Material arrangement</i>: ")
       create pnx."display"."format" with TEMP"1"
 end
 
 rule "Primo VE Display - Format 507"
-   priority 7
+   priority 30
    when
       MARC."507" has any "a,b"
    then
@@ -92,7 +192,7 @@ rule "Primo VE Display - Format 507"
       remove leading and trailing spaces (TEMP"1")
       remove leading and trailing spaces (TEMP"2")
       remove substring using regex (TEMP"1","( |:|;|,)+$")
-      add prefix (TEMP"1","<b>- Graphic material details</b>: ")
+      add prefix (TEMP"1","<b>&ndash;</b> <i>Graphic material details</i>: ")
       concatenate with delimiter (TEMP"1",TEMP"2","; ")
       create pnx."display"."format" with TEMP"1"
 end
