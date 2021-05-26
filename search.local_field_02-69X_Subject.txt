@@ -1,4 +1,4 @@
-rule "Primo VE - Lds02"
+rule "Primo VE Marc - Lsr02"
    # Subject 690/any/0,1,4
    when
       MARC."690" has any "a-z" AND
@@ -9,22 +9,16 @@ rule "Primo VE - Lds02"
       MARC."690"."5" match "MnMpUSTL") AND
       MARC."690"."9" match "LOCAL|local|Local"
    then
-      # Capture all subfields for string display
       set TEMP"1" to MARC."690" sub without sorting "a-u,w" delimited by " "
+      remove leading and trailing spaces (TEMP"1")
       set TEMP"2" to MARC."690" sub without sorting "v,x-z" delimited by " -- "
+      remove leading and trailing spaces (TEMP"2")
       concatenate with delimiter (TEMP"1",TEMP"2"," -- ")
-      # Capture all subfields except $e for string searching
-      set TEMP"3" to MARC."690" sub without sorting "a-d,f-u,w" delimited by " "
-      set TEMP"4" to MARC."690" sub without sorting "v,x-z" delimited by " -- "
-      concatenate with delimiter (TEMP"3",TEMP"4"," -- ")
-      add prefix (TEMP"3","$$Q")
-      remove substring using regex (TEMP"3","^$$Q$")
-      concatenate with delimiter (TEMP"1",TEMP"3","")
-      create pnx."display"."lds02" with TEMP"1"
+      create pnx."search"."lsr02" with TEMP"1"
 end
 
-rule "Primo VE - Lds02_1"
-   # Subject 690/any/7 with Subfield 2
+rule "Primo VE Marc - Lsr02_1"
+# Subject 690/any/7 with Subfield 2
    when
       MARC."690" has any "a-z" AND
       MARC."690".ind"2" equals "7" AND
@@ -58,21 +52,15 @@ rule "Primo VE - Lds02_1"
       MARC."690"."5" match "MnMpUSTL") AND
       MARC."690"."9" match "LOCAL|local|Local"
    then
-      # Capture all subfields for string display
       set TEMP"1" to MARC."690" sub without sorting "a-u,w" delimited by " "
+      remove leading and trailing spaces (TEMP"1")
       set TEMP"2" to MARC."690" sub without sorting "v,x-z" delimited by " -- "
+      remove leading and trailing spaces (TEMP"2")
       concatenate with delimiter (TEMP"1",TEMP"2"," -- ")
-      # Capture all subfields except $e for string searching
-      set TEMP"3" to MARC."690" sub without sorting "a-d,f-u,w" delimited by " "
-      set TEMP"4" to MARC."690" sub without sorting "v,x-z" delimited by " -- "
-      concatenate with delimiter (TEMP"3",TEMP"4"," -- ")
-      add prefix (TEMP"3","$$Q")
-      remove substring using regex (TEMP"3","^$$Q$")
-      concatenate with delimiter (TEMP"1",TEMP"3","")
-      create pnx."display"."lds02" with TEMP"1"
+      create pnx."search"."lsr02" with TEMP"1"
 end
 
-rule "Primo VE - Lds02_2"
+rule "Primo VE Marc - Lsr02_2"
    # Subject 691/any/0,1,4
    when
       MARC."691" has any "a-z" AND
@@ -83,21 +71,15 @@ rule "Primo VE - Lds02_2"
       MARC."691"."5" match "MnMpUSTL") AND
       MARC."691"."9" match "LOCAL|local|Local"
    then
-      # Capture all subfields for string display
       set TEMP"1" to MARC."691" sub without sorting "a-u,w" delimited by " "
+      remove leading and trailing spaces (TEMP"1")
       set TEMP"2" to MARC."691" sub without sorting "v,x-z" delimited by " -- "
+      remove leading and trailing spaces (TEMP"2")
       concatenate with delimiter (TEMP"1",TEMP"2"," -- ")
-      # Capture all subfields except $e for string searching
-      set TEMP"3" to MARC."691" sub without sorting "a-d,f-u,w" delimited by " "
-      set TEMP"4" to MARC."691" sub without sorting "v,x-z" delimited by " -- "
-      concatenate with delimiter (TEMP"3",TEMP"4"," -- ")
-      add prefix (TEMP"3","$$Q")
-      remove substring using regex (TEMP"3","^$$Q$")
-      concatenate with delimiter (TEMP"1",TEMP"3","")
-      create pnx."display"."lds02" with TEMP"1"
+      create pnx."search"."lsr02" with TEMP"1"
 end
 
-rule "Primo VE - Lds02_3"
+rule "Primo VE Marc - Lsr02_3"
    # Subject 691/any/7 with Subfield 2
    when
       MARC."691" has any "a-z" AND
@@ -132,21 +114,15 @@ rule "Primo VE - Lds02_3"
       MARC."691"."5" match "MnMpUSTL") AND
       MARC."691"."9" match "LOCAL|local|Local"
    then
-      # Capture all subfields for string display
       set TEMP"1" to MARC."691" sub without sorting "a-u,w" delimited by " "
+      remove leading and trailing spaces (TEMP"1")
       set TEMP"2" to MARC."691" sub without sorting "v,x-z" delimited by " -- "
+      remove leading and trailing spaces (TEMP"2")
       concatenate with delimiter (TEMP"1",TEMP"2"," -- ")
-      # Capture all subfields except $e for string searching
-      set TEMP"3" to MARC."691" sub without sorting "a-d,f-u,w" delimited by " "
-      set TEMP"4" to MARC."691" sub without sorting "v,x-z" delimited by " -- "
-      concatenate with delimiter (TEMP"3",TEMP"4"," -- ")
-      add prefix (TEMP"3","$$Q")
-      remove substring using regex (TEMP"3","^$$Q$")
-      concatenate with delimiter (TEMP"1",TEMP"3","")
-      create pnx."display"."lds02" with TEMP"1"
+      create pnx."search"."lsr02" with TEMP"1"
 end
 
-rule "Primo VE - Lds02_4"
+rule "Primo VE Marc - Lsr02_4"
    # Subject 696/any/0,1,4,7
    when
       MARC."696" has any "a-z" AND
@@ -158,21 +134,15 @@ rule "Primo VE - Lds02_4"
       MARC."696"."5" match "MnMpUSTL") AND
       MARC."696"."9" match "LOCAL|local|Local"
    then
-      # Capture all subfields for string display
       set TEMP"1" to MARC."696" sub without sorting "a-u,w" delimited by " "
+      remove leading and trailing spaces (TEMP"1")
       set TEMP"2" to MARC."696" sub without sorting "v,x-z" delimited by " -- "
+      remove leading and trailing spaces (TEMP"2")
       concatenate with delimiter (TEMP"1",TEMP"2"," -- ")
-      # Capture all subfields except $e and $u for string searching
-      set TEMP"3" to MARC."696" sub without sorting "a-d,f-t,w" delimited by " "
-      set TEMP"4" to MARC."696" sub without sorting "v,x-z" delimited by " -- "
-      concatenate with delimiter (TEMP"3",TEMP"4"," -- ")
-      add prefix (TEMP"3","$$Q")
-      remove substring using regex (TEMP"3","^$$Q$")
-      concatenate with delimiter (TEMP"1",TEMP"3","")
-      create pnx."display"."lds02" with TEMP"1"
+      create pnx."search"."lsr02" with TEMP"1"
 end
 
-rule "Primo VE - Lds02_5"
+rule "Primo VE Marc - Lsr02_5"
    # Subject 697/any/0,1,4,7
    when
       MARC."697" has any "a-z" AND
@@ -184,21 +154,15 @@ rule "Primo VE - Lds02_5"
       MARC."697"."5" match "MnMpUSTL") AND
       MARC."697"."9" match "LOCAL|local|Local"
    then
-      # Capture all subfields for string display
       set TEMP"1" to MARC."697" sub without sorting "a-u,w" delimited by " "
+      remove leading and trailing spaces (TEMP"1")
       set TEMP"2" to MARC."697" sub without sorting "v,x-z" delimited by " -- "
+      remove leading and trailing spaces (TEMP"2")
       concatenate with delimiter (TEMP"1",TEMP"2"," -- ")
-      # Capture all subfields except $e and $u for string searching
-      set TEMP"3" to MARC."697" sub without sorting "a-d,f-t,w" delimited by " "
-      set TEMP"4" to MARC."697" sub without sorting "v,x-z" delimited by " -- "
-      concatenate with delimiter (TEMP"3",TEMP"4"," -- ")
-      add prefix (TEMP"3","$$Q")
-      remove substring using regex (TEMP"3","^$$Q$")
-      concatenate with delimiter (TEMP"1",TEMP"3","")
-      create pnx."display"."lds02" with TEMP"1"
+      create pnx."search"."lsr02" with TEMP"1"
 end
 
-rule "Primo VE - Lds02_6"
+rule "Primo VE Marc - Lsr02_6"
    # Subject 698/any/0,1,4,7
    when
       MARC."698" has any "a-z" AND
@@ -210,21 +174,15 @@ rule "Primo VE - Lds02_6"
       MARC."698"."5" match "MnMpUSTL") AND
       MARC."698"."9" match "LOCAL|local|Local"
    then
-      # Capture all subfields for string display
       set TEMP"1" to MARC."698" sub without sorting "a-u,w" delimited by " "
+      remove leading and trailing spaces (TEMP"1")
       set TEMP"2" to MARC."698" sub without sorting "v,x-z" delimited by " -- "
+      remove leading and trailing spaces (TEMP"2")
       concatenate with delimiter (TEMP"1",TEMP"2"," -- ")
-      # Capture all subfields except $j and $u for string searching
-      set TEMP"3" to MARC."698" sub without sorting "a-i,k-t,w" delimited by " "
-      set TEMP"4" to MARC."698" sub without sorting "v,x-z" delimited by " -- "
-      concatenate with delimiter (TEMP"3",TEMP"4"," -- ")
-      add prefix (TEMP"3","$$Q")
-      remove substring using regex (TEMP"3","^$$Q$")
-      concatenate with delimiter (TEMP"1",TEMP"3","")
-      create pnx."display"."lds02" with TEMP"1"
+      create pnx."search"."lsr02" with TEMP"1"
 end
 
-rule "Primo VE - Lds02_7"
+rule "Primo VE Marc - Lsr02_7"
    # Subject 699/any/0,1,4,7
    when
       MARC."699" has any "a-z" AND
@@ -236,16 +194,10 @@ rule "Primo VE - Lds02_7"
       MARC."699"."5" match "MnMpUSTL") AND
       MARC."699"."9" match "LOCAL|local|Local"
    then
-      # Capture all subfields for string display
       set TEMP"1" to MARC."699" sub without sorting "a-u,w" delimited by " "
+      remove leading and trailing spaces (TEMP"1")
       set TEMP"2" to MARC."699" sub without sorting "v,x-z" delimited by " -- "
+      remove leading and trailing spaces (TEMP"2")
       concatenate with delimiter (TEMP"1",TEMP"2"," -- ")
-      # Capture all subfields except $e for string searching
-      set TEMP"3" to MARC."699" sub without sorting "a-d,f-u,w" delimited by " "
-      set TEMP"4" to MARC."699" sub without sorting "v,x-z" delimited by " -- "
-      concatenate with delimiter (TEMP"3",TEMP"4"," -- ")
-      add prefix (TEMP"3","$$Q")
-      remove substring using regex (TEMP"3","^$$Q$")
-      concatenate with delimiter (TEMP"1",TEMP"3","")
-      create pnx."display"."lds02" with TEMP"1"
+      create pnx."search"."lsr02" with TEMP"1"
 end
