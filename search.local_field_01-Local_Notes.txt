@@ -1,16 +1,12 @@
 rule "Primo VE Marc - Lsr01"
    # 590 Local Notes
-   # Local notes intended for CLIC-wide display
+   # Local notes intended for institutional display
+   # UST and UST Law only
    when
       MARC is "590"."a" AND
-      (MARC."590"."5" match "MnSB" OR
-      MARC."590"."5" match "MnSCC" OR
-      MARC."590"."5" match "MnSH" OR
-      MARC."590"."5" match "MnRoN" OR
-      MARC."590"."5" match "MnSSC" OR
-      MARC."590"."5" match "MnSST" OR
-      MARC."590"."5" match "MnMpUSTL" OR
-      MARC."590"."5" match "MnSpCLIC")
+      (MARC."590"."5" match "MnSST" OR
+      MARC."590"."5" match "MnMpUSTL") AND
+      MARC."590"."9" match "LOCAL|local|Local"
    then
       create pnx."search"."lsr01" with MARC."590"."a"
 end
@@ -22,7 +18,8 @@ rule "Primo VE Marc - Lsr01_1"
    when
       MARC is "599"."a" AND
       (MARC."599"."5" match "MnSST" OR
-      MARC."599"."5" match "MnMpUSTL")
+      MARC."599"."5" match "MnMpUSTL") AND
+      MARC."599"."9" match "LOCAL|local|Local"
    then
       create pnx."search"."lsr01" with MARC."599"."a"
 end
