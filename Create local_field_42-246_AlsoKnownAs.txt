@@ -1,4 +1,5 @@
 rule "Primo VE - Lds42"
+   # Display label for this local field: Other Serial Titles - BRD
    # For brief record views
    # Limited to most serials
    # Titles from 246 fields with $f dates or enumeration
