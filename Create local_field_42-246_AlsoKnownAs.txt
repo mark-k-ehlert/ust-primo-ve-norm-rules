@@ -1,0 +1,52 @@
+rule "Primo VE - Lds42"
+   # For brief record views
+   # Limited to most serials
+   # Titles from 246 fields with $f dates or enumeration
+   when
+      MARC is "246"."f" AND
+      MARC.control."LDR"(7-8) matches "s|b" AND NOT
+      # (MARC.control."LDR"(7-8) equals "s" OR
+      # MARC.control."LDR"(7-8) equals "b") AND NOT
+      (MARC.control."008"(21-22) equals "d" OR
+      MARC.control."008"(21-22) equals "l" OR
+      MARC.control."008"(21-22) equals "r" OR
+      MARC.control."008"(21-22) equals "w")
+   then
+      set TEMP"1" to MARC."246" excluding subfields without sorting "[0-9]|b|f|g|h|i"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |;|:|-|,)+$")
+      add prefix (TEMP"1","<b>Also known as</b>: ")
+      append TEMP"1" to pnx."display"."lds42" delimited by " &#9168; "
+end
+
+rule "Primo VE - Lds42_1"
+   # For brief record views
+   # Limited to most serials
+   # Titles from 246 field lacking $f dates and enumeration
+   when
+      MARC."246" has any "a,f" AND
+      MARC."246"."a" match ".+" AND NOT
+      MARC."246"."f" match ".+" AND
+      MARC."246".ind"1" equals "1" AND
+      (MARC."246".ind"2" equals " " OR
+      MARC."246".ind"2" equals "2" OR
+      MARC."246".ind"2" equals "3" OR
+      MARC."246".ind"2" equals "4" OR
+      MARC."246".ind"2" equals "5" OR
+      MARC."246".ind"2" equals "6" OR
+      MARC."246".ind"2" equals "7" OR
+      MARC."246".ind"2" equals "8") AND
+      MARC.control."LDR"(7-8) matches "s|b" AND NOT
+      # (MARC.control."LDR"(7-8) equals "s" OR
+      # MARC.control."LDR"(7-8) equals "b") AND NOT
+      (MARC.control."008"(21-22) equals "d" OR
+      MARC.control."008"(21-22) equals "l" OR
+      MARC.control."008"(21-22) equals "r" OR
+      MARC.control."008"(21-22) equals "w")
+   then
+      set TEMP"1" to MARC."246" excluding subfields without sorting "[0-9]|b|g|h|i"
+      remove leading and trailing spaces (TEMP"1")
+      remove substring using regex (TEMP"1","( |;|:|-|,)+$")
+      add prefix (TEMP"1","<b>Also known as</b>: ")
+      append TEMP"1" to pnx."display"."lds42" delimited by " &#9168; "
+end
